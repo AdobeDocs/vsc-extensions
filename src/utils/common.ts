@@ -1,8 +1,10 @@
-'use-strict';
+"use-strict";
 
-import * as vscode from 'vscode';
+import * as vscode from "vscode";
 
-export const output = vscode.window.createOutputChannel('AFM Preview Extension');
+export const output = vscode.window.createOutputChannel(
+  "Adobe Markdown Authoring"
+);
 
 /**
  * Create timestamp
@@ -10,7 +12,7 @@ export const output = vscode.window.createOutputChannel('AFM Preview Extension')
 export function generateTimestamp() {
   const date = new Date(Date.now());
   return {
-    msDateValue: date.toLocaleDateString('en-us'),
+    msDateValue: date.toLocaleDateString("en-us"),
     msTimeValue: date.toLocaleTimeString([], { hour12: false }),
   };
 }
