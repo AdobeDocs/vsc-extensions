@@ -39,7 +39,7 @@ export function surroundSelection(
   startPattern: string,
   endPattern: string,
   wordPattern?: RegExp
-): Thenable<boolean> | Thenable<void> | void {
+): Thenable<boolean> | void {
   if (endPattern === undefined || endPattern === null) {
     endPattern = startPattern;
   }
@@ -78,7 +78,8 @@ export function surroundSelection(
         editBuilder.insert(position, startPattern + endPattern);
       })
       .then(() => {
-        editor.selection = new vscode.Selection(newPosition, newPosition);
+        editor.selection = new Selection(newPosition, newPosition);
+        return !!editor.selection;
       });
   } else if (isSelectionMatch(selection, startPattern, endPattern)) {
     return replaceSelection((text: string): string =>
@@ -167,16 +168,17 @@ export function getBlockSelection(): Selection | void {
   if (!editor) {
     return;
   }
-  const selection: Selection = editor.selection;
+  return editor.selection;
+  // const selection: Selection = editor.selection;
 
-  if (selection.isEmpty) {
-    return selection;
-  }
+  // if (selection.isEmpty) {
+  //   return selection;
+  // }
 
-  return selection.with(
-    selection.start.with(undefined, 0),
-    selection.end.with(selection.end.line + 1, 0)
-  );
+  // return selection.with(
+  //   selection.start.with(undefined, 0),
+  //   selection.end.with(selection.end.line + 1, 0)
+  // );
 }
 
 export function isBlockMatch(
