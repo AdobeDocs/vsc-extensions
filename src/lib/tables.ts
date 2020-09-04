@@ -44,10 +44,10 @@ function convertToTableWithoutHeader(text:string) {
 
 function convertToTableWithHeader(text:string):string {
     const textAsTable:string = text.replace(tableColumnSeparator, " | ");
-
-    const firstRow = textAsTable.match(/.+/)[0]; 
+    const restOfTable: RegExpMatchArray|null = textAsTable.match(/.+/);
+    const firstRow: string|null = restOfTable && restOfTable[0]; 
+    if (!firstRow) {return(text);}
+    const headerSep: string = firstRow.replace(/[^\|]/gi, "-");
     
-    const headerLine = firstRow.replace(/[^\|]/gi, "-");
-    
-    return firstRow + "\n" + headerLine + textAsTable.substring(firstRow.length);
+    return firstRow + "\n" + headerSep + textAsTable.substring(firstRow.length);
 }
