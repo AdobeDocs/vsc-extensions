@@ -101,8 +101,8 @@
         "command": "md-shortcut.toggleCitations",
         "title": "Toggle citations",
         "icon": {
-          "dark": "./media/icons/quote_white.svg",
-          "light": "./media/icons/quote_black.svg"
+          "dark": "./assets/icons/quote_white.svg",
+          "light": "./assets/icons/quote_black.svg"
         },
         "category": "Markdown Shortcuts"
       },
@@ -110,8 +110,8 @@
         "command": "md-shortcut.toggleBold",
         "title": "Toggle bold",
         "icon": {
-          "dark": "./media/icons/bold_white.svg",
-          "light": "./media/icons/bold_black.svg"
+          "dark": "./assets/icons/bold_white.svg",
+          "light": "./assets/icons/bold_black.svg"
         },
         "category": "Markdown Shortcuts"
       },
@@ -119,8 +119,8 @@
         "command": "md-shortcut.toggleItalic",
         "title": "Toggle italic",
         "icon": {
-          "dark": "./media/icons/italic_white.svg",
-          "light": "./media/icons/italic_black.svg"
+          "dark": "./assets/icons/italic_white.svg",
+          "light": "./assets/icons/italic_black.svg"
         },
         "category": "Markdown Shortcuts"
       },
@@ -128,8 +128,8 @@
         "command": "md-shortcut.toggleStrikethrough",
         "title": "Toggle strikethrough",
         "icon": {
-          "dark": "./media/icons/strikethrough_white.svg",
-          "light": "./media/icons/strikethrough_black.svg"
+          "dark": "./assets/icons/strikethrough_white.svg",
+          "light": "./assets/icons/strikethrough_black.svg"
         },
         "category": "Markdown Shortcuts"
       },
@@ -137,8 +137,8 @@
         "command": "md-shortcut.toggleCodeBlock",
         "title": "Toggle code block",
         "icon": {
-          "dark": "./media/icons/code_white.svg",
-          "light": "./media/icons/code_black.svg"
+          "dark": "./assets/icons/code_white.svg",
+          "light": "./assets/icons/code_black.svg"
         },
         "category": "Markdown Shortcuts"
       },
@@ -151,8 +151,8 @@
         "command": "md-shortcut.toggleLink",
         "title": "Toggle hyperlink",
         "icon": {
-          "dark": "./media/icons/link_white.svg",
-          "light": "./media/icons/link_black.svg"
+          "dark": "./assets/icons/link_white.svg",
+          "light": "./assets/icons/link_black.svg"
         },
         "category": "Markdown Shortcuts"
       },
@@ -160,8 +160,8 @@
         "command": "md-shortcut.toggleImage",
         "title": "Toggle image",
         "icon": {
-          "dark": "./media/icons/image_white.svg",
-          "light": "./media/icons/image_black.svg"
+          "dark": "./assets/icons/image_white.svg",
+          "light": "./assets/icons/image_black.svg"
         },
         "category": "Markdown Shortcuts"
       },
@@ -169,8 +169,8 @@
         "command": "md-shortcut.toggleBullets",
         "title": "Toggle bullet points",
         "icon": {
-          "dark": "./media/icons/bullet_white.svg",
-          "light": "./media/icons/bullet_black.svg"
+          "dark": "./assets/icons/bullet_white.svg",
+          "light": "./assets/icons/bullet_black.svg"
         },
         "category": "Markdown Shortcuts"
       },
@@ -178,8 +178,8 @@
         "command": "md-shortcut.toggleNumbers",
         "title": "Toggle number list",
         "icon": {
-          "dark": "./media/icons/number_white.svg",
-          "light": "./media/icons/number_black.svg"
+          "dark": "./assets/icons/number_white.svg",
+          "light": "./assets/icons/number_black.svg"
         },
         "category": "Markdown Shortcuts"
       },
@@ -187,8 +187,8 @@
         "command": "md-shortcut.toggleCheckboxes",
         "title": "Toggle checkboxes",
         "icon": {
-          "dark": "./media/icons/check_white.svg",
-          "light": "./media/icons/check_black.svg"
+          "dark": "./assets/icons/check_white.svg",
+          "light": "./assets/icons/check_black.svg"
         },
         "category": "Markdown Shortcuts"
       },
@@ -196,8 +196,8 @@
         "command": "md-shortcut.addTable",
         "title": "Add table",
         "icon": {
-          "dark": "./media/icons/grid_white.svg",
-          "light": "./media/icons/grid_black.svg"
+          "dark": "./assets/icons/grid_white.svg",
+          "light": "./assets/icons/grid_black.svg"
         },
         "category": "Markdown Shortcuts"
       },
@@ -205,8 +205,8 @@
         "command": "md-shortcut.addTableWithHeader",
         "title": "Add table with header",
         "icon": {
-          "dark": "./media/icons/grid_white.svg",
-          "light": "./media/icons/grid_black.svg"
+          "dark": "./assets/icons/grid_white.svg",
+          "light": "./assets/icons/grid_black.svg"
         },
         "category": "Markdown Shortcuts"
       },
