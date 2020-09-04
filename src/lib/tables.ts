@@ -28,10 +28,10 @@ export function addTable(addHeader:boolean=false) {
 
 const tableColumnSeparator:RegExp = /([ ]{2,}|[\t])/gi;
 function convertToTableWithoutHeader(text:string) {
-    var firstRow = text.match(/.+/); 
+    const firstRow:RegExpMatchArray|null = text.match(/.+/); 
     
-    var columnSeparators = firstRow == null ? null : firstRow[0].match(tableColumnSeparator);
-    var columnCount = columnSeparators === null ? 0 : columnSeparators.length;
+    var columnSeparators:RegExpMatchArray|null = firstRow === null ? null : firstRow[0].match(tableColumnSeparator);
+    var columnCount:number = columnSeparators === null ? 0 : columnSeparators.length;
     var line1 = [];
     for (var i = 0; i < columnCount + 1; i++) {
         line1.push("column" + i);
@@ -42,12 +42,12 @@ function convertToTableWithoutHeader(text:string) {
     return tableHeader + text.replace(tableColumnSeparator, " | ");
 }
 
-function convertToTableWithHeader(text) {
-    var textAsTable = text.replace(tableColumnSeparator, " | ");
+function convertToTableWithHeader(text:string):string {
+    const textAsTable:string = text.replace(tableColumnSeparator, " | ");
 
-    var firstRow = textAsTable.match(/.+/)[0]; 
+    const firstRow = textAsTable.match(/.+/)[0]; 
     
-    var headerLine = firstRow.replace(/[^\|]/gi, "-");
+    const headerLine = firstRow.replace(/[^\|]/gi, "-");
     
     return firstRow + "\n" + headerLine + textAsTable.substring(firstRow.length);
 }

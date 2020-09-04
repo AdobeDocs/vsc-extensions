@@ -4,6 +4,7 @@ import { ExtensionContext, QuickPickOptions, QuickPickItem } from 'vscode';
 import * as editorHelpers from './editorHelpers';
 import * as tables from './tables';
 import { addTable } from './tables';
+import { surroundSelection, surroundBlockSelection, isAnythingSelected, isBlockMatch, replaceBlockSelection } from './editorHelpers';
 
 interface CommandItem extends QuickPickItem {
     label: string,
@@ -234,39 +235,45 @@ function showCommandPalette() {
 
 const wordMatch: string = '[A-Za-z\\u00C0-\\u017F]';
 
-const toggleBoldExpressions = {
+type BoldExpressions = {
+    '**':RegExp,
+    '__':RegExp,
+};
+
+const toggleBoldExpressions:BoldExpressions = {
     '**': new RegExp(`\\*{2}${wordMatch}*\\*{2}|${wordMatch}+`),
     __: new RegExp(`_{2}${wordMatch}*_{2}|${wordMatch}+`),
 };
-function toggleBold() {
+function toggleBold():void|Thenable<void>|Thenable<boolean> {
     const marker:string|undefined = vscode.workspace
         .getConfiguration('markdownShortcuts.bold')
         .get('marker');
+    if (!marker) {return;}
 
-    return editorHelpers.surroundSelection(
+    return surroundSelection(
         marker,
         marker,
         toggleBoldExpressions[marker]
     );
 }
 
-function toggleItalic() {
+function toggleItalic():void|Thenable<void>|Thenable<boolean>  {
     const marker:string|undefined = vscode.workspace
         .getConfiguration('markdownShortcuts.italics')
         .get('marker');
-
-    const pattern = new RegExp(
-        '\\' + marker + '?' + wordMatch + '*' + '\\' + marker + '?'
+        if (!marker) {return;}
+    const pattern: RegExp = new RegExp(
+        `\\${marker}?${wordMatch}*\\${marker}?`
     );
 
-    return editorHelpers.surroundSelection(marker, marker, pattern);
+    return surroundSelection(marker, marker, pattern);
 }
 
 const toggleStrikethroughPattern: RegExp = new RegExp(
     '~{2}' + wordMatch + '*~{2}|' + wordMatch + '+'
 );
 function toggleStrikethrough() {
-    return editorHelpers.surroundSelection(
+    return surroundSelection(
         '~~',
         '~~',
         toggleStrikethroughPattern
@@ -276,11 +283,11 @@ function toggleStrikethrough() {
 const startingBlock: string = '```' + newLine;
 const endingBlock: string = newLine + '```';
 const codeBlockWordPattern : RegExp = new RegExp(
-    startingBlock + '.+' + endingBlock + '|.+',
+    `${startingBlock}.+${endingBlock}|.+`,
     'gm'
 );
 function toggleCodeBlock() {
-    return editorHelpers.surroundBlockSelection(
+    return surroundBlockSelection(
         startingBlock,
         endingBlock,
         codeBlockWordPattern
@@ -291,32 +298,32 @@ const toggleInlineCodePattern = new RegExp(
     '`' + wordMatch + '*`|' + wordMatch + '+'
 );
 function toggleInlineCode() {
-    return editorHelpers.surroundSelection('`', '`', toggleInlineCodePattern);
+    return surroundSelection('`', '`', toggleInlineCodePattern);
 }
 
 const headerWordPattern = /#{1,6} .+|.+/;
 function toggleTitleH1() {
-    return editorHelpers.surroundSelection('# ', '', headerWordPattern);
+    return surroundSelection('# ', '', headerWordPattern);
 }
 
 function toggleTitleH2() {
-    return editorHelpers.surroundSelection('## ', '', headerWordPattern);
+    return surroundSelection('## ', '', headerWordPattern);
 }
 
 function toggleTitleH3() {
-    return editorHelpers.surroundSelection('### ', '', headerWordPattern);
+    return surroundSelection('### ', '', headerWordPattern);
 }
 
 function toggleTitleH4() {
-    return editorHelpers.surroundSelection('#### ', '', headerWordPattern);
+    return surroundSelection('#### ', '', headerWordPattern);
 }
 
 function toggleTitleH5() {
-    return editorHelpers.surroundSelection('##### ', '', headerWordPattern);
+    return surroundSelection('##### ', '', headerWordPattern);
 }
 
 function toggleTitleH6() {
-    return editorHelpers.surroundSelection('###### ', '', headerWordPattern);
+    return surroundSelection('###### ', '', headerWordPattern);
 }
 
 var AddBullets = /^(\s*)(.+)$/gm;
@@ -325,8 +332,8 @@ function toggleBullets() {
         .getConfiguration('markdownShortcuts.bullets')
         .get('marker');
 
-    if (!editorHelpers.isAnythingSelected()) {
-        return editorHelpers.surroundSelection(
+    if (!isAnythingSelected()) {
+        return surroundSelection(
             marker + ' ',
             '',
             new RegExp('\\' + marker + ' .+|.+')
@@ -335,31 +342,31 @@ function toggleBullets() {
 
     var hasBullets = new RegExp('^(\\s*)\\' + marker + ' (.*)$', 'gm');
 
-    if (editorHelpers.isBlockMatch(hasBullets)) {
-        return editorHelpers.replaceBlockSelection(text =>
+    if (isBlockMatch(hasBullets)) {
+        return replaceBlockSelection(text =>
             text.replace(hasBullets, '$1$2')
         );
     } else {
-        return editorHelpers.replaceBlockSelection(text =>
+        return replaceBlockSelection(text =>
             text.replace(AddBullets, '$1' + marker + ' $2')
         );
     }
 }
 
-var HasNumbers = /^(\s*)[0-9]\.+ (.*)$/gm;
-var AddNumbers = /^(\n?)(\s*)(.+)$/gm;
+const HasNumbers:RegExp = /^(\s*)[0-9]\.+ (.*)$/gm;
+const AddNumbers:RegExp = /^(\n?)(\s*)(.+)$/gm;
 function toggleNumberList() {
-    if (!editorHelpers.isAnythingSelected()) {
-        return editorHelpers.surroundSelection('1. ', '');
+    if (!isAnythingSelected()) {
+        return surroundSelection('1. ', '');
     }
 
-    if (editorHelpers.isBlockMatch(HasNumbers)) {
-        return editorHelpers.replaceBlockSelection(text =>
+    if (isBlockMatch(HasNumbers)) {
+        return replaceBlockSelection(text =>
             text.replace(HasNumbers, '$1$2')
         );
     } else {
         var lineNums = {};
-        return editorHelpers.replaceBlockSelection(text =>
+        return replaceBlockSelection(text =>
             text.replace(AddNumbers, (match, newline, whitespace, line) => {
                 if (!lineNums[whitespace]) {
                     lineNums[whitespace] = 1;
@@ -375,38 +382,39 @@ function toggleNumberList() {
 var HasCheckboxes = /^(\s*)- \[[ x]{1}\] (.*)$/gim;
 var AddCheckboxes = /^(\s*)(.+)$/gm;
 function toggleCheckboxes() {
-    if (!editorHelpers.isAnythingSelected()) {
-        return editorHelpers.surroundSelection(
+    if (!isAnythingSelected()) {
+        return surroundSelection(
             '- [ ] ',
             '',
             /- \[[ x]{1}\] .+|.+/gi
         );
     }
 
-    if (editorHelpers.isBlockMatch(HasCheckboxes)) {
-        return editorHelpers.replaceBlockSelection(text =>
+    if (isBlockMatch(HasCheckboxes)) {
+        return replaceBlockSelection(text =>
             text.replace(HasCheckboxes, '$1$2')
         );
     } else {
-        return editorHelpers.replaceBlockSelection(text =>
+        return replaceBlockSelection(text =>
             text.replace(AddCheckboxes, '$1- [ ] $2')
         );
     }
 }
 
-var HasCitations = /^(\s*)> (.*)$/gim;
-var AddCitations = /^(\s*)(.*)$/gm;
+const HasCitations = /^(\s*)> (.*)$/gim;
+const AddCitations = /^(\s*)(.*)$/gm;
+
 function toggleCitations() {
-    if (!editorHelpers.isAnythingSelected()) {
-        return editorHelpers.surroundSelection('> ', '', /> .+|.+/gi);
+    if (!isAnythingSelected()) {
+        return surroundSelection('> ', '', /> .+|.+/gi);
     }
 
-    if (editorHelpers.isBlockMatch(HasCitations)) {
-        return editorHelpers.replaceBlockSelection(text =>
+    if (isBlockMatch(HasCitations)) {
+        return replaceBlockSelection(text =>
             text.replace(HasCitations, '$1$2')
         );
     } else {
-        return editorHelpers.prefixLines('> ');
+        return prefixLines('> ');
     }
 }
 
@@ -417,8 +425,8 @@ function toggleLink() {
     const editor = vscode.window.activeTextEditor;
     const selection = editor.selection;
 
-    if (!editorHelpers.isAnythingSelected()) {
-        var withSurroundingWord = editorHelpers.getSurroundingWord(
+    if (!isAnythingSelected()) {
+        var withSurroundingWord = getSurroundingWord(
             editor,
             selection,
             MarkdownLinkWordPattern
@@ -429,17 +437,17 @@ function toggleLink() {
         }
     }
 
-    if (editorHelpers.isAnythingSelected()) {
-        if (editorHelpers.isMatch(MarkdownLinkRegex)) {
+    if (isAnythingSelected()) {
+        if (isMatch(MarkdownLinkRegex)) {
             //Selection is a MD link, replace it with the link text
-            return editorHelpers.replaceSelection(
+            return replaceSelection(
                 text => text.match(/\[(.+)\]/)[1]
             );
         }
 
-        if (editorHelpers.isMatch(UrlRegex)) {
+        if (isMatch(UrlRegex)) {
             //Selection is a URL, surround it with angle brackets
-            return editorHelpers.surroundSelection('<', '>');
+            return surroundSelection('<', '>');
         }
     }
 
@@ -470,7 +478,7 @@ function toggleLink() {
     function addTags(options) {
         if (!options || options.url == undefined) return;
 
-        return editorHelpers.surroundSelection(
+        return surroundSelection(
             '[' + options.text,
             '](' + options.url + ')'
         );
@@ -482,22 +490,22 @@ function toggleImage() {
     var editor = vscode.window.activeTextEditor;
     var selection = editor.selection;
 
-    if (editorHelpers.isAnythingSelected()) {
-        if (editorHelpers.isMatch(MarkdownImageRegex)) {
+    if (isAnythingSelected()) {
+        if (isMatch(MarkdownImageRegex)) {
             //Selection is a MD link, replace it with the link text
-            return editorHelpers.replaceSelection(
+            return replaceSelection(
                 text => text.match(MarkdownImageRegex)[1]
             );
         }
 
-        if (editorHelpers.isMatch(UrlRegex)) {
+        if (isMatch(UrlRegex)) {
             return vscode.window
                 .showInputBox({
                     prompt: 'Image alt text',
                 })
                 .then(text => {
                     if (text === null) return;
-                    editorHelpers.replaceSelection(
+                    replaceSelection(
                         url => '![' + text + '](' + url + ')'
                     );
                 });
@@ -548,7 +556,7 @@ const  noteBlockWordPattern: RegEx = new RegExp(
     'gm'
 );
 function toggleNote() {
-    return editorHelpers.surroundBlockSelection(
+    return surroundBlockSelection(
         startingNote,
         endingNote,
         noteBlockWordPattern
@@ -562,7 +570,7 @@ var tipBlockWordPattern = new RegExp(
     'gm'
 );
 function toggleTip() {
-    return editorHelpers.surroundBlockSelection(
+    return surroundBlockSelection(
         startingTip,
         endingTip,
         tipBlockWordPattern
@@ -576,7 +584,7 @@ var cautionBlockWordPattern = new RegExp(
     'gm'
 );
 function toggleCaution() {
-    return editorHelpers.surroundBlockSelection(
+    return surroundBlockSelection(
         startingCaution,
         endingCaution,
         cautionBlockWordPattern
@@ -590,7 +598,7 @@ var warningBlockWordPattern = new RegExp(
     'gm'
 );
 function toggleWarning() {
-    return editorHelpers.surroundBlockSelection(
+    return surroundBlockSelection(
         startingWarning,
         endingWarning,
         warningBlockWordPattern
@@ -604,7 +612,7 @@ var importantBlockWordPattern = new RegExp(
     'gm'
 );
 function toggleImportant() {
-    return editorHelpers.surroundBlockSelection(
+    return surroundBlockSelection(
         startingImportant,
         endingImportant,
         importantBlockWordPattern
@@ -618,7 +626,7 @@ var moreLikeThisBlockWordPattern = new RegExp(
     'gm'
 );
 function toggleMoreLikeThis() {
-    return editorHelpers.surroundBlockSelection(
+    return surroundBlockSelection(
         startingMoreLikeThis,
         endingMoreLikeThis,
         moreLikeThisBlockWordPattern
@@ -632,7 +640,7 @@ var videoBlockWordPattern = new RegExp(
     'gm'
 );
 function toggleVideo() {
-    return editorHelpers.surroundBlockSelection(
+    return surroundBlockSelection(
         startingVideo,
         endingVideo,
         videoBlockWordPattern
