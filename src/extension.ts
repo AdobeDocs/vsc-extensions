@@ -72,12 +72,15 @@ export function activate(context: ExtensionContext) {
   );
 
   register(context);
+  output.appendLine(
+    `[${msTimeValue}] - Registered markdown shortcuts`
+  );
   // Markdownlint custom rule check
   checkMarkdownlintCustomProperty();
   return {
     extendMarkdownIt(md: MarkdownIt) {
       output.appendLine(
-        `[${msTimeValue}] Markdown plugin options are ${JSON.stringify(
+        `[${msTimeValue}] - Markdown-it plugin options are ${JSON.stringify(
           md.options
         )}`
       );
