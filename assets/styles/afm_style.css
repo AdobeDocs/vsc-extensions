@@ -116,7 +116,7 @@
   padding-left: 30px;
 }
 
-.vscode-body.video {
+.vscode-body .extension.video {
   border-left-width: 1;
   position: relative;
   width: 100%;
