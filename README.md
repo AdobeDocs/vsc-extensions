@@ -65,7 +65,7 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 
 > [!VIDEO](https://youtube.com?watch="xyxz")
 
-> [!CAUTION]
+>[!CAUTION]
 
 ## Extension Settings
 
