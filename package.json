@@ -7,10 +7,15 @@
   "engines": {
     "vscode": "^1.48.0"
   },
-  "licene": "Apache-2.0",
+  "homepage": "https://bitbucket.org/oproma/adobe-markdown-authoring/src/master/",
+  "repository": {"type": "git",
+    "url":"https://bitbucket.org/oproma/adobe-markdown-authoring.git"
+  },
+  "icon": "icon.png",
+  "license": "Apache-2.0",
   "categories": [
     "Other"
-  ],
+  ], 
   "activationEvents": [
     "onLanguage:markdown"
   ],

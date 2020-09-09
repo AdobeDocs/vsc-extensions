@@ -544,7 +544,7 @@ function toggleImage() {
   return getLinkText(selection).then(getLinkUrl).then(addTags);
 }
 
-const startingNote: string = `>[!NOTE]${newLine}>{newline}>`;
+const startingNote: string = `>[!NOTE]${newLine}>${newLine}>`;
 const endingNote: string = newLine;
 const noteBlockWordPattern: RegExp = new RegExp(
   startingNote + ".+" + endingNote + "|.+",
