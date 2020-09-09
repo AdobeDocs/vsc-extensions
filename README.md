@@ -1,4 +1,4 @@
-# Adobe Experience League Markdown Preview README
+# Adobe Experience League Markdown Authoring
 
 This is a VS Code extension that enhances the built-in Markdown preview feaures with Adobe extensions to the Markdown specification.
 
@@ -65,8 +65,6 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 
 > [!VIDEO](https://youtube.com?watch="xyxz")
 
->[!CAUTION]
-
 ## Extension Settings
 
 Since this is an expansion on the built-in VS Code preview extension, any settings applicable to that extension also apply to this one.
@@ -81,7 +79,7 @@ Here are the changes since the last release.
 
 ### 1.0.0
 
-Initial release of Exl Markdown Preview.
+Initial release of Adobe Markdown Authoring extension for VSCode
 
 ---
 
