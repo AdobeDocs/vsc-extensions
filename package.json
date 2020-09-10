@@ -2,7 +2,7 @@
   "name": "adobe-markdown-authoring",
   "displayName": "Adobe Markdown Authoring",
   "description": "Integrated preview, linter and keyboard shortcutss for Adobe Flavored Markdown.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "publisher": "adobe",
   "engines": {
     "vscode": "^1.48.0"
@@ -332,6 +332,41 @@
       {
         "command": "md-shortcut.toggleCheckboxes",
         "key": "ctrl+m ctrl+x",
+        "when": "editorTextFocus && markdownShortcuts:enabled"
+      },
+      {
+        "command": "md-shortcut.toggleNote",
+        "key": "ctrl+m ctrl+n",
+        "when": "editorTextFocus && markdownShortcuts:enabled"
+      },
+      {
+        "command": "md-shortcut.toggleTip",
+        "key": "ctrl+m ctrl+t",
+        "when": "editorTextFocus && markdownShortcuts:enabled"
+      },
+      {
+        "command": "md-shortcut.toggleCaution",
+        "key": "ctrl+m ctrl+c",
+        "when": "editorTextFocus && markdownShortcuts:enabled"
+      },
+      {
+        "command": "md-shortcut.toggleImportant",
+        "key": "ctrl+m ctrl+p",
+        "when": "editorTextFocus && markdownShortcuts:enabled"
+      },
+      {
+        "command": "md-shortcut.toggleWarning",
+        "key": "ctrl+m ctrl+w",
+        "when": "editorTextFocus && markdownShortcuts:enabled"
+      },
+      {
+        "command": "md-shortcut.toggleMoreLikeThis",
+        "key": "ctrl+m ctrl+m",
+        "when": "editorTextFocus && markdownShortcuts:enabled"
+      },
+      {
+        "command": "md-shortcut.toggleVideo",
+        "key": "ctrl+m ctrl+v",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       }
     ],
