@@ -9,7 +9,7 @@
   padding: 10px;
 }
 
-.vscode-body .note {
+.vscode-body .extension.note {
   background-color: lightblue;
   color: #323232;
   border-color: #a8d4eb;
@@ -33,15 +33,17 @@
 }
 
 .vscode-body.showEditorSelection .extension.note.code-line:hover::before {
-  border-left: 3px solid rgb(210, 24, 24);
+  content: attr(data-label);
+  border-left: 3px solid rgba(0, 0, 0, 0.15);
   font-size: 10px;
   letter-spacing: 1px;
   text-transform: uppercase;
-  background-image: url(../img/alert.svg);
+  background-image: url(../img/info.svg);
   background-repeat: no-repeat;
-  display: box;
+  display: block;
   height: 24px !important;
   padding-left: 30px;
+  margin-bottom: 20px;
 }
 
 .vscode-body .extension.tip {

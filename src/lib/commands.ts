@@ -621,10 +621,10 @@ function toggleMoreLikeThis() {
   );
 }
 
-const startingVideo = ">[!VIDEO]" + "()";
+const startingVideo = ">[!VIDEO]()";
 const endingVideo = newLine;
 const videoBlockWordPattern = new RegExp(
-  startingVideo + ".+" + endingVideo + "|.+",
+  `${startingVideo}.+${endingVideo}|.+`,
   "gm"
 );
 function toggleVideo() {

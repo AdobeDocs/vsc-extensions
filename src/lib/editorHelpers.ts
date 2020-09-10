@@ -168,17 +168,16 @@ export function getBlockSelection(): Selection | void {
   if (!editor) {
     return;
   }
-  return editor.selection;
-  // const selection: Selection = editor.selection;
+  const selection: Selection = editor.selection;
 
-  // if (selection.isEmpty) {
-  //   return selection;
-  // }
+  if (selection.isEmpty) {
+    return selection;
+  }
 
-  // return selection.with(
-  //   selection.start.with(undefined, 0),
-  //   selection.end.with(selection.end.line + 1, 0)
-  // );
+  return new Selection(
+    selection.start.with(undefined, 0),
+    selection.end.with(selection.end.line + 1, 0))
+  ;
 }
 
 export function isBlockMatch(
