@@ -8,7 +8,7 @@ Currently this plugin extends the [CommonMark](https://spec.commonmark.org/) spe
 
 In addition to the standard markdown preview features provided by VS Code that adhere to the CommonMark specification, this extension attempts to provide a high-fidelity representation of Markdown that adheres to the custom Markdown syntax specified in the [Adobe Markdown Syntax Style Guide](https://docs.adobe.com/content/help/en/collaborative-doc-instructions/collaboration-guide/markdown/syntax-style-guide.html).
 
-### Supported extensions
+### Supported Markdown extensions
 
 - Note, Caution, Important, Tip, and Warning
 - Embedded video
@@ -22,28 +22,28 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 ### Note
 
 ```markdown
-> [!NOTE]
+>[!NOTE]
 >
-> Here is a note component. Notice that it is just a blockquote that has a [!NOTE] label at the beginning of the code.
+>Here is a note component. Notice that it is just a blockquote that has a [!NOTE] label at the beginning of the code.
 ```
 
-> [!NOTE]
+>[!NOTE]
 >
-> Here is a note component. Notice that it is just a blockquote that has a [!NOTE] label at the beginning of the code.
+>Here is a note component. Notice that it is just a blockquote that has a [!NOTE] label at the beginning of the code.
 
 ### Caution
 
 ```markdown
-> [!CAUTION]
+>[!CAUTION]
 >
-> Here is a caution component. Notice that it is just a blockquote and that you can _embed_ inline markdown including `pre-formatted text` and other **chicanery**
+>Here is a caution component. Notice that it is just a blockquote and that you can _embed_ inline markdown including `pre-formatted text` and other **chicanery**
 ```
 
-> [!CAUTION]
+>[!CAUTION]
 >
 > Here is a caution component. Notice that it is just a blockquote and that you can _embed_ inline markdown including `pre-formatted text` and other **chicanery**
 
-> [!TIP]
+>[!TIP]
 >
 > Here is a tip [!TIP] This is after this.
 
@@ -55,7 +55,7 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 > Here is the _IMPORTANT_ component. It's only one line.
 ```
 
-> [!IMPORTANT]
+>[!IMPORTANT]
 >
 > Here is the _IMPORTANT_ component. It's only one line.
 
@@ -63,11 +63,38 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 
 ### Video
 
-> [!VIDEO](https://youtube.com?watch="xyxz")
+>[!VIDEO](https://youtube.com?watch="xyxz")
+
+## Authoring Shortcuts
+
+
+## Exposed Commands
+
+| Name | Description | Default key binding |
+| ---- | ----------- | ------------------- |
+| md-shortcut.showCommandPalette | Display all commands | ctrl+M ctrl+M |
+| md-shortcut.toggleBold | Make \*\*bold\*\* | ctrl+B |
+| md-shortcut.toggleItalic | Make \_italic\_ | ctrl+I |
+| md-shortcut.toggleStrikethrough | Make \~\~strikethrough\~\~ |  |
+| md-shortcut.toggleLink | Make [a hyperlink]\(www.example.org) | ctrl+L |
+| md-shortcut.toggleImage | Make an image ![]\(image_url.png) | ctrl+shift+L |
+| md-shortcut.toggleCodeBlock | Make \`\`\`a code block\`\`\` | ctrl+M ctrl+C |
+| md-shortcut.toggleInlineCode | Make \`inline code\` | ctrl+M ctrl+I |
+| md-shortcut.toggleBullets | Make * bullet point | ctrl+M ctrl+B |
+| md-shortcut.toggleNumbers | Make 1. numbered list | ctrl+M ctrl+1 |
+| md-shortcut.toggleCheckboxes | Make - [ ] check list (Github flavored markdown) | ctrl+M ctrl+X |
+| md-shortcut.toggleTitleH1 | Toggle # H1 title |  |
+| md-shortcut.toggleTitleH2 | Toggle ## H2 title |  |
+| md-shortcut.toggleTitleH3 | Toggle ### H3 title |  |
+| md-shortcut.toggleTitleH4 | Toggle #### H4 title |  |
+| md-shortcut.toggleTitleH5 | Toggle ##### H5 title |  |
+| md-shortcut.toggleTitleH6 | Toggle ###### H6 title |  |
+| md-shortcut.addTable | Add Tabular values |  |
+| md-shortcut.addTableWithHeader | Add Tabular values with header |  |
 
 ## Extension Settings
 
-Since this is an expansion on the built-in VS Code preview extension, any settings applicable to that extension also apply to this one.
+Since this is an expansion on the built-in VS Code preview extension, any settings applicable to that extension also apply to this one.  You can find more information about support for Markdown in Visual Studio Code at in the [Visual Studio Code online documentation](https://code.visualstudio.com/Docs/languages/markdown).
 
 ## Known Issues
 

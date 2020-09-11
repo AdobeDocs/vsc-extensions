@@ -18,7 +18,8 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:markdown"
+    "onLanguage:markdown",
+    "*"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -343,8 +344,7 @@
         "command": "md-shortcut.toggleTip",
         "key": "ctrl+m ctrl+t",
         "when": "editorTextFocus && markdownShortcuts:enabled"
-      }
-      ,
+      },
       {
         "command": "md-shortcut.toggleCaution",
         "key": "ctrl+m ctrl+c",
@@ -355,7 +355,6 @@
         "key": "ctrl+m ctrl+p",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
-      
       {
         "command": "md-shortcut.toggleWarning",
         "key": "ctrl+m ctrl+w",
@@ -543,6 +542,7 @@
     "glob": "^7.1.6",
     "mocha": "^8.0.1",
     "typescript": "^3.8.3",
-    "vscode-test": "^1.4.0"
+    "vscode-test": "^1.4.0",
+    "vscode-test-content": "^1.2.0"
   }
 }
