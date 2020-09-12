@@ -100,11 +100,6 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.6.4.tgz#a145cc0bb14ef9c4777361b7bbafa5cf8e3acb5a"
   integrity sha512-Wk7nG1JSaMfMpoMJDKUsWYugliB2Vy55pdjLpmLixeyMi7HizW2I/9QoxsPCkXl3dO+ZOVqPumKaDUv5zJu2uQ==
 
-"@types/vscode@^1.48.0":
-  version "1.48.0"
-  resolved "https://registry.yarnpkg.com/@types/vscode/-/vscode-1.48.0.tgz#c1841ccf80086d53b35a9d7f2eb3b4d949bd2d2f"
-  integrity sha512-sZJKzsJz1gSoFXcOJWw3fnKl2sseUgZmvB4AJZS+Fea+bC/jfGPVhmFL/FfQHld/TKtukVONsmoD3Pkyx9iadg==
-
 "@typescript-eslint/eslint-plugin@^3.8.0":
   version "3.10.1"
   resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-3.10.1.tgz#7e061338a1383f59edc204c605899f93dc2e2c8f"
@@ -1067,7 +1062,7 @@ log-symbols@4.0.0:
   dependencies:
     chalk "^4.0.0"
 
-markdown-it-adobe-plugin@~1.0.0:
+markdown-it-adobe-plugin@^1.0.2:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/markdown-it-adobe-plugin/-/markdown-it-adobe-plugin-1.0.3.tgz#dc00a1ca347c3ad1b5fe06e6a14701322ccf619c"
   integrity sha512-k9tpd7P+Ii/LRUUS4DQfMtqgXetndKf3s15RqlseyTcHKn6Sd+/VnGV7aSasGEljvgvK93p6ZKoJU7otvn64lQ==
