@@ -31,6 +31,8 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 >
 >Here is a note component. Notice that it is just a blockquote that has a [!NOTE] label at the beginning of the code.
 
+![note](https://bitbucket.org/oproma/adobe-markdown-authoring/raw/0dec36082266468ca5601a83320bff2700ed1487/assets/img/NOTE.gif)
+
 ### Caution
 
 ```markdown
@@ -43,9 +45,13 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 >
 > Here is a caution component. Notice that it is just a blockquote and that you can _embed_ inline markdown including `pre-formatted text` and other **chicanery**
 
+![caution](https://bitbucket.org/oproma/adobe-markdown-authoring/raw/0dec36082266468ca5601a83320bff2700ed1487/assets/img/CAUTION.gif)
+
 >[!TIP]
 >
 > Here is a tip [!TIP] This is after this.
+
+![tip](https://bitbucket.org/oproma/adobe-markdown-authoring/raw/0dec36082266468ca5601a83320bff2700ed1487/assets/img/TIP.gif)
 
 ### Important
 
@@ -59,13 +65,15 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 >
 > Here is the _IMPORTANT_ component. It's only one line.
 
-
+![important](https://bitbucket.org/oproma/adobe-markdown-authoring/raw/0dec36082266468ca5601a83320bff2700ed1487/assets/img/IMPORTANT.gif)
 
 ### Tip
 
 ### Video
 
 >[!VIDEO](https://youtube.com?watch="xyxz")
+
+![video](https://bitbucket.org/oproma/adobe-markdown-authoring/raw/0dec36082266468ca5601a83320bff2700ed1487/assets/img/VIDEO.gif)
 
 ## Authoring Shortcuts
 
@@ -117,5 +125,3 @@ Initial release of Adobe Markdown Authoring extension for VSCode
 - [Adobe Internal Authoring Guide](https://docs.adobe.com/content/help/en/collaborative-doc-instructions/collaboration-guide/home.html)
 - [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
 - [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
-
-![image](https://bitbucket.org/oproma/adobe-markdown-authoring/raw/81094435a201fdc0e721fee484fb4138e5fbd9f3/assets/img/icon.png)
