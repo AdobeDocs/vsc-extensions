@@ -10,10 +10,10 @@ In addition to the standard markdown preview features provided by VS Code that a
 
 ### Supported Markdown extensions
 
-- Note, Caution, Important, Tip, and Warning
-- Embedded video
-- More Like This
-- Various UI tags for localization
+* Note, Caution, Important, Tip, and Warning
+* Embedded video
+* More Like This
+* Various UI tags for localization
 
 ## Examples
 
@@ -46,6 +46,7 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 >[!TIP]
 >
 > Here is a tip [!TIP] This is after this.
+
 
 ### Important
 
