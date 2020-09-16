@@ -47,8 +47,6 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 >
 > Here is a tip [!TIP] This is after this.
 
-
-
 ### Important
 
 ```markdown
@@ -61,7 +59,7 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 >
 > Here is the _IMPORTANT_ component. It's only one line.
 
-![image](https://bitbucket.org/oproma/adobe-markdown-authoring/raw/748be065c0f44ef323c0e36c39b46faeae5f3234/assets/img/IMPORTANT.gif)
+
 
 ### Tip
 
