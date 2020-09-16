@@ -59,6 +59,8 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 >
 > Here is the _IMPORTANT_ component. It's only one line.
 
+[](./assets/img/icon.png)
+
 ### Tip
 
 ### Video
@@ -115,3 +117,5 @@ Initial release of Adobe Markdown Authoring extension for VSCode
 - [Adobe Internal Authoring Guide](https://docs.adobe.com/content/help/en/collaborative-doc-instructions/collaboration-guide/home.html)
 - [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
 - [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+
+![image](https://bitbucket.org/oproma/adobe-markdown-authoring/raw/81094435a201fdc0e721fee484fb4138e5fbd9f3/assets/img/icon.png)

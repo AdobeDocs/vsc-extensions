@@ -428,61 +428,551 @@ suite("Tip Alerts", () => {
 
   test("Multiline ranged selection", () => {
     return testCommand(
-      "toggleNote",
-      "[This is just a" + newLine + "plain note}",
-      "[>[!NOTE]\n>\n>This is just a\nplain note\n}"
+      "toggleTip",
+      "[This is just a" + newLine + "plain tip}",
+      "[>[!TIP]\n>\n>This is just a\nplain tip\n}"
     );
   });
 
   test("Multiline ranged selection with extra newline", () => {
     return testCommand(
-      "toggleNote",
-      "[This is just a" + newLine + "plain note}" + newLine,
-      "[>[!NOTE]\n>\n>This is just a\nplain note\n}"
+      "toggleTip",
+      "[This is just a" + newLine + "plain tip}" + newLine,
+      "[>[!TIP]\n>\n>This is just a\nplain tip\n}"
     );
   });
 
   test("Multiline ranged selection while selecting extra newline", () => {
     return testCommand(
-      "toggleNote",
-      "[This is just a" + newLine + "plain note" + newLine + "}",
-      "[>[!NOTE]\n>\n>This is just a\nplain note\n\n}"
+      "toggleTip",
+      "[This is just a" + newLine + "plain tip" + newLine + "}",
+      "[>[!TIP]\n>\n>This is just a\nplain tip\n\n}"
     );
   });
 
   test("Collapsed selection", () => {
     return testCommand(
-      "toggleNote",
-      "Just a plain note^",
-      "[>[!NOTE]\n>\n>Just a plain note\n}"
+      "toggleTip",
+      "Just a plain tip^",
+      "[>[!TIP]\n>\n>Just a plain tip\n}"
     );
   });
 
   test("Toggles with ranged selection", () => {
     return testCommand(
-      "toggleNote",
-      "[>[!NOTE]" +
+      "toggleTip",
+      "[>[!TIP]" +
         newLine +
         ">" +
         newLine +
-        ">This is just a plain note" +
+        ">This is just a plain tip" +
         newLine +
         "}",
-      "[This is just a plain note}"
+      "[This is just a plain tip}"
     );
   });
 
   test("Toggles with multi-line ranged selection", () => {
     return testCommand(
-      "toggleNote",
-      "[>[!NOTE]" +
+      "toggleTip",
+      "[>[!TIP]" +
         newLine +
         ">" +
         newLine +
         ">This is just a" +
         newLine +
-        "plain note}",
-      "[This is just a\nplain note}"
+        "plain tip}",
+      "[This is just a\nplain tip}"
+    );
+  });
+});
+
+suite("Important Alerts", () => {
+  test("Ranged selection", () => {
+    return testCommand(
+      "toggleImportant",
+      "[This is just a plain important}",
+      "[>[!IMPORTANT]\n>\n>This is just a plain important\n}"
+    );
+  });
+
+  test("Multiline ranged selection", () => {
+    return testCommand(
+      "toggleImportant",
+      "[This is just a" + newLine + "plain important}",
+      "[>[!IMPORTANT]\n>\n>This is just a\nplain important\n}"
+    );
+  });
+
+  test("Multiline ranged selection with extra newline", () => {
+    return testCommand(
+      "toggleImportant",
+      "[This is just a" + newLine + "plain important}" + newLine,
+      "[>[!IMPORTANT]\n>\n>This is just a\nplain important\n}"
+    );
+  });
+
+  test("Multiline ranged selection while selecting extra newline", () => {
+    return testCommand(
+      "toggleImportant",
+      "[This is just a" + newLine + "plain important" + newLine + "}",
+      "[>[!IMPORTANT]\n>\n>This is just a\nplain important\n\n}"
+    );
+  });
+
+  test("Collapsed selection", () => {
+    return testCommand(
+      "toggleImportant",
+      "Just a plain important^",
+      "[>[!IMPORTANT]\n>\n>Just a plain important\n}"
+    );
+  });
+
+  test("Toggles with ranged selection", () => {
+    return testCommand(
+      "toggleImportant",
+      "[>[!IMPORTANT]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a plain important" +
+        newLine +
+        "}",
+      "[This is just a plain important}"
+    );
+  });
+
+  test("Toggles with multi-line ranged selection", () => {
+    return testCommand(
+      "toggleImportant",
+      "[>[!IMPORTANT]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a" +
+        newLine +
+        "plain important}",
+      "[This is just a\nplain important}"
+    );
+  });
+});
+
+suite("Video Alerts", () => {
+  test("Ranged selection", () => {
+    return testCommand(
+      "toggleVideo",
+      "[This is just a plain video}",
+      "[>[!VIDEO]\n>\n>This is just a plain video\n}"
+    );
+  });
+
+  test("Multiline ranged selection", () => {
+    return testCommand(
+      "toggleVideo",
+      "[This is just a" + newLine + "plain video}",
+      "[>[!VIDEO]\n>\n>This is just a\nplain video\n}"
+    );
+  });
+
+  test("Multiline ranged selection with extra newline", () => {
+    return testCommand(
+      "toggleVideo",
+      "[This is just a" + newLine + "plain video}" + newLine,
+      "[>[!VIDEO]\n>\n>This is just a\nplain video\n}"
+    );
+  });
+
+  test("Multiline ranged selection while selecting extra newline", () => {
+    return testCommand(
+      "toggleVideo",
+      "[This is just a" + newLine + "plain video" + newLine + "}",
+      "[>[!VIDEO]\n>\n>This is just a\nplain video\n\n}"
+    );
+  });
+
+  test("Collapsed selection", () => {
+    return testCommand(
+      "toggleVideo",
+      "Just a plain video^",
+      "[>[!VIDEO]\n>\n>Just a plain video\n}"
+    );
+  });
+
+  test("Toggles with ranged selection", () => {
+    return testCommand(
+      "toggleVideo",
+      "[>[!VIDEO]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a plain video" +
+        newLine +
+        "}",
+      "[This is just a plain video}"
+    );
+  });
+
+  test("Toggles with multi-line ranged selection", () => {
+    return testCommand(
+      "toggleVideo",
+      "[>[!VIDEO]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a" +
+        newLine +
+        "plain tip}",
+      "[This is just a\nplain video}"
+    );
+  });
+});
+
+suite("Caution Alerts", () => {
+  test("Ranged selection", () => {
+    return testCommand(
+      "toggleCaution",
+      "[This is just a plain caution}",
+      "[>[!TIP]\n>\n>This is just a plain caution\n}"
+    );
+  });
+
+  test("Multiline ranged selection", () => {
+    return testCommand(
+      "toggleCaution",
+      "[This is just a" + newLine + "plain caution}",
+      "[>[!CAUTION]\n>\n>This is just a\nplain caution\n}"
+    );
+  });
+
+  test("Multiline ranged selection with extra newline", () => {
+    return testCommand(
+      "toggleCaution",
+      "[This is just a" + newLine + "plain caution}" + newLine,
+      "[>[!CAUTION]\n>\n>This is just a\nplain caution\n}"
+    );
+  });
+
+  test("Multiline ranged selection while selecting extra newline", () => {
+    return testCommand(
+      "toggleCaution",
+      "[This is just a" + newLine + "plain caution" + newLine + "}",
+      "[>[!CAUTION]\n>\n>This is just a\nplain caution\n\n}"
+    );
+  });
+
+  test("Collapsed selection", () => {
+    return testCommand(
+      "toggleCaution",
+      "Just a plain caution^",
+      "[>[!CAUTION]\n>\n>Just a plain caution\n}"
+    );
+  });
+
+  test("Toggles with ranged selection", () => {
+    return testCommand(
+      "toggleCaution",
+      "[>[!CAUTION]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a plain caution" +
+        newLine +
+        "}",
+      "[This is just a plain caution}"
+    );
+  });
+
+  test("Toggles with multi-line ranged selection", () => {
+    return testCommand(
+      "toggleCaution",
+      "[>[!CAUTION]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a" +
+        newLine +
+        "plain caution}",
+      "[This is just a\nplain caution}"
+    );
+  });
+});
+
+suite("Warning Alerts", () => {
+  test("Ranged selection", () => {
+    return testCommand(
+      "toggleWarning",
+      "[This is just a plain warning}",
+      "[>[!WARNING]\n>\n>This is just a plain warning\n}"
+    );
+  });
+
+  test("Multiline ranged selection", () => {
+    return testCommand(
+      "toggleWarning",
+      "[This is just a" + newLine + "plain warning}",
+      "[>[!WARNING]\n>\n>This is just a\nplain warning\n}"
+    );
+  });
+
+  test("Multiline ranged selection with extra newline", () => {
+    return testCommand(
+      "toggleWarning",
+      "[This is just a" + newLine + "plain warning}" + newLine,
+      "[>[!WARNING]\n>\n>This is just a\nplain warning\n}"
+    );
+  });
+
+  test("Multiline ranged selection while selecting extra newline", () => {
+    return testCommand(
+      "toggleWarning",
+      "[This is just a" + newLine + "plain tip" + newLine + "}",
+      "[>[!WARNING]\n>\n>This is just a\nplain warning\n\n}"
+    );
+  });
+
+  test("Collapsed selection", () => {
+    return testCommand(
+      "toggleWarning",
+      "Just a plain warning^",
+      "[>[!WARNING]\n>\n>Just a plain warning\n}"
+    );
+  });
+
+  test("Toggles with ranged selection", () => {
+    return testCommand(
+      "toggleWarning",
+      "[>[!WARNING]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a plain warning" +
+        newLine +
+        "}",
+      "[This is just a plain warning}"
+    );
+  });
+
+  test("Toggles with multi-line ranged selection", () => {
+    return testCommand(
+      "toggleWarning",
+      "[>[!WARNING]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a" +
+        newLine +
+        "plain warning}",
+      "[This is just a\nplain warning}"
+    );
+  });
+});
+
+suite("Video Alerts", () => {
+  test("Ranged selection", () => {
+    return testCommand(
+      "toggleVideo",
+      "[This is just a plain video}",
+      "[>[!VIDEO]\n>\n>This is just a plain video\n}"
+    );
+  });
+
+  test("Multiline ranged selection", () => {
+    return testCommand(
+      "toggleVideo",
+      "[This is just a" + newLine + "plain video}",
+      "[>[!VIDEO]\n>\n>This is just a\nplain video\n}"
+    );
+  });
+
+  test("Multiline ranged selection with extra newline", () => {
+    return testCommand(
+      "toggleVideo",
+      "[This is just a" + newLine + "plain video}" + newLine,
+      "[>[!VIDEO]\n>\n>This is just a\nplain video\n}"
+    );
+  });
+
+  test("Multiline ranged selection while selecting extra newline", () => {
+    return testCommand(
+      "toggleVideo",
+      "[This is just a" + newLine + "plain video" + newLine + "}",
+      "[>[!VIDEO]\n>\n>This is just a\nplain video\n\n}"
+    );
+  });
+
+  test("Collapsed selection", () => {
+    return testCommand(
+      "toggleVideo",
+      "Just a plain video^",
+      "[>[!VIDEO]\n>\n>Just a plain video\n}"
+    );
+  });
+
+  test("Toggles with ranged selection", () => {
+    return testCommand(
+      "toggleVideo",
+      "[>[!VIDEO]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a plain video" +
+        newLine +
+        "}",
+      "[This is just a plain video}"
+    );
+  });
+
+  test("Toggles with multi-line ranged selection", () => {
+    return testCommand(
+      "toggleVideo",
+      "[>[!VIDEO]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a" +
+        newLine +
+        "plain tip}",
+      "[This is just a\nplain video}"
+    );
+  });
+});
+
+suite("Caution Alerts", () => {
+  test("Ranged selection", () => {
+    return testCommand(
+      "toggleCaution",
+      "[This is just a plain caution}",
+      "[>[!TIP]\n>\n>This is just a plain caution\n}"
+    );
+  });
+
+  test("Multiline ranged selection", () => {
+    return testCommand(
+      "toggleCaution",
+      "[This is just a" + newLine + "plain caution}",
+      "[>[!CAUTION]\n>\n>This is just a\nplain caution\n}"
+    );
+  });
+
+  test("Multiline ranged selection with extra newline", () => {
+    return testCommand(
+      "toggleCaution",
+      "[This is just a" + newLine + "plain caution}" + newLine,
+      "[>[!CAUTION]\n>\n>This is just a\nplain caution\n}"
+    );
+  });
+
+  test("Multiline ranged selection while selecting extra newline", () => {
+    return testCommand(
+      "toggleCaution",
+      "[This is just a" + newLine + "plain caution" + newLine + "}",
+      "[>[!CAUTION]\n>\n>This is just a\nplain caution\n\n}"
+    );
+  });
+
+  test("Collapsed selection", () => {
+    return testCommand(
+      "toggleCaution",
+      "Just a plain caution^",
+      "[>[!CAUTION]\n>\n>Just a plain caution\n}"
+    );
+  });
+
+  test("Toggles with ranged selection", () => {
+    return testCommand(
+      "toggleCaution",
+      "[>[!CAUTION]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a plain caution" +
+        newLine +
+        "}",
+      "[This is just a plain caution}"
+    );
+  });
+
+  test("Toggles with multi-line ranged selection", () => {
+    return testCommand(
+      "toggleCaution",
+      "[>[!CAUTION]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a" +
+        newLine +
+        "plain caution}",
+      "[This is just a\nplain caution}"
+    );
+  });
+});
+
+suite("Morelikethis Alerts", () => {
+  test("Ranged selection", () => {
+    return testCommand(
+      "toggleMorelikethis",
+      "[This is just a plain morelikethis}",
+      "[>[!MORELIKETHIS]\n>\n>This is just a plain morelikethis\n}"
+    );
+  });
+
+  test("Multiline ranged selection", () => {
+    return testCommand(
+      "toggleMorelikethis",
+      "[This is just a" + newLine + "plain morelikethis}",
+      "[>[!MORELIKETHIS]\n>\n>This is just a\nplain morelikethis\n}"
+    );
+  });
+
+  test("Multiline ranged selection with extra newline", () => {
+    return testCommand(
+      "toggleMorelikethis",
+      "[This is just a" + newLine + "plain morelikethis}" + newLine,
+      "[>[!MORELIKETHIS]\n>\n>This is just a\nplain morelikethis\n}"
+    );
+  });
+
+  test("Multiline ranged selection while selecting extra newline", () => {
+    return testCommand(
+      "toggleMorelikethis",
+      "[This is just a" + newLine + "plain morelikethis" + newLine + "}",
+      "[>[!MORELIKETHIS]\n>\n>This is just a\nplain morelikethis\n\n}"
+    );
+  });
+
+  test("Collapsed selection", () => {
+    return testCommand(
+      "toggleMorelikethis",
+      "Just a plain morelikethis^",
+      "[>[!MORELIKETHIS]\n>\n>Just a plain morelikethis\n}"
+    );
+  });
+
+  test("Toggles with ranged selection", () => {
+    return testCommand(
+      "toggleMorelikethis",
+      "[>[!MORELIKETHIS]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a plain morelikethis" +
+        newLine +
+        "}",
+      "[This is just a plain morelikethis}"
+    );
+  });
+
+  test("Toggles with multi-line ranged selection", () => {
+    return testCommand(
+      "toggleMorelikethis",
+      "[>[!MORELIKETHIS]" +
+        newLine +
+        ">" +
+        newLine +
+        ">This is just a" +
+        newLine +
+        "plain morelikethis}",
+      "[This is just a\nplain morelikethis}"
     );
   });
 });
@@ -536,6 +1026,8 @@ suite("Citations", () => {
     );
   });
 });
+
+
 
 const testCommand = (
   command: string,
