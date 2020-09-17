@@ -2,7 +2,7 @@
   "name": "adobe-markdown-authoring",
   "displayName": "Adobe Markdown Authoring",
   "description": "Integrated preview, linter and keyboard shortcutssfor Adobe Flavored Markdown.",
-  "version": "1.0.3",
+  "version": "1.0.5",
   "publisher": "adobe",
   "engines": {
     "vscode": "^1.48.0"
