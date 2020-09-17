@@ -227,6 +227,22 @@ const _commands: Command[] = [
     ">[!VIDEO]\r\n>())",
     true
   ),
+
+  new Command(
+    "toggleDNL",
+    toggleDNL,
+    "Toggle DNL",
+    "[!DNL unlocalized text]",
+    true
+  ),
+
+  new Command(
+    "toggleUIControl",
+    toggleUIControl,
+    "Toggle UIControl",
+    "[!UICONTROL text to be translated]",
+    true
+  ),
 ];
 
 let newLine = getEol();
@@ -633,4 +649,18 @@ function toggleVideo() {
     endingVideo,
     videoBlockWordPattern
   );
+}
+
+const toggleDNLPattern: RegExp = new RegExp(
+  "[!DNL" + wordMatch + "]" + wordMatch + "+"
+);
+function toggleDNL() {
+  return surroundSelection("[!DNL ", "]", toggleDNLPattern);
+}
+
+const toggleUIControlPattern: RegExp = new RegExp(
+  "[!UICONTROL " + wordMatch + "]" + wordMatch + "+"
+);
+function toggleUIControl() {
+  return surroundSelection("[!UICONTROL ", "]", toggleDNLPattern);
 }

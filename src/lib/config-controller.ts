@@ -34,7 +34,7 @@ export function checkMarkdownlintCustomProperty() {
           `[${msTimeValue}] - Adobe custom markdownlint ruleset is already set at a global level.`
         );
       } else {
-        // if the customRuleset does not exists, append it to the other values in the list if there 
+        // if the customRuleset does not exists, append it to the other values in the list if there
         // are any or add it as the only value.
         existingUserSettings.push(customRuleset);
         // update the user settings with new/updated values and notify user.

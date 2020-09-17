@@ -1,21 +1,21 @@
-'use strict';
+"use strict";
 
-const common = require('./common');
-const detailStrings = require('./strings');
+const common = require("./common");
+const detailStrings = require("./strings");
 
 module.exports = {
-  names: ['ADOBE001', 'adobe.alert'],
+  names: ["ADOBE001", "adobe.alert"],
   description: `Invalid alert syntax.`,
-  tags: ['validation'],
+  tags: ["validation", "adobe", "alerts"],
   function: function rule(params, onError) {
     params.tokens
       .filter(function filterToken(token) {
-        return token.type === 'inline';
+        return token.type === "inline";
       })
       .forEach(function forToken(inline) {
         inline.children
           .filter(function filterChild(child) {
-            return child.type === 'text';
+            return child.type === "text";
           })
           .forEach(function forChild(text) {
             // Use the line child so ">" isn't stripped.
