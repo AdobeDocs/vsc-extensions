@@ -1,8 +1,8 @@
-'use strict';
+"use strict";
 
-const common = require('./common');
-const detailStrings = require('./strings');
-const schemas = require('./schemas');
+const common = require("./common");
+const detailStrings = require("./strings");
+const schemas = require("./schemas");
 
 // schema linting
 let allowedVideoAttributes;
@@ -11,37 +11,25 @@ let videoDataResponse = Object.keys(schemas.VIDEO_SCHEMA.properties);
 function loadVideoSchema() {
   videoDataResponse = schemas.VIDEO_SCHEMA.properties;
   allowedVideoAttributes = Object.keys(videoDataResponse);
-  // axios
-  //   .get(schemas.VIDEO_SCHEMA)
-  //   .then(function (response) {
-  //     videoDataResponse = response.data;
-  //     allowedVideoAttributes = Object.keys(videoDataResponse.properties);
-  //   })
-  //   .catch(function () {
-  //     const errorMessage = detailStrings.failedResponse
-  //       .replace('NAME', 'video')
-  //       .replace('URL', schemas.VIDEO_SCHEMA);
-  //     common.output.apppendLine(errorMessage);
-  //   });
 }
 
 loadVideoSchema();
 
 module.exports = {
-  names: ['ADOBE002', 'adobe.video'],
+  names: ["ADOBE002", "adobe.video"],
   description: `video linting.`,
-  tags: ['validation'],
+  tags: ["validation", "adobe", "video"],
   function: function rule(params, onError) {
-    const doc = params.lines.join('\n');
+    const doc = params.lines.join("\n");
     const fullLooseMatches = doc.match(common.syntaxVideoLooseMatch);
     params.tokens
       .filter(function filterToken(token) {
-        return token.type === 'inline';
+        return token.type === "inline";
       })
       .forEach(function forToken(inline) {
         inline.children
           .filter(function filterChild(child) {
-            return child.type === 'text';
+            return child.type === "text";
           })
           .forEach(function forChild(text) {
             const textBlock = text.content;
@@ -49,8 +37,8 @@ module.exports = {
             if (videoMatches === null) {
               return;
             }
-            videoMatches.forEach(videoMatch => {
-              const content = fullLooseMatches.filter(match =>
+            videoMatches.forEach((videoMatch) => {
+              const content = fullLooseMatches.filter((match) =>
                 match.includes(videoMatch)
               )[0];
               if (content) {
@@ -65,7 +53,7 @@ module.exports = {
 
                 //source check
                 const sourceMatch = common.videoSourceMatch.exec(content);
-                if (!sourceMatch || sourceMatch[1] === '') {
+                if (!sourceMatch || sourceMatch[1] === "") {
                   onError({
                     lineNumber: text.lineNumber,
                     detail: detailStrings.videoSourceRequired,
@@ -75,9 +63,9 @@ module.exports = {
                 if (sourceMatch) {
                   const source = sourceMatch[1];
                   if (
-                    !source.includes('channel9.msdn.com') &&
-                    !source.includes('youtube.com/embed') &&
-                    !source.includes('microsoft.com/en-us/videoplayer/embed')
+                    !source.includes("channel9.msdn.com") &&
+                    !source.includes("youtube.com/embed") &&
+                    !source.includes("microsoft.com/en-us/videoplayer/embed")
                   ) {
                     onError({
                       lineNumber: text.lineNumber,
@@ -86,8 +74,8 @@ module.exports = {
                     });
                   }
                   if (
-                    source.includes('channel9.msdn.com') &&
-                    !source.includes('/player')
+                    source.includes("channel9.msdn.com") &&
+                    !source.includes("/player")
                   ) {
                     onError({
                       lineNumber: text.lineNumber,
@@ -100,7 +88,7 @@ module.exports = {
                   common.AttributeMatchGlobal
                 );
                 if (attributeMatches && attributeMatches.length > 0) {
-                  attributeMatches.forEach(attributeMatch => {
+                  attributeMatches.forEach((attributeMatch) => {
                     const match = common.AttributeMatch.exec(attributeMatch);
                     const attr = match[1];
                     if (allowedVideoAttributes) {
@@ -111,7 +99,7 @@ module.exports = {
                         onError({
                           lineNumber: text.lineNumber,
                           detail: detailStrings.videoNonAllowedAttribute.replace(
-                            '___',
+                            "___",
                             attr
                           ),
                           context: text.line,
@@ -124,7 +112,7 @@ module.exports = {
                           onError({
                             lineNumber: text.lineNumber,
                             detail: detailStrings.videoCaseSensitive.replace(
-                              '___',
+                              "___",
                               attr
                             ),
                             context: text.line,

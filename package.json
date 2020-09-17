@@ -282,6 +282,16 @@
         "command": "md-shortcut.toggleVideo",
         "title": "Toggle Video",
         "category": "Markdown Shortcuts"
+      },
+      {
+        "command": "md-shortcut.toggleDNL",
+        "title": "Toggle DNL (Do Not Localize)",
+        "category": "Markdown Shortcuts"
+      },
+      {
+        "command": "md-shortcut.toggleUIControl",
+        "title": "Toggle UICONTROL",
+        "category": "Markdown Shortcuts"
       }
     ],
     "keybindings": [
@@ -368,6 +378,16 @@
       {
         "command": "md-shortcut.toggleVideo",
         "key": "ctrl+m ctrl+v",
+        "when": "editorTextFocus && markdownShortcuts:enabled"
+      },
+      {
+        "command": "md-shortcut.toggleDNL",
+        "key": "ctrl+m ctrl+d",
+        "when": "editorTextFocus && markdownShortcuts:enabled"
+      },
+      {
+        "command": "md-shortcut.toggleUIControl",
+        "key": "ctrl+m ctrl+u",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       }
     ],
@@ -477,6 +497,16 @@
           "command": "md-shortcut.toggleVideo",
           "when": "markdownShortcuts:enabled",
           "group": "2_markdown_4@7"
+        },
+        {
+          "command": "md-shortcut.toggleDNL",
+          "when": "markdownShortcuts:enabled",
+          "group": "2_markdown_4@8"
+        },
+        {
+          "command": "md-shortcut.toggleUIControl",
+          "when": "markdownShortcuts:enabled",
+          "group": "2_markdown_4@9"
         }
       ],
       "editor/title": [
