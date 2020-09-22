@@ -101,6 +101,8 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 | md-shortcut.toggleTitleH6 | Toggle ###### H6 title |  |
 | md-shortcut.addTable | Add Tabular values |  |
 | md-shortcut.addTableWithHeader | Add Tabular values with header |  |
+| md-shortcut.toggleNote | Make a [!NOTE] block | ctrl+m ctrl+n |  |
+|
 
 ## Extension Settings
 
