@@ -1062,10 +1062,8 @@ log-symbols@4.0.0:
   dependencies:
     chalk "^4.0.0"
 
-markdown-it-adobe-plugin@^1.0.2:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/markdown-it-adobe-plugin/-/markdown-it-adobe-plugin-1.0.3.tgz#dc00a1ca347c3ad1b5fe06e6a14701322ccf619c"
-  integrity sha512-k9tpd7P+Ii/LRUUS4DQfMtqgXetndKf3s15RqlseyTcHKn6Sd+/VnGV7aSasGEljvgvK93p6ZKoJU7otvn64lQ==
+markdown-it-adobe-plugin@../markdown-it-adobe-plugin:
+  version "1.0.5"
 
 markdown-it@^11.0.0:
   version "11.0.0"

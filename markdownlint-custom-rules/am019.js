@@ -2,10 +2,10 @@ const common = require("./common");
 const detailStrings = require("./strings");
 
 module.exports = {
-  names: ["ADOBE003", "adobe.dnl"],
+  names: ["AM019", "adobe.dnl"],
   description: `Do Not Localize linting [!DNL]`,
   tags: ["validation", "adobe", "localization"],
-  function: function rule(params, onError) {
+  function: function am019(params, onError) {
     const inlineTokens = params.tokens.filter((tok) => tok.type === "inline");
     inlineTokens.forEach((token) => {
       const kids = token.children;

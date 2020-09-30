@@ -4,10 +4,10 @@ const common = require("./common");
 const detailStrings = require("./strings");
 
 module.exports = {
-  names: ["ADOBE001", "adobe.alert"],
+  names: ["AM017", "adobe.alert"],
   description: `Invalid alert syntax.`,
   tags: ["validation", "adobe", "alerts"],
-  function: function rule(params, onError) {
+  function: function am017(params, onError) {
     params.tokens
       .filter(function filterToken(token) {
         return token.type === "inline";

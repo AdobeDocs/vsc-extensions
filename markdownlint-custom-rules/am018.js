@@ -16,10 +16,10 @@ function loadVideoSchema() {
 loadVideoSchema();
 
 module.exports = {
-  names: ["ADOBE002", "adobe.video"],
+  names: ["AM018", "adobe.video"],
   description: `video linting.`,
   tags: ["validation", "adobe", "video"],
-  function: function rule(params, onError) {
+  function: function am018(params, onError) {
     const doc = params.lines.join("\n");
     const fullLooseMatches = doc.match(common.syntaxVideoLooseMatch);
     params.tokens

@@ -2,10 +2,10 @@ const common = require("./common");
 const detailStrings = require("./strings");
 
 module.exports = {
-  names: ["ADOBE005", "adobe.uicontrol"],
+  names: ["AM020", "adobe.uicontrol"],
   description: `Localization control [!UICONTROL]`,
   tags: ["validation", "adobe", "localization"],
-  function: function rule(params, onError) {
+  function: function am020(params, onError) {
     const inlineTokens = params.tokens.filter((tok) => tok.type === "inline");
     inlineTokens.forEach((token) => {
       const kids = token.children;
