@@ -5,7 +5,6 @@ import * as assert from "assert";
 import * as vscode from "vscode";
 import { TextEditor } from "vscode";
 const vscodeTestContent = require("vscode-test-content");
-import * as adobe from "../../extension";
 
 import { getEol } from "../../lib/env";
 
@@ -1026,8 +1025,6 @@ suite("Citations", () => {
     );
   });
 });
-
-
 
 const testCommand = (
   command: string,
