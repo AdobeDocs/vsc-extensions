@@ -2,18 +2,6 @@
 
 const common = require("./common");
 const detailStrings = require("./strings");
-const schemas = require("./schemas");
-
-// schema linting
-let allowedVideoAttributes;
-let videoDataResponse = Object.keys(schemas.VIDEO_SCHEMA.properties);
-
-function loadVideoSchema() {
-  videoDataResponse = schemas.VIDEO_SCHEMA.properties;
-  allowedVideoAttributes = Object.keys(videoDataResponse);
-}
-
-loadVideoSchema();
 
 module.exports = {
   names: ["AM018", "adobe.video"],
