@@ -1,19 +1,17 @@
-// @ts-check
+'use strict';
 
-"use strict";
-
-const shared = require("./shared");
+const shared = require('./shared');
 
 module.exports = {
-  names: ["AM004", "empty-table"],
-  description: "Malformed markdown table row",
-  tags: ["tables", "asideblock"],
+  names: ['AM004', 'empty-table'],
+  description: 'Malformed markdown table row',
+  tags: ['tables', 'asideblock'],
 
   function: function am004(params, onError) {
-    // shared.filterTokens(params, "^\|[^\|]*$", function forToken(token) {
-    const tableMissingCloseRe = new RegExp("^\\s*\\|(.*?)[^\\|]$");
-    const asideBlockRe = new RegExp("^\\|[^\\|]*$"); // const missingClosingPipe = new RegExp("^\\s*\\")
-    const codeBlockRe = new RegExp("```");
+    shared.makeTokenCache(params); // Ensure a token cache as a side-effect. - GDE 20201011
+    const tableMissingCloseRe = new RegExp('^\\s*\\|(.*?)[^\\|]$');
+    const asideBlockRe = new RegExp('^\\|[^\\|]*$'); // const missingClosingPipe = new RegExp("^\\s*\\")
+    const codeBlockRe = new RegExp('```');
     var inCodeBlock = false;
     shared.forEachLine(function forLine(line, lineIndex) {
       const lineNumber = lineIndex + 1;
@@ -30,7 +28,7 @@ module.exports = {
           onError,
           lineNumber,
           line,
-          "Table row missing closing pipe",
+          'Table row missing closing pipe',
           shared.rangeFromRegExp(line, tableMissingCloseRe)
         );
       }
@@ -39,7 +37,7 @@ module.exports = {
           onError,
           lineNumber,
           line,
-          "Line contains errant pipe symbol",
+          'Line contains errant pipe symbol',
           shared.rangeFromRegExp(line, asideBlockRe)
         );
       }

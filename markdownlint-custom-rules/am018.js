@@ -1,23 +1,23 @@
-"use strict";
+'use strict';
 
-const common = require("./common");
-const detailStrings = require("./strings");
+const common = require('./common');
+const detailStrings = require('./strings');
 
 module.exports = {
-  names: ["AM018", "adobe.video"],
+  names: ['AM018', 'adobe.video'],
   description: `video linting.`,
-  tags: ["validation", "adobe", "video"],
+  tags: ['validation', 'adobe', 'video'],
   function: function am018(params, onError) {
-    const doc = params.lines.join("\n");
+    const doc = params.lines.join('\n');
     const fullLooseMatches = doc.match(common.syntaxVideoLooseMatch);
     params.tokens
       .filter(function filterToken(token) {
-        return token.type === "inline";
+        return token.type === 'inline';
       })
       .forEach(function forToken(inline) {
         inline.children
           .filter(function filterChild(child) {
-            return child.type === "text";
+            return child.type === 'text';
           })
           .forEach(function forChild(text) {
             const textBlock = text.content;
@@ -41,7 +41,7 @@ module.exports = {
 
                 //source check
                 const sourceMatch = common.videoSourceMatch.exec(content);
-                if (!sourceMatch || sourceMatch[1] === "") {
+                if (!sourceMatch || sourceMatch[1] === '') {
                   onError({
                     lineNumber: text.lineNumber,
                     detail: detailStrings.videoSourceRequired,
@@ -51,9 +51,9 @@ module.exports = {
                 if (sourceMatch) {
                   const source = sourceMatch[1];
                   if (
-                    !source.includes("channel9.msdn.com") &&
-                    !source.includes("youtube.com/embed") &&
-                    !source.includes("microsoft.com/en-us/videoplayer/embed")
+                    !source.includes('channel9.msdn.com') &&
+                    !source.includes('youtube.com/embed') &&
+                    !source.includes('microsoft.com/en-us/videoplayer/embed')
                   ) {
                     onError({
                       lineNumber: text.lineNumber,
@@ -62,8 +62,8 @@ module.exports = {
                     });
                   }
                   if (
-                    source.includes("channel9.msdn.com") &&
-                    !source.includes("/player")
+                    source.includes('channel9.msdn.com') &&
+                    !source.includes('/player')
                   ) {
                     onError({
                       lineNumber: text.lineNumber,
@@ -87,7 +87,7 @@ module.exports = {
                         onError({
                           lineNumber: text.lineNumber,
                           detail: detailStrings.videoNonAllowedAttribute.replace(
-                            "___",
+                            '___',
                             attr
                           ),
                           context: text.line,
@@ -100,7 +100,7 @@ module.exports = {
                           onError({
                             lineNumber: text.lineNumber,
                             detail: detailStrings.videoCaseSensitive.replace(
-                              "___",
+                              '___',
                               attr
                             ),
                             context: text.line,

@@ -1,15 +1,13 @@
-// @ts-check
+'use strict';
 
-"use strict";
-
-const shared = require("./shared");
+const shared = require('./shared');
 
 module.exports = {
-  names: ["AM003", "hr not supported"],
-  description: "Horizontal rules are not supported",
-  tags: ["hr"],
+  names: ['AM003', 'hr not supported'],
+  description: 'Horizontal rules are not supported',
+  tags: ['hr'],
   function: function am003(params, onError) {
-    shared.filterTokens(params, "hr", function forToken(token) {
+    shared.filterTokens(params, 'hr', function forToken(token) {
       shared.addErrorContext(onError, token.lineNumber, token.line);
     });
   },

@@ -1,17 +1,15 @@
-// @ts-check
+'use strict';
 
-"use strict";
-
-const shared = require("./shared");
+const shared = require('./shared');
 
 module.exports = {
-  names: ["AM011", "link-syntax"],
-  description: "Spaces between link components",
-  tags: ["warnings", "link"],
+  names: ['AM011', 'link-syntax'],
+  description: 'Spaces between link components',
+  tags: ['warnings', 'link'],
   function: function am011(params, onError) {
-    // const spaceinlinkRe = new RegExp("\\][ ]+\\([\/\.h]");
-    const spaceinlinkRe = new RegExp("\\[[^!].*?\\]s+\\(");
-    const codeBlockRe = new RegExp("```");
+    shared.makeTokenCache(params); // Ensure a token cache as a side-effect. - GDE 20201011
+    const spaceinlinkRe = new RegExp('\\[[^!].*?\\]s+\\(');
+    const codeBlockRe = new RegExp('```');
     var inCodeBlock = false;
     var isWarning = true;
     shared.forEachLine(function forLine(line, lineIndex) {
@@ -30,9 +28,9 @@ module.exports = {
             lineNumber + params.frontMatterLines.length,
             line,
             module.exports.names[0] +
-              "/" +
+              '/' +
               module.exports.names[1] +
-              " " +
+              ' ' +
               module.exports.description
           );
         } else {

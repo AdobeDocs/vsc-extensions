@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 // Alert
 module.exports.alertOpener = /^>\[!/gm; // regex to find ">[!"
@@ -16,7 +16,7 @@ module.exports.videoOpen = /:::video/gim;
 module.exports.videoSourceMatch = /source\s*=\s*"(.*?)"/m;
 module.exports.videoTitleMatch = /title\s*=\s*"(.*?)"/m;
 module.exports.videoMaxWidthMatch = /max-width\s*=\s*"(.*?)"/m;
-module.exports.allowedVideoAttributes = ["source", "title", "max-width"];
+module.exports.allowedVideoAttributes = ['source', 'title', 'max-width'];
 
 // DNL - Do Not Localize
 module.exports.dnlOpener = /\[!DNL/;

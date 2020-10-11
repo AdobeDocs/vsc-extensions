@@ -1,12 +1,12 @@
-const common = require("./common");
-const detailStrings = require("./strings");
+const common = require('./common');
+const detailStrings = require('./strings');
 
 module.exports = {
-  names: ["AM019", "adobe.dnl"],
+  names: ['AM019', 'adobe.dnl'],
   description: `Do Not Localize linting [!DNL]`,
-  tags: ["validation", "adobe", "localization"],
+  tags: ['validation', 'adobe', 'localization'],
   function: function am019(params, onError) {
-    const inlineTokens = params.tokens.filter((tok) => tok.type === "inline");
+    const inlineTokens = params.tokens.filter((tok) => tok.type === 'inline');
     inlineTokens.forEach((token) => {
       const kids = token.children;
       kids.forEach((kid) => {
@@ -15,7 +15,7 @@ module.exports = {
           // DNL Uppercase
           const dnlCaseMatch = content.match(common.dnlCase);
           if (dnlCaseMatch) {
-            if (dnlCaseMatch[0] !== "[!DNL") {
+            if (dnlCaseMatch[0] !== '[!DNL') {
               onError({
                 lineNumber: kid.lineNumber,
                 detail: detailStrings.dnlCase,

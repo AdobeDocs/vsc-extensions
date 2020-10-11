@@ -1,6 +1,4 @@
-// @ts-check
-
-"use strict";
+'use strict';
 
 // Regular expression for matching common newline characters
 // See NEWLINES_RE in markdown-it/lib/rules_core/normalize.js
@@ -20,17 +18,17 @@ module.exports.listItemMarkerRe = /^[\s>]*(?:[*+-]|\d+[.)])\s+/;
 module.exports.orderedListItemMarkerRe = /^[\s>]*0*(\d+)[.)]/;
 
 // readFile options for reading with the UTF-8 encoding
-module.exports.utf8Encoding = { encoding: "utf8" };
+module.exports.utf8Encoding = { encoding: 'utf8' };
 
 // Trims whitespace from the left (start) of a string
 function trimLeft(str) {
-  return str.replace(/^\s*/, "");
+  return str.replace(/^\s*/, '');
 }
 module.exports.trimLeft = trimLeft;
 
 // Trims whitespace from the right (end) of a string
 module.exports.trimRight = function trimRight(str) {
-  return str.replace(/\s*$/, "");
+  return str.replace(/\s*$/, '');
 };
 
 // Applies key/value pairs from src to dst, returning dst
@@ -49,12 +47,12 @@ module.exports.clone = function clone(obj) {
 
 // Returns true iff the input is a number
 module.exports.isNumber = function isNumber(obj) {
-  return typeof obj === "number";
+  return typeof obj === 'number';
 };
 
 // Returns true iff the input is a string
 module.exports.isString = function isString(obj) {
-  return typeof obj === "string";
+  return typeof obj === 'string';
 };
 
 // Returns true iff the input string is empty
@@ -66,27 +64,27 @@ module.exports.isEmptyString = function isEmptyString(str) {
 // This preserves the line/column information for the rest of the document
 // Trailing whitespace is avoided with a '\' character in the last column
 // See https://www.w3.org/TR/html5/syntax.html#comments for details
-const htmlCommentBegin = "<!--";
-const htmlCommentEnd = "-->";
+const htmlCommentBegin = '<!--';
+const htmlCommentEnd = '-->';
 module.exports.clearHtmlCommentText = function clearHtmlCommentText(text) {
   let i = 0;
   while ((i = text.indexOf(htmlCommentBegin, i)) !== -1) {
     let j = text.indexOf(htmlCommentEnd, i);
     if (j === -1) {
       j = i; // text.length;
-      text += "\\";
+      text += '\\';
     }
     const comment = text.slice(i + htmlCommentBegin.length, j);
     if (
       comment.length > 0 &&
-      comment[0] !== ">" &&
-      comment[comment.length - 1] !== "-" &&
-      comment.indexOf("--") === -1 &&
+      comment[0] !== '>' &&
+      comment[comment.length - 1] !== '-' &&
+      comment.indexOf('--') === -1 &&
       text.slice(i, j + htmlCommentEnd.length).search(inlineCommentRe) === -1
     ) {
       const blanks = comment
-        .replace(/[^\r\n]/g, " ")
-        .replace(/ ([\r\n])/g, "\\$1");
+        .replace(/[^\r\n]/g, ' ')
+        .replace(/ ([\r\n])/g, '\\$1');
       text =
         text.slice(0, i + htmlCommentBegin.length) + blanks + text.slice(j);
     }
@@ -97,12 +95,12 @@ module.exports.clearHtmlCommentText = function clearHtmlCommentText(text) {
 
 // Escapes a string for use in a RegExp
 module.exports.escapeForRegExp = function escapeForRegExp(str) {
-  return str.replace(/[-/\\^$*+?.()|[\]{}]/g, "\\$&");
+  return str.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
 };
 
 // Returns the indent for a token
 function indentFor(token) {
-  const line = token.line.replace(/^[\s>]*(> |>)/, "");
+  const line = token.line.replace(/^[\s>]*(> |>)/, '');
   return line.length - trimLeft(line).length;
 }
 module.exports.indentFor = indentFor;
@@ -111,11 +109,11 @@ module.exports.indentFor = indentFor;
 module.exports.headingStyleFor = function headingStyleFor(token) {
   if (token.map[1] - token.map[0] === 1) {
     if (/[^\\]#\s*$/.test(token.line)) {
-      return "atx_closed";
+      return 'atx_closed';
     }
-    return "atx";
+    return 'atx';
   }
-  return "setext";
+  return 'setext';
 };
 
 // Calls the provided function for each matching token
@@ -158,13 +156,13 @@ function makeTokenCache(params) {
     lineMetadata[lineIndex] = metadata;
   });
   // Find code blocks normally
-  filterTokens(params, "code_block", function forToken(token) {
+  filterTokens(params, 'code_block', function forToken(token) {
     for (let i = token.map[0]; i < token.map[1]; i++) {
       lineMetadata[i] = 1;
     }
   });
   // Find tables normally
-  filterTokens(params, "table_open", function forToken(token) {
+  filterTokens(params, 'table_open', function forToken(token) {
     for (let i = token.map[0]; i < token.map[1]; i++) {
       lineMetadata[i] += 8;
     }
@@ -177,13 +175,13 @@ function makeTokenCache(params) {
   let lastWithMap = { map: [0, 1] };
   params.tokens.forEach(function forToken(token) {
     if (
-      token.type === "bullet_list_open" ||
-      token.type === "ordered_list_open"
+      token.type === 'bullet_list_open' ||
+      token.type === 'ordered_list_open'
     ) {
       // Save current context and start a new one
       stack.push(current);
       current = {
-        unordered: token.type === "bullet_list_open",
+        unordered: token.type === 'bullet_list_open',
         parentsUnordered:
           !current || (current.unordered && current.parentsUnordered),
         open: token,
@@ -195,15 +193,15 @@ function makeTokenCache(params) {
         insert: flattenedLists.length,
       };
     } else if (
-      token.type === "bullet_list_close" ||
-      token.type === "ordered_list_close"
+      token.type === 'bullet_list_close' ||
+      token.type === 'ordered_list_close'
     ) {
       // Finalize current context and restore previous
       current.lastLineIndex = lastWithMap.map[1];
       flattenedLists.splice(current.insert, 0, current);
       delete current.insert;
       current = stack.pop();
-    } else if (token.type === "list_item_open") {
+    } else if (token.type === 'list_item_open') {
       // Add list item
       current.items.push(token);
     } else if (token.map) {
@@ -224,6 +222,9 @@ module.exports.makeTokenCache = makeTokenCache;
 // Calls the provided function for each line (with context)
 module.exports.forEachLine = function forEachLine(callback) {
   // Invoke callback
+  if (!tokenCache) {
+    makeTokenCache(null);
+  }
   tokenCache.params.lines.forEach(function forLine(line, lineIndex) {
     const metadata = tokenCache.lineMetadata[lineIndex];
     callback(
@@ -242,7 +243,7 @@ module.exports.forEachInlineChild = function forEachInlineChild(
   type,
   callback
 ) {
-  filterTokens(params, "inline", function forToken(token) {
+  filterTokens(params, 'inline', function forToken(token) {
     token.children.forEach(function forChild(child) {
       if (child.type === type) {
         callback(child, token);
@@ -255,11 +256,11 @@ module.exports.forEachInlineChild = function forEachInlineChild(
 module.exports.forEachHeading = function forEachHeading(params, callback) {
   let heading = null;
   params.tokens.forEach(function forToken(token) {
-    if (token.type === "heading_open") {
+    if (token.type === 'heading_open') {
       heading = token;
-    } else if (token.type === "heading_close") {
+    } else if (token.type === 'heading_close') {
       heading = null;
-    } else if (token.type === "inline" && heading) {
+    } else if (token.type === 'inline' && heading) {
       callback(heading, token.content);
     }
   });
@@ -294,11 +295,11 @@ module.exports.addErrorDetailIf = function addErrorDetailIf(
     addError(
       onError,
       lineNumber,
-      "Expected: " +
+      'Expected: ' +
         expected +
-        "; Actual: " +
+        '; Actual: ' +
         actual +
-        (detail ? "; " + detail : ""),
+        (detail ? '; ' + detail : ''),
       null,
       range
     );
@@ -317,11 +318,11 @@ module.exports.addErrorContext = function addErrorContext(
   if (context.length <= 30) {
     // Nothing to do
   } else if (left && right) {
-    context = context.substr(0, 15) + "..." + context.substr(-15);
+    context = context.substr(0, 15) + '...' + context.substr(-15);
   } else if (right) {
-    context = "..." + context.substr(-30);
+    context = '...' + context.substr(-30);
   } else {
-    context = context.substr(0, 30) + "...";
+    context = context.substr(0, 30) + '...';
   }
   addError(onError, lineNumber, null, context, range);
 };
@@ -335,10 +336,10 @@ module.exports.addWarningContext = function addWarningContext(
   if (line.length <= 30) {
     // Nothing to do
   } else {
-    line = line.substr(0, 30) + "...";
+    line = line.substr(0, 30) + '...';
   }
   console.log(
-    "[WARN] " + filename + ": " + linenumber + ": " + rule + ": " + line
+    '[WARN] ' + filename + ': ' + linenumber + ': ' + rule + ': ' + line
   );
 };
 
@@ -360,8 +361,8 @@ module.exports.rangeFromRegExp = function rangeFromRegExp(line, regexp) {
 
 // Check if we are in a code block
 module.exports.inCodeBlock = function inCodeBlock(line, incode) {
-  const codeBlockRe = new RegExp("```");
-  const htmlCodeBlockRe = new RegExp("<");
+  const codeBlockRe = new RegExp('```');
+  const htmlCodeBlockRe = new RegExp('<');
   var incodeblock = incode;
   const codeBlockMatch = codeBlockRe.exec(line);
   if (codeBlockMatch) {

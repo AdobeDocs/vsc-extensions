@@ -1,13 +1,11 @@
-// @ts-check
+'use strict';
 
-"use strict";
-
-const shared = require("./shared");
+const shared = require('./shared');
 
 module.exports = {
-  names: ["AM016", "mismatched-brackets"],
-  description: "Unmatched brackets, parens or braces",
-  tags: ["code", "indent_level"],
+  names: ['AM016', 'mismatched-brackets'],
+  description: 'Unmatched brackets, parens or braces',
+  tags: ['code', 'indent_level'],
   function: function am016(params, onError) {
     const lines = params.lines;
     var inCodeBlock = false;
@@ -15,7 +13,7 @@ module.exports = {
     shared.forEachLine(function forLine(line, i) {
       inCodeBlock = shared.inCodeBlock(line, inCodeBlock);
       if (!inCodeBlock) {
-        line = line.replace(/([^`])`.*?`([^`])/g, "$1code$2");
+        line = line.replace(/([^`])`.*?`([^`])/g, '$1code$2');
 
         var opensquares = (line.match(/\[/g) || []).length;
         var clossquares = (line.match(/\]/g) || []).length;

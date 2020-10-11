@@ -1,15 +1,13 @@
-// @ts-check
+'use strict';
 
-"use strict";
-
-const shared = require("./shared");
+const shared = require('./shared');
 
 module.exports = {
-  names: ["AM007", "header-anchor-without-hash"],
-  description: "Heading anchor has no hash",
-  tags: ["headings", "headers"],
+  names: ['AM007', 'header-anchor-without-hash'],
+  description: 'Heading anchor has no hash',
+  tags: ['headings', 'headers'],
   function: function am007(params, onError) {
-    const anchorMissingHashRe = new RegExp("{[^#].*}$");
+    const anchorMissingHashRe = new RegExp('{[^#].*}$');
     shared.forEachHeading(params, function forHeading(heading, content) {
       const match = anchorMissingHashRe.exec(content);
       if (match) {
