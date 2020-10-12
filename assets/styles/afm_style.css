@@ -1,5 +1,5 @@
 .vscode-body {
-  color: #000000; 
+  color: #000000;
   padding: 1rem;
   border: 1 solid;
   border-left-width: 3rem;
@@ -30,6 +30,7 @@
   display: block;
   height: 24px !important;
   padding-left: 30px;
+  position: inherit;
 }
 
 .vscode-body.showEditorSelection .extension.note.code-line:hover::before {
@@ -157,4 +158,4 @@
 }
 .vscode-body > div:last-child > *:last-child {
   margin-bottom: 0;
-} 
+}
