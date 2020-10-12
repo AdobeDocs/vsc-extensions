@@ -4,10 +4,10 @@ $nav: #444444;
 $size: size;
 
 .extension {
-  @extend .box;
-  @extend .has-no-radius;
-  @extend .is-margin-top-big;
-  @extend .is-margin-bottom-big;
+  // @extend .box;
+  // @extend .has-no-radius;
+  // @extend .is-margin-top-big;
+  // @extend .is-margin-bottom-big;
   color: $black;
   padding: 1rem;
   border: $ten * 0.1 solid $nav;
@@ -19,7 +19,7 @@ $size: size;
     > div:first-child {
       &:before {
         $size: $ten * 1.6;
-        content: "";
+        content: '';
         background: url(/assets/img/info.svg) no-repeat center;
         background-size: cover;
         resize: both;
@@ -32,12 +32,12 @@ $size: size;
   }
 
   &.important {
-    border-color: #EFD500;
+    border-color: #efd500;
 
     > div:first-child {
       &:before {
         $size: $ten * 1.6;
-        content: "";
+        content: '';
         background: url(/assets/img/alert.svg) no-repeat center;
         background-size: cover;
         resize: both;
@@ -50,12 +50,12 @@ $size: size;
   }
 
   &.warning {
-    border-color: #FA0F00;
+    border-color: #fa0f00;
 
     > div:first-child {
       &:before {
         $size: $ten * 1.6;
-        content: "";
+        content: '';
         background: url(/assets/img/alert.svg) no-repeat center;
         background-size: cover;
         resize: both;
@@ -68,12 +68,12 @@ $size: size;
   }
 
   &.caution {
-    border-color: #EFCC00;
+    border-color: #efcc00;
 
     > div:first-child {
       &:before {
         $size: $ten * 1.6;
-        content: "";
+        content: '';
         background: url(/assets/img/alert.svg) no-repeat center;
         background-size: cover;
         resize: both;
@@ -86,7 +86,7 @@ $size: size;
   }
 
   &.video {
-    @extend .is-paddingless;
+    // @extend .is-paddingless;
     border-left-width: $ten * 0.1;
     position: relative;
     width: 100%;
@@ -96,13 +96,15 @@ $size: size;
 
   > div {
     &:first-child {
-      @extend .is-flex;
-      @extend .is-vcentered;
+      // @extend .is-flex;
+      // @extend .is-vcentered;
       font-weight: bold;
     }
 
     &:last-child {
-      ol, ul, p {
+      ol,
+      ul,
+      p {
         margin: 0 !important;
       }
 

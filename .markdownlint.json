@@ -2,6 +2,7 @@
   "extends": "./assets/styles/adobe-markdown-lint.json",
   "line-length": false,
   "AM001": false,
+  "AM009": false,
   "AM011": false,
   "MD009": false,
   "MD012": false,
