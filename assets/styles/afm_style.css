@@ -192,9 +192,6 @@
 }
 
 .vscode-body .extension.video {
-  border-left-width: 1;
-  height: 0;
-  padding-bottom: 56.25% !important;
   position: relative;
   width: 100%;
 }
