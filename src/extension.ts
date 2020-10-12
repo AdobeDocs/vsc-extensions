@@ -1,10 +1,10 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-import { ExtensionContext, workspace, commands, window } from "vscode";
-import { checkMarkdownlintCustomProperty } from "./lib/config-controller";
-import { generateTimestamp, output } from "./lib/common";
-import { register } from "./lib/commands";
-import MarkdownIt = require("markdown-it");
+import { ExtensionContext, workspace, commands, window } from 'vscode';
+import { checkMarkdownlintCustomProperty } from './lib/config-controller';
+import { generateTimestamp, output } from './lib/common';
+import { register } from './lib/commands';
+import MarkdownIt = require('markdown-it');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -17,15 +17,15 @@ export function activate(context: ExtensionContext) {
   // Markdown Shortcuts
   function buildLanguageRegex(): RegExp {
     const languageArray: string[] | undefined = workspace
-      .getConfiguration("markdownShortcuts")
-      .get("languages") || ["markdown"];
-    return new RegExp("(" + languageArray.join("|") + ")");
+      .getConfiguration('markdownShortcuts')
+      .get('languages') || ['markdown'];
+    return new RegExp('(' + languageArray.join('|') + ')');
   }
 
   function toggleMarkdownShortcuts(langId: string) {
     commands.executeCommand(
-      "setContext",
-      "markdownShortcuts:enabled",
+      'setContext',
+      'markdownShortcuts:enabled',
       languageRegex.test(langId)
     );
   }
@@ -40,7 +40,7 @@ export function activate(context: ExtensionContext) {
   // Update languageRegex if the configuration changes
   workspace.onDidChangeConfiguration(
     (configChange) => {
-      if (configChange.affectsConfiguration("markdownShortcuts.languages")) {
+      if (configChange.affectsConfiguration('markdownShortcuts.languages')) {
         languageRegex = buildLanguageRegex();
       }
     },
@@ -82,7 +82,13 @@ export function activate(context: ExtensionContext) {
           md.options
         )}`
       );
-      return md.use(require("markdown-it-adobe-plugin"));
+      var adobePlugIn = require('markdown-it-adobe-plugin');
+      output.appendLine(
+        `[${msTimeValue}] - Loaded Adobe Markdown-It Plugin ${JSON.stringify(
+          adobePlugIn
+        )}`
+      );
+      return md.use(adobePlugIn);
     },
   };
 }

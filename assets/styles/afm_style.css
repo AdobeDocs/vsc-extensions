@@ -73,12 +73,42 @@
   text-transform: uppercase;
 }
 
+.vscode-body.showEditorSelection .extension.tip.code-line:hover::before {
+  background-image: url(../img/info.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
 .vscode-body .extension.important {
   border-color: #efd500;
   background-color: rgb(247, 232, 216);
 }
 
 .vscode-body .extension.important::before {
+  background-image: url(../img/info.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
+.vscode-body.showEditorSelection .extension.important.code-line:hover::before {
   background-image: url(../img/info.svg);
   background-position-x: 21px !important;
   background-repeat: no-repeat;
@@ -112,11 +142,41 @@
   position: inherit;
   text-transform: uppercase;
 }
+
+.vscode-body.showEditorSelection .extension.warning.code-line:hover::before {
+  background-image: url(../img/alert.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
 .vscode-body .extension.caution {
   background-color: rgb(255, 237, 223);
   border-color: #efcc00;
 }
 .vscode-body .extension.caution::before {
+  background-image: url(../img/alert.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
+.vscode-body.showEditorSelection .extension.caution.code-line:hover::before {
   background-image: url(../img/alert.svg);
   background-position-x: 21px !important;
   background-repeat: no-repeat;
@@ -163,6 +223,23 @@
   position: inherit;
   text-transform: uppercase;
 }
+
+.vscode-body.showEditorSelection
+  .extension.morelikethis.code-line:hover::before {
+  background-image: url(../img/info.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
 .vscode-body > div:first-child {
   font-weight: bold;
 }
