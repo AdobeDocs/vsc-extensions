@@ -1,5 +1,4 @@
 {
-  "extends": "./assets/styles/adobe-markdown-lint.json",
   "line-length": false,
   "AM001": false,
   "AM009": false,

@@ -82,13 +82,7 @@ export function activate(context: ExtensionContext) {
           md.options
         )}`
       );
-      var adobePlugIn = require('markdown-it-adobe-plugin');
-      output.appendLine(
-        `[${msTimeValue}] - Loaded Adobe Markdown-It Plugin ${JSON.stringify(
-          adobePlugIn
-        )}`
-      );
-      return md.use(adobePlugIn);
+      return md.use(require('markdown-it-adobe-plugin'));
     },
   };
 }
