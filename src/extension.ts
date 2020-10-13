@@ -1,7 +1,10 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 import { ExtensionContext, workspace, commands, window } from 'vscode';
-import { checkMarkdownlintCustomProperty } from './lib/config-controller';
+import {
+  checkMarkdownlintCustomProperty,
+  checkMarkdownlintCustomConfig,
+} from './lib/config-controller';
 import { generateTimestamp, output } from './lib/common';
 import { register } from './lib/commands';
 import MarkdownIt = require('markdown-it');
@@ -75,6 +78,8 @@ export function activate(context: ExtensionContext) {
   output.appendLine(`[${msTimeValue}] - Registered markdown shortcuts`);
   // Markdownlint custom rule check
   checkMarkdownlintCustomProperty();
+  // Merge markdown lint configuration into user settings
+  checkMarkdownlintCustomConfig();
   return {
     extendMarkdownIt(md: MarkdownIt) {
       output.appendLine(
