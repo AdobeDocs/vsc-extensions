@@ -75,8 +75,6 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 
 ![video](https://bitbucket.org/oproma/adobe-markdown-authoring/raw/0dec36082266468ca5601a83320bff2700ed1487/assets/img/VIDEO.gif)
 
-## Authoring Shortcuts
-
 
 ## Exposed Commands
 
@@ -106,10 +104,6 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 
 Since this is an expansion on the built-in VS Code preview extension, any settings applicable to that extension also apply to this one.  You can find more information about support for Markdown in Visual Studio Code at in the [Visual Studio Code online documentation](https://code.visualstudio.com/Docs/languages/markdown).
 
-## Known Issues
-
-The hover CSS styles for Alerts (Note, Caution, Important, Tip and Warning) do not have the desired effect. Formatting is somewhat jumbled.
-
 ## Release Notes
 
 Here are the changes since the last release.
@@ -117,6 +111,11 @@ Here are the changes since the last release.
 ### 1.0.0
 
 Initial release of Adobe Markdown Authoring extension for VSCode
+
+### 1.0.6
+
+
+
 
 ---
 

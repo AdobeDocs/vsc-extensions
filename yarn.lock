@@ -730,9 +730,9 @@ flat-cache@^2.0.1:
     write "1.0.3"
 
 flat@^4.1.0:
-  version "4.1.0"
-  resolved "https://registry.yarnpkg.com/flat/-/flat-4.1.0.tgz#090bec8b05e39cba309747f1d588f04dbaf98db2"
-  integrity sha512-Px/TiLIznH7gEDlPXcUD4KnBusa6kR6ayRUVcnEAbreRIuhkqow/mun59BuRXwoYk7ZQOLW1ZM05ilIvK38hFw==
+  version "4.1.1"
+  resolved "https://registry.yarnpkg.com/flat/-/flat-4.1.1.tgz#a392059cc382881ff98642f5da4dde0a959f309b"
+  integrity sha512-FmTtBsHskrU6FJ2VxCnsDb84wu9zhmO3cUX2kGFb5tuwhfXxGciiT0oRY+cck35QmG+NmGh5eLz6lLCpWTqwpA==
   dependencies:
     is-buffer "~2.0.3"
 
@@ -1092,9 +1092,9 @@ log-symbols@4.0.0:
     chalk "^4.0.0"
 
 markdown-it-adobe-plugin@^1.0.5:
-  version "1.0.5"
-  resolved "https://registry.yarnpkg.com/markdown-it-adobe-plugin/-/markdown-it-adobe-plugin-1.0.5.tgz#4ae0b82aa28075f6572aeacce3d517355fea2ce9"
-  integrity sha512-QGxvfqZe5fbP6OWBRGS2icS5xz9q6wgPZttd49X/vcd9v7c6s7k9Jl2baFKLZx3f7KiLzuLlYl4Zv7mGKYMbSg==
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/markdown-it-adobe-plugin/-/markdown-it-adobe-plugin-1.0.7.tgz#c6274df4d091fb2d43bd28654c6e250ea394e0a7"
+  integrity sha512-2ikfjxq6KrRnd/G+Iz9o5VAJ0w0K6gX395Vn11H5qbTJtRuUS6N/qfrZVzxyBioZwbUfY3/sw01WMpPzpAVPPw==
 
 markdown-it-replace-link@^1.1.0:
   version "1.1.0"

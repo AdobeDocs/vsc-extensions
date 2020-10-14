@@ -120,14 +120,10 @@ export function activate(context: ExtensionContext) {
     const folders: WorkspaceFolder[] | undefined = workspace.workspaceFolders;
     const currentFile: string =
       (activeEditor && activeEditor.document.fileName) || '';
-    console.log(`Workspace folders are `, folders);
     let linkpath: string = link.toString();
     let relpath: string = linkpath;
     if (fs.existsSync(linkpath.toString())) {
       relpath = relativePath(currentFile, linkpath);
-      console.log(
-        `file ${linkpath} exists.  So does ${currentFile}.  Relative path is ${relpath}`
-      );
     } else {
       if (folders) {
         folders.forEach((folder: WorkspaceFolder) => {
