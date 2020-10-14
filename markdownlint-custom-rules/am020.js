@@ -1,12 +1,12 @@
-const common = require("./common");
-const detailStrings = require("./strings");
+const common = require('./common');
+const detailStrings = require('./strings');
 
 module.exports = {
-  names: ["ADOBE005", "adobe.uicontrol"],
+  names: ['AM020', 'adobe.uicontrol'],
   description: `Localization control [!UICONTROL]`,
-  tags: ["validation", "adobe", "localization"],
-  function: function rule(params, onError) {
-    const inlineTokens = params.tokens.filter((tok) => tok.type === "inline");
+  tags: ['validation', 'adobe', 'localization'],
+  function: function am020(params, onError) {
+    const inlineTokens = params.tokens.filter((tok) => tok.type === 'inline');
     inlineTokens.forEach((token) => {
       const kids = token.children;
       kids.forEach((kid) => {
@@ -15,7 +15,7 @@ module.exports = {
           // UICONTROL Uppercase
           const uicontrolCaseMatch = content.match(common.uicontrolCase);
           if (uicontrolCaseMatch) {
-            if (uicontrolCaseMatch[0] !== "[!UICONTROL") {
+            if (uicontrolCaseMatch[0] !== '[!UICONTROL') {
               onError({
                 lineNumber: kid.lineNumber,
                 detail: detailStrings.uicontrolCase,

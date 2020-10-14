@@ -556,9 +556,13 @@
     "pretest": "yarn run compile && yarn run lint",
     "test": "node ./out/test/runTest.js"
   },
+  "extensionDependencies": [
+    "davidanson.vscode-markdownlint"
+  ],
   "dependencies": {
     "markdown-it": "^11.0.0",
-    "markdown-it-adobe-plugin": "^1.0.2"
+    "markdown-it-adobe-plugin": "^1.0.5",
+    "markdown-it-replace-link": "^1.1.0"
   },
   "devDependencies": {
     "@types/glob": "^7.1.3",

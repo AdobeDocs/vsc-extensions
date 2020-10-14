@@ -1,5 +1,5 @@
 .vscode-body {
-  color: #000000; 
+  color: #000000;
   padding: 1rem;
   border: 1 solid;
   border-left-width: 3rem;
@@ -21,51 +21,71 @@
 }
 
 .vscode-body .extension.note::before {
-  content: attr(data-label);
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   background-image: url(../img/info.svg);
   background-repeat: no-repeat;
+  content: attr(data-label);
   display: block;
+  font-size: 10px;
   height: 24px !important;
+  letter-spacing: 1px;
   padding-left: 30px;
+  position: inherit;
+  text-transform: uppercase;
 }
 
 .vscode-body.showEditorSelection .extension.note.code-line:hover::before {
-  content: attr(data-label);
-  border-left: 3px solid rgba(0, 0, 0, 0.15);
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   background-image: url(../img/info.svg);
+  background-position-x: 21px !important;
   background-repeat: no-repeat;
+  content: attr(data-label);
   display: block;
+  font-size: 10px;
   height: 24px !important;
-  padding-left: 30px;
-  margin-bottom: 20px;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
 }
 
 .vscode-body .extension.tip {
   background-color: #d9edf7;
-  color: #323232;
   border-color: #a8d4eb;
   border-style: solid;
   border-width: 1px;
+  color: #323232;
+  font-size: 14px;
   margin-bottom: 1em;
   margin-top: 1em;
-  font-size: 14px;
 }
 .vscode-body .extension.tip::before {
-  content: attr(data-label);
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   background-image: url(../img/info.svg);
+  background-position-x: 21px !important;
   background-repeat: no-repeat;
+  content: attr(data-label);
   display: block;
+  font-size: 10px;
   height: 24px !important;
-  padding-left: 30px;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
+.vscode-body.showEditorSelection .extension.tip.code-line:hover::before {
+  background-image: url(../img/info.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
 }
 
 .vscode-body .extension.important {
@@ -74,79 +94,149 @@
 }
 
 .vscode-body .extension.important::before {
-  content: attr(data-label);
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   background-image: url(../img/info.svg);
+  background-position-x: 21px !important;
   background-repeat: no-repeat;
+  content: attr(data-label);
   display: block;
+  font-size: 10px;
   height: 24px !important;
-  padding-left: 30px;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
+.vscode-body.showEditorSelection .extension.important.code-line:hover::before {
+  background-image: url(../img/info.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
 }
 
 .vscode-body .extension.warning {
-  border-color: #fa0f00;
   background-color: rgb(255, 237, 223);
+  border-color: #fa0f00;
   color: #323232;
-  border-color: #ffb47b;
 }
 .vscode-body .extension.warning::before {
-  content: attr(data-label);
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   background-image: url(../img/alert.svg);
+  background-position-x: 21px !important;
   background-repeat: no-repeat;
+  content: attr(data-label);
   display: block;
+  font-size: 10px;
   height: 24px !important;
-  padding-left: 30px;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
+.vscode-body.showEditorSelection .extension.warning.code-line:hover::before {
+  background-image: url(../img/alert.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
 }
 .vscode-body .extension.caution {
-  border-color: #efcc00;
   background-color: rgb(255, 237, 223);
+  border-color: #efcc00;
 }
 .vscode-body .extension.caution::before {
-  content: attr(data-label);
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  background-image: url(../img/info.svg);
+  background-image: url(../img/alert.svg);
+  background-position-x: 21px !important;
   background-repeat: no-repeat;
+  content: attr(data-label);
   display: block;
+  font-size: 10px;
   height: 24px !important;
-  padding-left: 30px;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
+.vscode-body.showEditorSelection .extension.caution.code-line:hover::before {
+  background-image: url(../img/alert.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
 }
 
 .vscode-body .extension.video {
-  border-left-width: 1;
   position: relative;
   width: 100%;
-  height: 0;
-  padding-bottom: 56.25% !important;
 }
 
 .vscode-body .extension.morelikethis {
   background-color: #d9edf7;
-  color: #323232;
   border-color: #a8d4eb;
   border-style: solid;
   border-width: 1px;
+  color: #323232;
+  font-size: 14px;
   margin-bottom: 1em;
   margin-top: 1em;
-  font-size: 14px;
 }
 .vscode-body .extension.morelikethis::before {
-  content: attr(data-label);
-  font-size: 10px;
-  letter-spacing: 1px;
-  text-transform: uppercase;
   background-image: url(../img/info.svg);
+  background-position-x: 21px !important;
   background-repeat: no-repeat;
+  content: attr(data-label);
   display: block;
+  font-size: 10px;
   height: 24px !important;
-  padding-left: 30px;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
 }
+
+.vscode-body.showEditorSelection
+  .extension.morelikethis.code-line:hover::before {
+  background-image: url(../img/info.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
 .vscode-body > div:first-child {
   font-weight: bold;
 }
@@ -157,4 +247,4 @@
 }
 .vscode-body > div:last-child > *:last-child {
   margin-bottom: 0;
-} 
+}

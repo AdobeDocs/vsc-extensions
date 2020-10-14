@@ -1,7 +1,36 @@
-"use strict";
+'use strict';
 
-import { ConfigurationTarget, workspace } from "vscode";
-import { output, generateTimestamp } from "./common";
+import { ConfigurationTarget, workspace } from 'vscode';
+import { output, generateTimestamp } from './common';
+import { defaultConfig } from '../config/markdownlint';
+
+/**
+ * Method to check for the Adobe custom markdownlint value.
+ * Checks for markdownlint.customRules property.  If markdownlint isn't installed, do nothing.
+ * If markdownlint is installed, check for custom property values.
+ */
+export function checkMarkdownlintCustomConfig() {
+  const { msTimeValue } = generateTimestamp();
+  const customProperty = 'markdownlint.config';
+  const customRuleset = defaultConfig;
+  const customPropertyData: any = workspace
+    .getConfiguration()
+    .inspect(customProperty);
+  const { globalValue } = customPropertyData;
+  let mergedConfig = {};
+  if (globalValue) {
+    mergedConfig = { ...defaultConfig, ...globalValue };
+  } else {
+    mergedConfig = { ...defaultConfig };
+  }
+  workspace
+    .getConfiguration()
+    .update(customProperty, mergedConfig, ConfigurationTarget.Global);
+  output.appendLine(
+    `[${msTimeValue}] - Adobe custom markdownlint config added to user settings.`
+  );
+}
+
 /**
  * Method to check for the Adobe custom markdownlint value.
  * Checks for markdownlint.customRules property.  If markdownlint isn't installed, do nothing.
@@ -9,9 +38,9 @@ import { output, generateTimestamp } from "./common";
  */
 export function checkMarkdownlintCustomProperty() {
   const { msTimeValue } = generateTimestamp();
-  const customProperty = "markdownlint.customRules";
+  const customProperty = 'markdownlint.customRules';
   const customRuleset =
-    "{adobe.adobe-markdown-authoring}/markdownlint-custom-rules/rules.js";
+    '{adobe.adobe-markdown-authoring}/markdownlint-custom-rules/rules.js';
   const customPropertyData: any = workspace
     .getConfiguration()
     .inspect(customProperty);
@@ -21,7 +50,7 @@ export function checkMarkdownlintCustomProperty() {
     // if the markdownlint.customRules property exists, pull the global values (user settings) into a string.
     if (customPropertyData.globalValue) {
       const valuesToString = customPropertyData.globalValue.toString();
-      let individualValues = valuesToString.split(",");
+      let individualValues = valuesToString.split(',');
       individualValues.forEach((setting: string) => {
         if (setting === customRuleset) {
           existingUserSettings.push(setting);

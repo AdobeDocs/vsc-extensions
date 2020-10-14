@@ -15,6 +15,15 @@
 				"kind": "build",
 				"isDefault": true
 			}
+		},
+		{
+			"label": "Sass Compile",
+			"type": "shell",
+			"command": "node-sass ./assets/styles/afm_extension.scss ./assets/styles/afm_extension.css",
+			"group": "build",
+			"problemMatcher": [
+				"$node-sass"
+			]
 		}
 	]
 }
