@@ -561,7 +561,8 @@
   ],
   "dependencies": {
     "markdown-it": "^11.0.0",
-    "markdown-it-adobe-plugin": "^1.0.5"
+    "markdown-it-adobe-plugin": "^1.0.5",
+    "markdown-it-replace-link": "^1.1.0"
   },
   "devDependencies": {
     "@types/glob": "^7.1.3",

@@ -1096,6 +1096,11 @@ markdown-it-adobe-plugin@^1.0.5:
   resolved "https://registry.yarnpkg.com/markdown-it-adobe-plugin/-/markdown-it-adobe-plugin-1.0.5.tgz#4ae0b82aa28075f6572aeacce3d517355fea2ce9"
   integrity sha512-QGxvfqZe5fbP6OWBRGS2icS5xz9q6wgPZttd49X/vcd9v7c6s7k9Jl2baFKLZx3f7KiLzuLlYl4Zv7mGKYMbSg==
 
+markdown-it-replace-link@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/markdown-it-replace-link/-/markdown-it-replace-link-1.1.0.tgz#cab2343eb27928db1c836e10cd518aaf60a0bd50"
+  integrity sha512-P+4D/Z16utgQVjMumA5W3lMbxWYk4iwg1Fk59wShFm7MRgzbjJm++tvI18LdYwiG8CKNA1TFWvHcbtehvMuViA==
+
 markdown-it@^11.0.0:
   version "11.0.1"
   resolved "https://registry.yarnpkg.com/markdown-it/-/markdown-it-11.0.1.tgz#b54f15ec2a2193efa66dda1eb4173baea08993d6"
