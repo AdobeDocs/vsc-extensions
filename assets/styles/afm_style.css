@@ -10,14 +10,14 @@
 }
 
 .vscode-body .extension.note {
-  background-color: lightblue;
-  color: #323232;
+  background-color: #d9edf7;
   border-color: #a8d4eb;
   border-style: solid;
   border-width: 1px;
+  color: #323232;
+  font-size: 14px;
   margin-bottom: 1em;
   margin-top: 1em;
-  font-size: 14px;
 }
 
 .vscode-body .extension.note::before {
@@ -157,6 +157,7 @@
   position: inherit;
   text-transform: uppercase;
 }
+
 .vscode-body .extension.caution {
   background-color: rgb(255, 237, 223);
   border-color: #efcc00;
@@ -178,6 +179,125 @@
 
 .vscode-body.showEditorSelection .extension.caution.code-line:hover::before {
   background-image: url(../img/alert.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
+.vscode-body .extension.admin {
+  background-color: #d9edf7;
+  border-color: #a8d4eb;
+  border-style: solid;
+  border-width: 1px;
+  color: #323232;
+  font-size: 14px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.vscode-body .extension.admin::before {
+  background-image: url(../img/info.svg);
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  letter-spacing: 1px;
+  padding-left: 30px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
+.vscode-body.showEditorSelection .extension.admin.code-line:hover::before {
+  background-image: url(../img/info.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
+.vscode-body .extension.availability {
+  background-color: #d9edf7;
+  border-color: #a8d4eb;
+  border-style: solid;
+  border-width: 1px;
+  color: #323232;
+  font-size: 14px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.vscode-body .extension.availability::before {
+  background-image: url(../img/info.svg);
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  letter-spacing: 1px;
+  padding-left: 30px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
+.vscode-body.showEditorSelection
+  .extension.availability.code-line:hover::before {
+  background-image: url(../img/info.svg);
+  background-position-x: 21px !important;
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  left: -24px;
+  letter-spacing: 1px;
+  padding-left: 51px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
+.vscode-body .extension.prerequisites {
+  background-color: #d9edf7;
+  border-color: #a8d4eb;
+  border-style: solid;
+  border-width: 1px;
+  color: #323232;
+  font-size: 14px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+}
+
+.vscode-body .extension.prerequisites::before {
+  background-image: url(../img/info.svg);
+  background-repeat: no-repeat;
+  content: attr(data-label);
+  display: block;
+  font-size: 10px;
+  height: 24px !important;
+  letter-spacing: 1px;
+  padding-left: 30px;
+  position: inherit;
+  text-transform: uppercase;
+}
+
+.vscode-body.showEditorSelection
+  .extension.prerequisites.code-line:hover::before {
+  background-image: url(../img/info.svg);
   background-position-x: 21px !important;
   background-repeat: no-repeat;
   content: attr(data-label);
