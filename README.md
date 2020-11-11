@@ -10,10 +10,15 @@ In addition to the standard markdown preview features provided by VS Code that a
 
 ### Supported Markdown extensions
 
-- Note, Caution, Important, Tip, and Warning
+- Note, Caution, Important, Tip, Warning, Admin, Availability, Prerequisites
 - Embedded video
 - More Like This
 - Various UI tags for localization
+
+## Installation
+
+The easiest way to install
+
 
 ## Examples
 
@@ -122,8 +127,6 @@ Here are the changes since the last release.
 Initial release of Adobe Markdown Authoring extension for VSCode
 
 ### 1.0.6
-
-
 
 
 ---
