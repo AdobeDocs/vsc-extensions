@@ -560,14 +560,15 @@
     "davidanson.vscode-markdownlint"
   ],
   "dependencies": {
-    "markdown-it": "^11.0.0",
-    "markdown-it-adobe-plugin": "^1.0.9",
+    "markdown-it": "^11.0.1",
+    "markdown-it-adobe-plugin": "^1.1.0",
     "markdown-it-replace-link": "^1.1.0"
   },
   "devDependencies": {
     "@types/glob": "^7.1.3",
+    "@types/jest": "^26.0.20",
     "@types/markdown-it": "^10.0.2",
-    "@types/mocha": "^8.0.0",
+    "@types/mocha": "^8.2.1",
     "@types/node": "^14.0.27",
     "@typescript-eslint/eslint-plugin": "^3.8.0",
     "@typescript-eslint/parser": "^3.8.0",
