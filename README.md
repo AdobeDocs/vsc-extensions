@@ -2,11 +2,11 @@
 
 This is a VS Code extension that enhances the built-in Markdown preview feaures with Adobe extensions to the Markdown specification.
 
-Currently this plugin extends the [CommonMark](https://spec.commonmark.org/) specification, which is slightly different from the Git-flavored Markdown described in the [Adobe Internal Authoring Guide](https://docs.adobe.com/content/help/en/collaborative-doc-instructions/collaboration-guide/markdown/syntax-style-guide.html).
+Currently this plugin extends the [CommonMark](https://spec.commonmark.org/) specification, which is slightly different from the Git-flavored Markdown described in the [Adobe Internal Authoring Guide](https://experienceleague.adobe.com/docs/contributor/contributor-guide/writing-essentials/markdown.html).
 
 ## Features
 
-In addition to the standard markdown preview features provided by VS Code that adhere to the CommonMark specification, this extension attempts to provide a high-fidelity representation of Markdown that adheres to the custom Markdown syntax specified in the [Adobe Markdown Syntax Style Guide](https://docs.adobe.com/content/help/en/collaborative-doc-instructions/collaboration-guide/markdown/syntax-style-guide.html).
+In addition to the standard markdown preview features provided by VS Code that adhere to the CommonMark specification, this extension attempts to provide a high-fidelity representation of Markdown that adheres to the custom Markdown syntax specified in the [Adobe Markdown Syntax Style Guide](https://experienceleague.adobe.com/docs/contributor/contributor-guide/writing-essentials/markdown.html).
 
 ### Supported Markdown extensions
 
@@ -133,6 +133,6 @@ Initial release of Adobe Markdown Authoring extension for VSCode
 
 ### For more information
 
-- [Adobe Internal Authoring Guide](https://docs.adobe.com/content/help/en/collaborative-doc-instructions/collaboration-guide/home.html)
+- [Adobe Internal Authoring Guide](https://experienceleague.adobe.com/docs/contributor/contributor-guide/introduction.html)
 - [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
 - [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
