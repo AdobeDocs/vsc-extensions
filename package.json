@@ -4,9 +4,6 @@
   "description": "Integrated preview, linter and keyboard shortcutssfor Adobe Flavored Markdown.",
   "version": "1.0.9",
   "publisher": "adobe",
-  "engines": {
-    "vscode": "^1.48.0"
-  },
   "homepage": "https://bitbucket.org/oproma/adobe-markdown-authoring/src/master/",
   "repository": {
     "type": "git",
