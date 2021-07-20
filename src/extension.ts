@@ -117,7 +117,7 @@ export function activate(context: ExtensionContext) {
 
   // TODO: Refactor into separate file.
   function makeRelativeLink(link: String): String {
-    const folders: WorkspaceFolder[] | undefined = workspace.workspaceFolders;
+    const folders = workspace.workspaceFolders;
     const currentFile: string =
       (activeEditor && activeEditor.document.fileName) || '';
     let linkpath: string = link.toString();
