@@ -1,13 +1,16 @@
 {
   "name": "adobe-markdown-authoring",
   "displayName": "Adobe Markdown Authoring",
-  "description": "Integrated preview, linter and keyboard shortcutssfor Adobe Flavored Markdown.",
+  "description": "Integrated preview, linter and keyboard shortcuts for Adobe Flavored Markdown.",
   "version": "1.0.9",
   "publisher": "adobe",
   "homepage": "https://bitbucket.org/oproma/adobe-markdown-authoring/src/master/",
   "repository": {
     "type": "git",
     "url": "https://bitbucket.org/oproma/adobe-markdown-authoring.git"
+  },
+  "engines": {
+    "vscode": "^1.48.0"
   },
   "icon": "icon.png",
   "license": "Apache-2.0",
