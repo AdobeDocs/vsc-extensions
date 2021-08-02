@@ -40,7 +40,7 @@ export function checkMarkdownlintCustomProperty() {
   const { msTimeValue } = generateTimestamp();
   const customProperty = 'markdownlint.customRules';
   const customRuleset =
-    '{adobe.adobe-markdown-authoring}/markdownlint-custom-rules/rules.js';
+    '{adobeexl.adobe-markdown-authoring}/markdownlint-custom-rules/rules.js';
   const customPropertyData: any = workspace
     .getConfiguration()
     .inspect(customProperty);
