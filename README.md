@@ -2,7 +2,7 @@
 
 This is a VS Code extension that enhances the built-in Markdown preview feaures with Adobe extensions to the Markdown specification.
 
-Currently this plugin extends the [CommonMark](https://spec.commonmark.org/) specification, which is slightly different from the Git-flavored Markdown described in the [Adobe Internal Authoring Guide](https://experienceleague.adobe.com/docs/contributor/contributor-guide/writing-essentials/markdown.html).
+Currently this plugin extends the [CommonMark](https://spec.commonmark.org/) specification, which is slightly different from the Git-flavored Markdown described in the [Adobe Contributor Guide](https://experienceleague.adobe.com/docs/contributor/contributor-guide/writing-essentials/markdown.html).
 
 ## Features
 
@@ -133,6 +133,6 @@ Initial release of Adobe Markdown Authoring extension for VSCode
 
 ### For more information
 
-- [Adobe Internal Authoring Guide](https://experienceleague.adobe.com/docs/contributor/contributor-guide/introduction.html)
+- [Adobe Contributor Guide](https://experienceleague.adobe.com/docs/contributor/contributor-guide/introduction.html)
 - [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
 - [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
