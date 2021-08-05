@@ -449,11 +449,6 @@
 					"group": "2_markdown_2@3"
 				},
 				{
-					"command": "md-shortcut.toggleCitations",
-					"when": "markdownShortcuts:enabled",
-					"group": "2_markdown_2@4"
-				},
-				{
 					"command": "md-shortcut.addTable",
 					"when": "markdownShortcuts:enabled",
 					"group": "2_markdown_3@1"
