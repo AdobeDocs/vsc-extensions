@@ -91,6 +91,11 @@
 .vscode-body .extension.important {
   border-color: #efd500;
   background-color: rgb(247, 232, 216);
+  font-size: 14px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  border-style: solid;
+  border-width: 1px;
 }
 
 .vscode-body .extension.important::before {
@@ -127,6 +132,11 @@
   background-color: rgb(255, 237, 223);
   border-color: #fa0f00;
   color: #323232;
+  font-size: 14px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  border-style: solid;
+  border-width: 1px;
 }
 .vscode-body .extension.warning::before {
   background-image: url(../img/alert.svg);
@@ -161,6 +171,11 @@
 .vscode-body .extension.caution {
   background-color: rgb(255, 237, 223);
   border-color: #efcc00;
+  font-size: 14px;
+  margin-bottom: 1em;
+  margin-top: 1em;
+  border-style: solid;
+  border-width: 1px;
 }
 .vscode-body .extension.caution::before {
   background-image: url(../img/alert.svg);
