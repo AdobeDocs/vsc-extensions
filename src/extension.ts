@@ -105,35 +105,51 @@ export function activate(context: ExtensionContext) {
     const srcelts = src.split('/');
     const tgtelts = tgt.split('/');
     let eltno = 0;
-    while (srcelts[eltno] === tgtelts[eltno]) {
+    // Find the offset in tgt where folder paths are no longer the same. 
+    let srcelt = srcelts.shift();
+    let tgtelt = tgtelts.shift();
+    while (srcelt === tgtelt) {
       eltno++;
+      srcelts.shift();
+      tgtelts.shift();
     }
+    let popups = srcelts.length - eltno;
     const fname = '../'
-      .repeat(srcelts.length - eltno - 1)
+      .repeat(popups)
       .concat(path.parse(tgt).base);
-
     return fname;
   }
 
   // TODO: Refactor into separate file.
   function makeRelativeLink(link: String): String {
     const folders = workspace.workspaceFolders;
-    const currentFile: string =
-      (activeEditor && activeEditor.document.fileName) || '';
+    const currentFile: string|undefined =
+      (activeEditor && activeEditor.document.fileName);
+    if (!currentFile) {
+      output.appendLine(`[${msTimeValue}] - No current editor to compute relative links.`);
+      return link;
+    }
+    output.appendLine(`[${msTimeValue}] - Current editor file path is: ${currentFile}`);
     let linkpath: string = link.toString();
     let relpath: string = linkpath;
     if (fs.existsSync(linkpath.toString())) {
       relpath = relativePath(currentFile, linkpath);
+      output.appendLine(`[${msTimeValue}] - Resolved absolute link path ${linkpath} .`);
     } else {
+      output.appendLine(`[${msTimeValue}] - Attempting to resolve relative path: ${relpath}`);
       if (folders) {
         folders.forEach((folder: WorkspaceFolder) => {
-          linkpath = folder.uri.path + '/' + link;
+          linkpath = folder.uri.path + link;
           if (fs.existsSync(linkpath)) {
             relpath = relativePath(currentFile, linkpath);
+            output.appendLine(`[${msTimeValue}] - Absolute path found, and exists. ${linkpath}`);
+          } else {
+            output.appendLine(`[${msTimeValue}] - Link Path ${linkpath} does not exist.`);
           }
         });
       }
     }
+    output.appendLine(`[${msTimeValue}] - Relative path resolved to: ${relpath}.`);
     return relpath;
   }
   return {
