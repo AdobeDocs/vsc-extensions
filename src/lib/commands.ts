@@ -290,7 +290,7 @@ const toggleBoldExpressions: BoldExpressions = {
 
 const toggleItalicExpressions: ItalicExpressions = {
   "_": new RegExp(`\\*{2}${wordMatch}*\\*{2}|${wordMatch}+`),
-  __: new RegExp(`_{2}${wordMatch}*_{2}|${wordMatch}+`),
+  __: new RegExp(`\\{2}${wordMatch}*\\{2}|${wordMatch}+`),
 };
 
 function toggleBold(): void | Thenable<void> | Thenable<boolean> {
