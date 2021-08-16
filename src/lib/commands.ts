@@ -279,10 +279,20 @@ interface BoldExpressions {
   [idx: string]: RegExp;
 }
 
+interface ItalicExpressions {
+  [idx: string]: RegExp;
+}
+
 const toggleBoldExpressions: BoldExpressions = {
   "**": new RegExp(`\\*{2}${wordMatch}*\\*{2}|${wordMatch}+`),
   __: new RegExp(`_{2}${wordMatch}*_{2}|${wordMatch}+`),
 };
+
+const toggleItalicExpressions: ItalicExpressions = {
+  "_": new RegExp(`\\*{2}${wordMatch}*\\*{2}|${wordMatch}+`),
+  __: new RegExp(`_{2}${wordMatch}*_{2}|${wordMatch}+`),
+};
+
 function toggleBold(): void | Thenable<void> | Thenable<boolean> {
   const marker: string | undefined = vscode.workspace
     .getConfiguration("markdownShortcuts.bold")
@@ -303,7 +313,7 @@ function toggleItalic(): void | Thenable<void> | Thenable<boolean> {
   }
   const pattern: RegExp = new RegExp(`\\${marker}?${wordMatch}*\\${marker}?`);
 
-  return surroundSelection(marker, marker, pattern);
+  return surroundSelection(marker, marker, toggleItalicExpressions[marker]);
 }
 
 const toggleStrikethroughPattern: RegExp = new RegExp(
