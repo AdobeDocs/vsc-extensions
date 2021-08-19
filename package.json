@@ -265,6 +265,36 @@
 				"category": "Markdown Shortcuts"
 			},
 			{
+				"command": "md-shortcut.toggleAdministration",
+				"title": "Toggle Administration",
+				"category": "Markdown Shortcuts"
+			},
+			{
+				"command": "md-shortcut.toggleAvailability",
+				"title": "Toggle Availability",
+				"category": "Markdown Shortcuts"
+			},
+			{
+				"command": "md-shortcut.togglePrerequisites",
+				"title": "Toggle Prerequisites",
+				"category": "Markdown Shortcuts"
+			},
+			{
+				"command": "md-shortcut.toggleError",
+				"title": "Toggle Error",
+				"category": "Markdown Shortcuts"
+			},
+			{
+				"command": "md-shortcut.toggleInfo",
+				"title": "Toggle Info",
+				"category": "Markdown Shortcuts"
+			},
+			{
+				"command": "md-shortcut.toggleSuccess",
+				"title": "Toggle Success",
+				"category": "Markdown Shortcuts"
+			},
+			{
 				"command": "md-shortcut.toggleMoreLikeThis",
 				"title": "Toggle More Like This",
 				"category": "Markdown Shortcuts"
@@ -359,6 +389,36 @@
 			{
 				"command": "md-shortcut.toggleWarning",
 				"key": "ctrl+m ctrl+w",
+				"when": "editorTextFocus && markdownShortcuts:enabled"
+			},
+			{
+				"command": "md-shortcut.toggleAdministration",
+				"key": "ctrl+m ctrl+a",
+				"when": "editorTextFocus && markdownShortcuts:enabled"
+			},
+			{
+				"command": "md-shortcut.toggleAvailability",
+				"key": "ctrl+m ctrl+u",
+				"when": "editorTextFocus && markdownShortcuts:enabled"
+			},
+			{
+				"command": "md-shortcut.togglePrerequisites",
+				"key": "ctrl+m ctrl+q",
+				"when": "editorTextFocus && markdownShortcuts:enabled"
+			},
+			{
+				"command": "md-shortcut.toggleError",
+				"key": "ctrl+m ctrl+e",
+				"when": "editorTextFocus && markdownShortcuts:enabled"
+			},
+			{
+				"command": "md-shortcut.toggleInfo",
+				"key": "ctrl+m ctrl+i",
+				"when": "editorTextFocus && markdownShortcuts:enabled"
+			},
+			{
+				"command": "md-shortcut.toggleSuccess",
+				"key": "ctrl+m ctrl+s",
 				"when": "editorTextFocus && markdownShortcuts:enabled"
 			},
 			{
@@ -475,24 +535,54 @@
 					"group": "2_markdown_4@5"
 				},
 				{
-					"command": "md-shortcut.toggleMoreLikeThis",
+					"command": "md-shortcut.toggleAdministration",
 					"when": "markdownShortcuts:enabled",
 					"group": "2_markdown_4@6"
 				},
 				{
-					"command": "md-shortcut.toggleVideo",
+					"command": "md-shortcut.toggleAvailability",
 					"when": "markdownShortcuts:enabled",
 					"group": "2_markdown_4@7"
 				},
 				{
-					"command": "md-shortcut.toggleDNL",
+					"command": "md-shortcut.togglePrerequisites",
 					"when": "markdownShortcuts:enabled",
 					"group": "2_markdown_4@8"
 				},
 				{
-					"command": "md-shortcut.toggleUIControl",
+					"command": "md-shortcut.toggleError",
 					"when": "markdownShortcuts:enabled",
 					"group": "2_markdown_4@9"
+				},
+				{
+					"command": "md-shortcut.toggleInfo",
+					"when": "markdownShortcuts:enabled",
+					"group": "2_markdown_4@10"
+				},
+				{
+					"command": "md-shortcut.toggleSuccess",
+					"when": "markdownShortcuts:enabled",
+					"group": "2_markdown_4@11"
+				},
+				{
+					"command": "md-shortcut.toggleMoreLikeThis",
+					"when": "markdownShortcuts:enabled",
+					"group": "2_markdown_4@12"
+				},
+				{
+					"command": "md-shortcut.toggleVideo",
+					"when": "markdownShortcuts:enabled",
+					"group": "2_markdown_4@13"
+				},
+				{
+					"command": "md-shortcut.toggleDNL",
+					"when": "markdownShortcuts:enabled",
+					"group": "2_markdown_4@14"
+				},
+				{
+					"command": "md-shortcut.toggleUIControl",
+					"when": "markdownShortcuts:enabled",
+					"group": "2_markdown_4@15"
 				}
 			],
 			"editor/title": [
