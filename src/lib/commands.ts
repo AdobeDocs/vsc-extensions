@@ -170,13 +170,6 @@ const _commands: Command[] = [
     true
   ),
   new Command("addTable", addTable, "Add table", "Tabular | values", true),
-  new Command(
-    "addTableWithHeader",
-    addTable,
-    "Add table (with header)",
-    "Tabular | values",
-    true
-  ),
   // Adobe Specific Commands
   new Command(
     "toggleNote",

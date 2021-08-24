@@ -210,15 +210,6 @@
 				"category": "Markdown Shortcuts"
 			},
 			{
-				"command": "md-shortcut.addTableWithHeader",
-				"title": "Add table with header",
-				"icon": {
-					"dark": "./assets/icons/grid_white.svg",
-					"light": "./assets/icons/grid_black.svg"
-				},
-				"category": "Markdown Shortcuts"
-			},
-			{
 				"command": "md-shortcut.toggleTitleH1",
 				"title": "Toggle Header Level 1",
 				"category": "Markdown Shortcuts"
@@ -457,11 +448,6 @@
 					"command": "md-shortcut.addTable",
 					"when": "markdownShortcuts:enabled",
 					"group": "2_markdown_3@1"
-				},
-				{
-					"command": "md-shortcut.addTableWithHeader",
-					"when": "markdownShortcuts:enabled",
-					"group": "2_markdown_3@2"
 				},
 				{
 					"command": "md-shortcut.toggleNote",
