@@ -224,7 +224,7 @@ const _commands: Command[] = [
     "toggleVideo",
     toggleVideo,
     "Toggle video",
-    ">[!VIDEO]\r\n>())",
+    ">[!VIDEO](video_url))",
     true
   ),
 
@@ -647,18 +647,68 @@ function toggleMoreLikeThis() {
   );
 }
 
-const startingVideo = ">[!VIDEO]()";
-const endingVideo = newLine;
-const videoBlockWordPattern = new RegExp(
-  `${startingVideo}.+${endingVideo}|.+`,
-  "gm"
-);
-function toggleVideo() {
-  return surroundBlockSelection(
-    startingVideo,
-    endingVideo,
-    videoBlockWordPattern
-  );
+function addTagsToVideo(options: LinkUrl | void): void | Thenable<void> {
+  if (!options || !options.url) {
+    return;
+  }
+  surroundSelection(">[" + "!VIDEO", "](" + options.url + ")");
+}
+
+function getLinkUrlToVideo(
+  linkText: string | undefined
+): Promise<any> | LinkUrl | Thenable<LinkUrl> | void {
+  if (linkText === null || linkText === undefined) {
+    return;
+  }
+
+  return vscode.window
+    .showInputBox({
+      prompt: "Video URL",
+    })
+    .then((url) => {
+      return { text: linkText, url: url };
+    });
+}
+
+function toggleVideo():
+  | Thenable<LinkUrl>
+  | void
+  | Thenable<void>
+  | Thenable<boolean> {
+  const editor: TextEditor | undefined = vscode.window.activeTextEditor;
+  if (!editor) {
+    return;
+  }
+  let selection: Selection = editor.selection;
+
+  if (!isAnythingSelected()) {
+    const withSurroundingWord = getSurroundingWord(
+      editor,
+      selection,
+      markdownLinkWordPattern
+    );
+
+    if (withSurroundingWord) {
+      selection = editor.selection = withSurroundingWord;
+    }
+  }
+
+  if (isAnythingSelected()) {
+    if (isMatch(markdownLinkRegex)) {
+      //Selection is a MD link, replace it with the link text
+      return replaceSelection((text) => {
+        const mdLink: RegExpMatchArray | null = text.match(/\[(.+)\]/);
+        return mdLink ? mdLink[1] : text;
+      });
+    }
+
+    if (isMatch(urlRegex)) {
+      //Selection is a URL, surround it with angle brackets
+      return surroundSelection("<", ">");
+    }
+  }
+
+  return getLinkUrlToVideo(selection.toString()).then(addTagsToVideo);
 }
 
 const toggleDNLPattern: RegExp = new RegExp(
