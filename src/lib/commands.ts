@@ -482,6 +482,39 @@ function getLinkUrl(
     });
 }
 
+function getHyperLinkText(selection: Selection): Thenable<string | undefined> {
+  if (selection.isEmpty) {
+    return vscode.window.showInputBox({
+      prompt: "Hyper link text",
+    });
+  }
+
+  return Promise.resolve("");
+}
+
+function getHyperLinkUrl(
+  linkText: string | undefined
+): LinkUrl | Thenable<LinkUrl> | void {
+  if (linkText === null || linkText === undefined) {
+    return;
+  }
+
+  return vscode.window
+    .showInputBox({
+      prompt: "Link URL",
+    })
+    .then((url) => {
+      return { text: linkText, url: url };
+    });
+}
+
+function addHyperLinkTags(options: LinkUrl | void): void | Thenable<void> {
+  if (!options || !options.url) {
+    return;
+  }
+  surroundSelection("[" + options.text, "](" + options.url + ")");
+}
+
 function addTags(options: LinkUrl | void): void | Thenable<void> {
   if (!options || !options.url) {
     return;
@@ -532,7 +565,7 @@ function toggleLink():
     }
   }
 
-  return getLinkText(selection).then(getLinkUrl).then(addTags);
+  return getHyperLinkText(selection).then(getHyperLinkUrl).then(addHyperLinkTags);
 }
 
 const markdownImageRegex: RegExp = /!\[.*\]\((.+)\)/;
