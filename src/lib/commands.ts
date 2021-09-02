@@ -214,6 +214,48 @@ const _commands: Command[] = [
     true
   ),
   new Command(
+    "toggleAdministration",
+    toggleAdministration,
+    "Toggle administration",
+    ">[!ADMINISTRATION]\r\n>This is a ADMINISTRATION block.",
+    true
+  ),
+  new Command(
+    "toggleAvailability",
+    toggleAvailability,
+    "Toggle availability",
+    ">[!AVAILABILITY]\r\n>This is a AVAILABILITY block.",
+    true
+  ),
+  new Command(
+    "togglePrerequisites",
+    togglePrerequisites,
+    "Toggle Prerequisites",
+    ">[!PREREQUISITES]\r\n>This is a PREREQUISITES block.",
+    true
+  ),
+  new Command(
+    "toggleError",
+    toggleError,
+    "Toggle Error",
+    ">[!ERROR]\r\n>This is a ERROR block.",
+    true
+  ),
+  new Command(
+    "toggleInfo",
+    toggleInfo,
+    "Toggle Info",
+    ">[!INFO]\r\n>This is a INFO block.",
+    true
+  ),
+  new Command(
+    "toggleSuccess",
+    toggleSuccess,
+    "Toggle Success",
+    ">[!SUCCESS]\r\n>This is a SUCCESS block.",
+    true
+  ),
+  new Command(
     "toggleMoreLikeThis",
     toggleMoreLikeThis,
     "Toggle More Like This",
@@ -630,6 +672,66 @@ function toggleImportant() {
     endingImportant,
     importantBlockWordPattern
   );
+}
+
+const startingAvailability: string = `>[!AVAILABILITY]${newLine}>${newLine}>`;
+const endingAvailability: string = newLine;
+const availabilityBlockWordPattern: RegExp = new RegExp(
+  startingAvailability + ".+" + endingAvailability + "|.+",
+  "gm"
+);
+function toggleAvailability() {
+  return surroundBlockSelection(startingAvailability, endingAvailability, availabilityBlockWordPattern);
+}
+
+const startingAdministration: string = `>[!ADMINISTRATION]${newLine}>${newLine}>`;
+const endingAdministration: string = newLine;
+const administrationBlockWordPattern: RegExp = new RegExp(
+  startingAdministration + ".+" + endingAdministration + "|.+",
+  "gm"
+);
+function toggleAdministration() {
+  return surroundBlockSelection(startingAdministration, endingAdministration, administrationBlockWordPattern);
+}
+
+const startingPrerequisites: string = `>[!PREREQUISITES]${newLine}>${newLine}>`;
+const endingPrerequisites: string = newLine;
+const prerequisitesBlockWordPattern: RegExp = new RegExp(
+  startingPrerequisites + ".+" + endingPrerequisites + "|.+",
+  "gm"
+);
+function togglePrerequisites() {
+  return surroundBlockSelection(startingPrerequisites, endingPrerequisites, prerequisitesBlockWordPattern);
+}
+
+const startingError: string = `>[!ERROR]${newLine}>${newLine}>`;
+const endingError: string = newLine;
+const errorBlockWordPattern: RegExp = new RegExp(
+  startingError + ".+" + endingError + "|.+",
+  "gm"
+);
+function toggleError() {
+  return surroundBlockSelection(startingError, endingError, errorBlockWordPattern);
+}
+
+const startingInfo: string = `>[!INFO]${newLine}>${newLine}>`;
+const endingInfo: string = newLine;
+const infoBlockWordPattern: RegExp = new RegExp(
+  startingInfo + ".+" + endingInfo + "|.+",
+  "gm"
+);
+function toggleInfo() {
+  return surroundBlockSelection(startingInfo, endingInfo, infoBlockWordPattern);
+}
+
+const startingSuccess: string = `>[!SUCCESS]${newLine}>${newLine}>`;
+const endingSuccess: string = newLine;
+const successBlockWordPattern: RegExp = new RegExp(
+  startingSuccess + ".+" + endingSuccess + "|.+",
+  "gm"
+);
+function toggleSuccess() {
+  return surroundBlockSelection(startingSuccess, endingSuccess, successBlockWordPattern);
 }
 
 const startingMoreLikeThis =
