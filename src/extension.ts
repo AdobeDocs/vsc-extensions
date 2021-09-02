@@ -102,28 +102,25 @@ export function activate(context: ExtensionContext) {
    * @return {*}  {string}
    */
   function relativePath(src: string, tgt: string): string {
-    const srcelts = src.split('/');
-    const tgtelts = tgt.split('/');
+    const srcelts: string[] = src.split('/');
+    const tgtelts: string[] = tgt.split('/');
     let eltno = 0;
     // Find the offset in tgt where folder paths are no longer the same. 
-    let srcelt = srcelts.shift();
-    let tgtelt = tgtelts.shift();
-    while (srcelt === tgtelt) {
-      eltno++;
-      srcelts.shift();
-      tgtelts.shift();
+    let srcelt: string | undefined = srcelts.shift();
+    let tgtelt: string | undefined = tgtelts.shift();
+    while (srcelt !== undefined && tgtelt !== undefined && srcelt === tgtelt) {
+      srcelt = srcelts.shift();
+      tgtelt = tgtelts.shift();
     }
-    let popups = srcelts.length - eltno;
-    const fname = '../'
-      .repeat(popups)
-      .concat(path.parse(tgt).base);
+    let popups = tgtelts.length - srcelts.length;
+    const fname = './'.concat('../'.repeat(popups)).concat(tgtelt || '').concat('/').concat(tgtelts.join('/'));
     return fname;
   }
 
   // TODO: Refactor into separate file.
   function makeRelativeLink(link: String): String {
     const folders = workspace.workspaceFolders;
-    const currentFile: string|undefined =
+    const currentFile: string | undefined =
       (activeEditor && activeEditor.document.fileName);
     if (!currentFile) {
       output.appendLine(`[${msTimeValue}] - No current editor to compute relative links.`);
