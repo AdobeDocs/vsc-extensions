@@ -390,28 +390,16 @@ suite('Note Alerts', () => {
   test('Toggles with ranged selection', () => {
     return testCommand(
       'toggleNote',
-      '[>[!NOTE]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a plain note' +
-        newLine +
-        '}',
-      '[This is just a plain note}'
+      '[This is just a plain note}',
+      '[>[!NOTE]' + newLine + '>' + newLine + '>This is just a plain note' + newLine + '}',
     );
   });
 
   test('Toggles with multi-line ranged selection', () => {
     return testCommand(
       'toggleNote',
-      '[>[!NOTE]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a' +
-        newLine +
-        'plain note}',
-      '[This is just a\nplain note}'
+      '[This is just a\nplain note}',
+      '[>[!NOTE]' + newLine + '>' + newLine + '>This is just a' + newLine + 'plain note' + newLine + '}',
     );
   });
 });
@@ -461,12 +449,12 @@ suite('Tip Alerts', () => {
     return testCommand(
       'toggleTip',
       '[>[!TIP]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a plain tip' +
-        newLine +
-        '}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a plain tip' +
+      newLine +
+      '}',
       '[This is just a plain tip}'
     );
   });
@@ -475,12 +463,12 @@ suite('Tip Alerts', () => {
     return testCommand(
       'toggleTip',
       '[>[!TIP]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a' +
-        newLine +
-        'plain tip}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a' +
+      newLine +
+      'plain tip}',
       '[This is just a\nplain tip}'
     );
   });
@@ -531,12 +519,12 @@ suite('Important Alerts', () => {
     return testCommand(
       'toggleImportant',
       '[>[!IMPORTANT]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a plain important' +
-        newLine +
-        '}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a plain important' +
+      newLine +
+      '}',
       '[This is just a plain important}'
     );
   });
@@ -545,12 +533,12 @@ suite('Important Alerts', () => {
     return testCommand(
       'toggleImportant',
       '[>[!IMPORTANT]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a' +
-        newLine +
-        'plain important}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a' +
+      newLine +
+      'plain important}',
       '[This is just a\nplain important}'
     );
   });
@@ -601,12 +589,12 @@ suite('Video Alerts', () => {
     return testCommand(
       'toggleVideo',
       '[>[!VIDEO]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a plain video' +
-        newLine +
-        '}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a plain video' +
+      newLine +
+      '}',
       '[This is just a plain video}'
     );
   });
@@ -615,12 +603,12 @@ suite('Video Alerts', () => {
     return testCommand(
       'toggleVideo',
       '[>[!VIDEO]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a' +
-        newLine +
-        'plain tip}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a' +
+      newLine +
+      'plain tip}',
       '[This is just a\nplain video}'
     );
   });
@@ -671,12 +659,12 @@ suite('Caution Alerts', () => {
     return testCommand(
       'toggleCaution',
       '[>[!CAUTION]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a plain caution' +
-        newLine +
-        '}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a plain caution' +
+      newLine +
+      '}',
       '[This is just a plain caution}'
     );
   });
@@ -685,12 +673,12 @@ suite('Caution Alerts', () => {
     return testCommand(
       'toggleCaution',
       '[>[!CAUTION]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a' +
-        newLine +
-        'plain caution}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a' +
+      newLine +
+      'plain caution}',
       '[This is just a\nplain caution}'
     );
   });
@@ -741,12 +729,12 @@ suite('Warning Alerts', () => {
     return testCommand(
       'toggleWarning',
       '[>[!WARNING]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a plain warning' +
-        newLine +
-        '}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a plain warning' +
+      newLine +
+      '}',
       '[This is just a plain warning}'
     );
   });
@@ -755,12 +743,12 @@ suite('Warning Alerts', () => {
     return testCommand(
       'toggleWarning',
       '[>[!WARNING]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a' +
-        newLine +
-        'plain warning}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a' +
+      newLine +
+      'plain warning}',
       '[This is just a\nplain warning}'
     );
   });
@@ -811,12 +799,12 @@ suite('Video Alerts', () => {
     return testCommand(
       'toggleVideo',
       '[>[!VIDEO]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a plain video' +
-        newLine +
-        '}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a plain video' +
+      newLine +
+      '}',
       '[This is just a plain video}'
     );
   });
@@ -825,12 +813,12 @@ suite('Video Alerts', () => {
     return testCommand(
       'toggleVideo',
       '[>[!VIDEO]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a' +
-        newLine +
-        'plain tip}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a' +
+      newLine +
+      'plain tip}',
       '[This is just a\nplain video}'
     );
   });
@@ -881,12 +869,12 @@ suite('Caution Alerts', () => {
     return testCommand(
       'toggleCaution',
       '[>[!CAUTION]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a plain caution' +
-        newLine +
-        '}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a plain caution' +
+      newLine +
+      '}',
       '[This is just a plain caution}'
     );
   });
@@ -895,12 +883,12 @@ suite('Caution Alerts', () => {
     return testCommand(
       'toggleCaution',
       '[>[!CAUTION]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a' +
-        newLine +
-        'plain caution}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a' +
+      newLine +
+      'plain caution}',
       '[This is just a\nplain caution}'
     );
   });
@@ -951,12 +939,12 @@ suite('Morelikethis Alerts', () => {
     return testCommand(
       'toggleMorelikethis',
       '[>[!MORELIKETHIS]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a plain morelikethis' +
-        newLine +
-        '}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a plain morelikethis' +
+      newLine +
+      '}',
       '[This is just a plain morelikethis}'
     );
   });
@@ -965,12 +953,12 @@ suite('Morelikethis Alerts', () => {
     return testCommand(
       'toggleMorelikethis',
       '[>[!MORELIKETHIS]' +
-        newLine +
-        '>' +
-        newLine +
-        '>This is just a' +
-        newLine +
-        'plain morelikethis}',
+      newLine +
+      '>' +
+      newLine +
+      '>This is just a' +
+      newLine +
+      'plain morelikethis}',
       '[This is just a\nplain morelikethis}'
     );
   });
