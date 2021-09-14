@@ -758,7 +758,7 @@ function addTagsToVideo(options: LinkUrl | void): void | Thenable<void> {
 
 function getLinkUrlToVideo(
   linkText: string | undefined
-): Promise<any> | LinkUrl | Thenable<LinkUrl> | void {
+): Promise<any> | LinkUrl | Thenable<LinkUrl>   {
   if (linkText === null || linkText === undefined) {
     return;
   }
@@ -806,7 +806,7 @@ function toggleVideo():
 
     if (isMatch(urlRegex)) {
       //Selection is a URL, surround it with angle brackets
-      return surroundSelection("<", ">");
+      return surroundSelection(">[!VIDEO](", ")");
     }
   }
 

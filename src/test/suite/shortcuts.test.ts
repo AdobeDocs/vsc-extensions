@@ -524,7 +524,7 @@ suite('Video Alerts', () => {
   test('Ranged selection', () => {
     return testCommand(
       'toggleVideo',
-      '[This is just a plain video}',
+      '[https://www.youtube.com/watch?v=F_7ZoAQ3aJM}',
       '[>[!VIDEO]\n>\n>This is just a plain video\n}'
     );
   });
@@ -706,75 +706,6 @@ suite('Warning Alerts', () => {
   });
 });
 
-suite('Video Alerts', () => {
-  test('Ranged selection', () => {
-    return testCommand(
-      'toggleVideo',
-      '[This is just a plain video}',
-      '[>[!VIDEO]\n>\n>This is just a plain video\n}'
-    );
-  });
-
-  test('Multiline ranged selection', () => {
-    return testCommand(
-      'toggleVideo',
-      '[This is just a' + newLine + 'plain video}',
-      '[>[!VIDEO]\n>\n>This is just a\nplain video\n}'
-    );
-  });
-
-  test('Multiline ranged selection with extra newline', () => {
-    return testCommand(
-      'toggleVideo',
-      '[This is just a' + newLine + 'plain video}' + newLine,
-      '[>[!VIDEO]\n>\n>This is just a\nplain video\n}'
-    );
-  });
-
-  test('Multiline ranged selection while selecting extra newline', () => {
-    return testCommand(
-      'toggleVideo',
-      '[This is just a' + newLine + 'plain video' + newLine + '}',
-      '[>[!VIDEO]\n>\n>This is just a\nplain video\n\n}'
-    );
-  });
-
-  test('Collapsed selection', () => {
-    return testCommand(
-      'toggleVideo',
-      'Just a plain video^',
-      '[>[!VIDEO]\n>\n>Just a plain video\n}'
-    );
-  });
-
-  test('Toggles with ranged selection', () => {
-    return testCommand(
-      'toggleVideo',
-      '[>[!VIDEO]' +
-      newLine +
-      '>' +
-      newLine +
-      '>This is just a plain video' +
-      newLine +
-      '}',
-      '[This is just a plain video}'
-    );
-  });
-
-  test('Toggles with multi-line ranged selection', () => {
-    return testCommand(
-      'toggleVideo',
-      '[>[!VIDEO]' +
-      newLine +
-      '>' +
-      newLine +
-      '>This is just a' +
-      newLine +
-      'plain tip}',
-      '[This is just a\nplain video}'
-    );
-  });
-});
 
 suite('Morelikethis Alerts', () => {
   test('Ranged selection', () => {
@@ -912,6 +843,6 @@ const testCommand = (
             expectedContent
           )
         )
-        .then(() => editor);
+        .then(() => vscode.commands.executeCommand('workbench.action.closeActiveEditor'));
     });
 };
