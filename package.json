@@ -2,7 +2,7 @@
 	"name": "adobe-markdown-authoring",
 	"displayName": "Adobe Markdown Authoring",
 	"description": "Integrated preview, linter validation, and keyboard shortcuts for Adobe Flavored Markdown.",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"publisher": "AdobeExL",
 	"engines": {
 		"vscode": "^1.48.0"
@@ -210,15 +210,6 @@
 				"category": "Markdown Shortcuts"
 			},
 			{
-				"command": "md-shortcut.addTableWithHeader",
-				"title": "Add table with header",
-				"icon": {
-					"dark": "./assets/icons/grid_white.svg",
-					"light": "./assets/icons/grid_black.svg"
-				},
-				"category": "Markdown Shortcuts"
-			},
-			{
 				"command": "md-shortcut.toggleTitleH1",
 				"title": "Toggle Header Level 1",
 				"category": "Markdown Shortcuts"
@@ -271,6 +262,36 @@
 			{
 				"command": "md-shortcut.toggleImportant",
 				"title": "Toggle Important",
+				"category": "Markdown Shortcuts"
+			},
+			{
+				"command": "md-shortcut.toggleAdministration",
+				"title": "Toggle Administration",
+				"category": "Markdown Shortcuts"
+			},
+			{
+				"command": "md-shortcut.toggleAvailability",
+				"title": "Toggle Availability",
+				"category": "Markdown Shortcuts"
+			},
+			{
+				"command": "md-shortcut.togglePrerequisites",
+				"title": "Toggle Prerequisites",
+				"category": "Markdown Shortcuts"
+			},
+			{
+				"command": "md-shortcut.toggleError",
+				"title": "Toggle Error",
+				"category": "Markdown Shortcuts"
+			},
+			{
+				"command": "md-shortcut.toggleInfo",
+				"title": "Toggle Info",
+				"category": "Markdown Shortcuts"
+			},
+			{
+				"command": "md-shortcut.toggleSuccess",
+				"title": "Toggle Success",
 				"category": "Markdown Shortcuts"
 			},
 			{
@@ -371,6 +392,36 @@
 				"when": "editorTextFocus && markdownShortcuts:enabled"
 			},
 			{
+				"command": "md-shortcut.toggleAdministration",
+				"key": "ctrl+m ctrl+a",
+				"when": "editorTextFocus && markdownShortcuts:enabled"
+			},
+			{
+				"command": "md-shortcut.toggleAvailability",
+				"key": "ctrl+m ctrl+u",
+				"when": "editorTextFocus && markdownShortcuts:enabled"
+			},
+			{
+				"command": "md-shortcut.togglePrerequisites",
+				"key": "ctrl+m ctrl+q",
+				"when": "editorTextFocus && markdownShortcuts:enabled"
+			},
+			{
+				"command": "md-shortcut.toggleError",
+				"key": "ctrl+m ctrl+e",
+				"when": "editorTextFocus && markdownShortcuts:enabled"
+			},
+			{
+				"command": "md-shortcut.toggleInfo",
+				"key": "ctrl+m ctrl+i",
+				"when": "editorTextFocus && markdownShortcuts:enabled"
+			},
+			{
+				"command": "md-shortcut.toggleSuccess",
+				"key": "ctrl+m ctrl+s",
+				"when": "editorTextFocus && markdownShortcuts:enabled"
+			},
+			{
 				"command": "md-shortcut.toggleMoreLikeThis",
 				"key": "ctrl+m ctrl+m",
 				"when": "editorTextFocus && markdownShortcuts:enabled"
@@ -459,11 +510,6 @@
 					"group": "2_markdown_3@1"
 				},
 				{
-					"command": "md-shortcut.addTableWithHeader",
-					"when": "markdownShortcuts:enabled",
-					"group": "2_markdown_3@2"
-				},
-				{
 					"command": "md-shortcut.toggleNote",
 					"when": "markdownShortcuts:enabled",
 					"group": "2_markdown_4@1"
@@ -489,24 +535,54 @@
 					"group": "2_markdown_4@5"
 				},
 				{
-					"command": "md-shortcut.toggleMoreLikeThis",
+					"command": "md-shortcut.toggleAdministration",
 					"when": "markdownShortcuts:enabled",
 					"group": "2_markdown_4@6"
 				},
 				{
-					"command": "md-shortcut.toggleVideo",
+					"command": "md-shortcut.toggleAvailability",
 					"when": "markdownShortcuts:enabled",
 					"group": "2_markdown_4@7"
 				},
 				{
-					"command": "md-shortcut.toggleDNL",
+					"command": "md-shortcut.togglePrerequisites",
 					"when": "markdownShortcuts:enabled",
 					"group": "2_markdown_4@8"
 				},
 				{
-					"command": "md-shortcut.toggleUIControl",
+					"command": "md-shortcut.toggleError",
 					"when": "markdownShortcuts:enabled",
 					"group": "2_markdown_4@9"
+				},
+				{
+					"command": "md-shortcut.toggleInfo",
+					"when": "markdownShortcuts:enabled",
+					"group": "2_markdown_4@10"
+				},
+				{
+					"command": "md-shortcut.toggleSuccess",
+					"when": "markdownShortcuts:enabled",
+					"group": "2_markdown_4@11"
+				},
+				{
+					"command": "md-shortcut.toggleMoreLikeThis",
+					"when": "markdownShortcuts:enabled",
+					"group": "2_markdown_4@12"
+				},
+				{
+					"command": "md-shortcut.toggleVideo",
+					"when": "markdownShortcuts:enabled",
+					"group": "2_markdown_4@13"
+				},
+				{
+					"command": "md-shortcut.toggleDNL",
+					"when": "markdownShortcuts:enabled",
+					"group": "2_markdown_4@14"
+				},
+				{
+					"command": "md-shortcut.toggleUIControl",
+					"when": "markdownShortcuts:enabled",
+					"group": "2_markdown_4@15"
 				}
 			],
 			"editor/title": [
@@ -566,18 +642,17 @@
 	},
 	"devDependencies": {
 		"@types/glob": "^7.1.3",
-		"@types/jest": "^26.0.20",
 		"@types/markdown-it": "^10.0.2",
 		"@types/mocha": "^8.2.1",
 		"@types/node": "^14.0.27",
+		"@types/vscode": "^1.59.0",
 		"@typescript-eslint/eslint-plugin": "^3.8.0",
 		"@typescript-eslint/parser": "^3.8.0",
 		"eslint": "^7.6.0",
 		"glob": "^7.1.6",
 		"mocha": "^8.0.1",
 		"typescript": "^3.8.3",
-		"vscode-test": "^1.4.0",
-		"vscode-test-content": "^1.2.0"
+		"vscode-test": "^1.6.1"
 	},
 	"__metadata": {
 		"id": "943149e4-cea6-49a0-9564-8341c4892537",
