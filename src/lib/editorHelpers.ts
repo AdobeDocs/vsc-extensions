@@ -3,10 +3,10 @@ import { Selection, TextEditor, Range, Position, TextEditorEdit } from "vscode";
 
 export function replaceSelection(
   replaceFunc: (text: string) => string
-): Thenable<boolean> | void {
+): Thenable<boolean> {
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (!editor) {
-    return;
+    return Promise.resolve(false);
   }
   const selection: Selection = editor.selection;
 
@@ -16,14 +16,14 @@ export function replaceSelection(
 
 export function replaceBlockSelection(
   replaceFunc: (text: string) => string
-): Thenable<boolean> | void {
+): Thenable<boolean> {
   const editor = vscode.window.activeTextEditor;
   if (!editor) {
-    return;
+    return Promise.resolve(false);
   }
-  const selection: void | Selection = getBlockSelection();
+  const selection = getBlockSelection();
   if (!selection) {
-    return;
+    return Promise.reject('No Selection to replace.');
   }
 
   const newText = replaceFunc(editor.document.getText(selection));
@@ -39,18 +39,18 @@ export function surroundSelection(
   startPattern: string,
   endPattern: string,
   wordPattern?: RegExp
-): Thenable<boolean> | void {
+): Thenable<boolean> {
   if (endPattern === undefined || endPattern === null) {
     endPattern = startPattern;
   }
 
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (editor === undefined) {
-    return;
+    return Promise.reject('No Text Editor Defined');
   }
   let selection: Selection | void = editor.selection;
   if (selection === undefined) {
-    return;
+    return Promise.reject('No selection is defined to surround.');
   }
 
   if (!isAnythingSelected()) {
@@ -177,7 +177,7 @@ export function getBlockSelection(): Selection | void {
   return new Selection(
     selection.start.with(undefined, 0),
     selection.end.with(selection.end.line + 1, 0))
-  ;
+    ;
 }
 
 export function isBlockMatch(

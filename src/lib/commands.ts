@@ -742,18 +742,16 @@ function toggleMoreLikeThis() {
   );
 }
 
-function addTagsToVideo(options: LinkUrl | void): void | Thenable<void> {
-  if (!options || !options.url) {
-    return;
-  }
-  surroundSelection(">[" + "!VIDEO", "](" + options.url + ")");
+function addTagsToVideo(options: LinkUrl): Thenable<boolean> | void {
+  return surroundSelection(">[" + "!VIDEO", "](" + options.url + ")");
 }
 
 function getLinkUrlToVideo(
   linkText: string | undefined
-): Promise<any> | LinkUrl | Thenable<LinkUrl>   {
+): Thenable<LinkUrl> {
+
   if (linkText === null || linkText === undefined) {
-    return;
+    return Promise.resolve({ text: '', url: '' });
   }
 
   return vscode.window
@@ -766,13 +764,10 @@ function getLinkUrlToVideo(
 }
 
 function toggleVideo():
-  | Thenable<LinkUrl>
-  | void
-  | Thenable<void>
-  | Thenable<boolean> {
+  Thenable<LinkUrl | boolean> {
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (!editor) {
-    return;
+    return Promise.reject('No text editor available');
   }
   let selection: Selection = editor.selection;
 
@@ -803,7 +798,10 @@ function toggleVideo():
     }
   }
 
-  return getLinkUrlToVideo(selection.toString()).then(addTagsToVideo);
+  const linkToVideo = getLinkUrlToVideo(selection.toString());
+
+  return linkToVideo.then();
+
 }
 
 const toggleDNLPattern: RegExp = new RegExp(
