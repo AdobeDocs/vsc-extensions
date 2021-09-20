@@ -742,29 +742,29 @@ function toggleMoreLikeThis() {
   );
 }
 
-function addTagsToVideo(options: LinkUrl): Thenable<boolean> | void {
-  return surroundSelection(">[" + "!VIDEO", "](" + options.url + ")");
+function addTagsToVideo(url: string): Thenable<boolean> {
+  return surroundSelection(`>[!VIDEO](${url})`, '');
 }
 
 function getLinkUrlToVideo(
-  linkText: string | undefined
-): Thenable<LinkUrl> {
-
-  if (linkText === null || linkText === undefined) {
-    return Promise.resolve({ text: '', url: '' });
-  }
-
+): Thenable<string | undefined> {
   return vscode.window
     .showInputBox({
       prompt: "Video URL",
     })
     .then((url) => {
-      return { text: linkText, url: url };
+      return url;
     });
 }
 
+const markdownVideoRegex: RegExp = /^\[.+\]\(.+\)$/;
+const videoUrlRegex: RegExp = /^(http[s]?:\/\/.+|<http[s]?:\/\/.+>)$/;
+const markdownVideoWordPattern: RegExp = new RegExp(
+  ">\[\!VIDEO\]\]\(.+\)|" + wordMatch + "+"
+);
+
 function toggleVideo():
-  Thenable<LinkUrl | boolean> {
+  Thenable<boolean> {
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (!editor) {
     return Promise.reject('No text editor available');
@@ -775,7 +775,7 @@ function toggleVideo():
     const withSurroundingWord = getSurroundingWord(
       editor,
       selection,
-      markdownLinkWordPattern
+      markdownVideoWordPattern
     );
 
     if (withSurroundingWord) {
@@ -784,7 +784,7 @@ function toggleVideo():
   }
 
   if (isAnythingSelected()) {
-    if (isMatch(markdownLinkRegex)) {
+    if (isMatch(markdownVideoRegex)) {
       //Selection is a MD link, replace it with the link text
       return replaceSelection((text) => {
         const mdLink: RegExpMatchArray | null = text.match(/\[(.+)\]/);
@@ -792,15 +792,20 @@ function toggleVideo():
       });
     }
 
-    if (isMatch(urlRegex)) {
+    if (isMatch(videoUrlRegex)) {
       //Selection is a URL, surround it with angle brackets
       return surroundSelection(">[!VIDEO](", ")");
     }
   }
 
-  const linkToVideo = getLinkUrlToVideo(selection.toString());
+  const linkToVideo = getLinkUrlToVideo();
 
-  return linkToVideo.then();
+  return linkToVideo.then(
+    (linkObj) => {
+      if (linkObj) {
+        return addTagsToVideo(linkObj);
+      } else { return Promise.reject('No URL provided.'); };
+    });
 
 }
 

@@ -40,17 +40,13 @@ export function surroundSelection(
   endPattern: string,
   wordPattern?: RegExp
 ): Thenable<boolean> {
-  if (endPattern === undefined || endPattern === null) {
-    endPattern = startPattern;
-  }
-
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (editor === undefined) {
     return Promise.reject('No Text Editor Defined');
   }
   let selection: Selection | void = editor.selection;
   if (selection === undefined) {
-    return Promise.reject('No selection is defined to surround.');
+    return Promise.reject('Selection is undefined.');
   }
 
   if (!isAnythingSelected()) {
