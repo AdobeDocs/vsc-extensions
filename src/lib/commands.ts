@@ -760,8 +760,7 @@ function getLinkUrlToVideo(
 const markdownVideoRegex: RegExp = /^\[.+\]\(.+\)$/;
 const videoUrlRegex: RegExp = /^(http[s]?:\/\/.+|<http[s]?:\/\/.+>)$/;
 const markdownVideoWordPattern: RegExp = new RegExp(
-  ">\[\!VIDEO\]\]\(.+\)|" + wordMatch + "+"
-);
+  ">\[\!VIDEO\]\]\(.+\)|" + wordMatch + "+");
 
 function toggleVideo():
   Thenable<boolean> {
