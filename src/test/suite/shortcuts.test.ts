@@ -525,7 +525,7 @@ suite('Video Alerts', () => {
     return testCommand(
       'toggleVideo',
       '[https://www.youtube.com/watch?v=F_7ZoAQ3aJM}',
-      '[>[!VIDEO]\n>\n>This is just a plain video\n}'
+      '[>[!VIDEO](https://www.youtube.com/watch?v=F_7ZoAQ3aJM)}'
     );
   });
 
@@ -835,14 +835,14 @@ const testCommand = (
   return vscodeTestContent
     .setWithSelection(inputContent)
     .then((editor: TextEditor) => {
-      return vscode.commands
+      return Promise.resolve(vscode.commands
         .executeCommand('md-shortcut.' + command)
         .then(() =>
           assert.strictEqual(
             vscodeTestContent.getWithSelection(editor),
             expectedContent
           )
-        )
-        .then(() => vscode.commands.executeCommand('workbench.action.closeActiveEditor'));
+        ))
+        .finally(() => vscode.commands.executeCommand('workbench.action.closeActiveEditor'));
     });
 };
