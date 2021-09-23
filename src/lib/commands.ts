@@ -763,27 +763,26 @@ function getLinkUrlToVideo(
 const markdownVideoRegex: RegExp = /^>\[\!VIDEO\]\(.+\).*/;
 const videoUrlRegex: RegExp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
-function toggleVideo():
-  Thenable<boolean> {
+function toggleVideo(): Thenable<boolean> {
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (!editor) {
     return Promise.reject('No text editor available');
   }
-  let selection: Selection = editor.selection;
+  let selection: Selection = editor.selection = getLineSelection() || editor.selection;
 
   // If nothing is selected, select everything on the current line.
-  if (!isAnythingSelected()) {
-    // const withSurroundingWord = getSurroundingWord(
-    //   editor,
-    //   selection,
-    //   currentTextLine
-    // );
+  // if (!isAnythingSelected()) {
+  //   // const withSurroundingWord = getSurroundingWord(
+  //   //   editor,
+  //   //   selection,
+  //   //   currentTextLine
+  //   // );
 
-    // if (withSurroundingWord) {
-    //   selection = editor.selection = withSurroundingWord;
-    // }
-    selection = editor.selection = getLineSelection() || editor.selection;
-  }
+  //   // if (withSurroundingWord) {
+  //   //   selection = editor.selection = withSurroundingWord;
+  //   // }
+  //   selection = editor.selection = getLineSelection() || editor.selection;
+  // }
 
   // If anything is selected, look for an existing VIDEO tag.
   if (isAnythingSelected()) {
