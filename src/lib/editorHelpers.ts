@@ -109,18 +109,18 @@ export function surroundBlockSelection(
   startPattern: string,
   endPattern?: string,
   wordPattern?: RegExp
-): void | Thenable<void> | Thenable<boolean> {
+): Thenable<void | boolean> {
   if (endPattern === undefined || endPattern === null) {
     endPattern = startPattern;
   }
 
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (!editor) {
-    return;
+    return Promise.reject('No Text Editor is Defined');
   }
   let selection: void | Selection = getBlockSelection();
   if (!selection) {
-    return;
+    return Promise.reject('No selection is available');
   }
 
   if (!isAnythingSelected()) {

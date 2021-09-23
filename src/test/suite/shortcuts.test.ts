@@ -540,7 +540,7 @@ suite('Video Alerts', () => {
   test('Selection anywhere in VIDEO tag', () => {
     return testCommand(
       'toggleVideo',
-      '>«!VIDEO](https://www.[youtube≥.com/watch?v=F_7ZoAQ3aJM)',
+      '>[!VIDEO](https://www.[youtube≥.com/watch?v=F_7ZoAQ3aJM)',
       'https://www.«youtube≥.com/watch?v=F_7ZoAQ3aJM'
     );
   });
@@ -670,7 +670,7 @@ suite('Warning Alerts', () => {
   });
 });
 
-suite('Morelikethis Alerts', () => {
+suite('Morelikethis Tags', () => {
   test('Ranged selection', () => {
     return testCommand(
       'toggleMoreLikeThis',

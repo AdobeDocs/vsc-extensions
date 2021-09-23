@@ -731,13 +731,13 @@ function toggleSuccess() {
 }
 
 const startingMoreLikeThis =
-  ">[!MORELIKETHIS]" + newLine + ">*" + newLine + ">*";
+  ">[!MORELIKETHIS]" + newLine + '>' + newLine;
 const endingMoreLikeThis = newLine;
 const moreLikeThisBlockWordPattern = new RegExp(
   startingMoreLikeThis + ".+" + endingMoreLikeThis + "|.+",
   "gm"
 );
-function toggleMoreLikeThis() {
+function toggleMoreLikeThis(): Thenable<boolean | void> {
   return surroundBlockSelection(
     startingMoreLikeThis,
     endingMoreLikeThis,
