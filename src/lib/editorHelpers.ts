@@ -89,7 +89,6 @@ export function surroundSelection(
   }
 }
 
-
 export function getSurroundingWord(
   editor: TextEditor,
   selection: Selection,
@@ -177,6 +176,20 @@ export function getBlockSelection(): Selection | void {
     ;
 }
 
+export function getLineSelection(): Selection | void {
+  const editor: TextEditor | undefined = vscode.window.activeTextEditor;
+  if (!editor) {
+    return;
+  }
+  const selection: Selection = editor.selection;
+
+  const endchar = editor.document.lineAt(selection.start.line).range.end.character;
+  return new Selection(
+    selection.start.with(selection.start.line, 0),
+    selection.end.with(selection.start.line, endchar))
+    ;
+}
+
 export function isBlockMatch(
   startPattern: RegExp,
   endPattern?: RegExp
@@ -214,6 +227,27 @@ export function isSelectionMatch(
       (!endPattern || text.endsWith(endPattern.toString()))
     );
   }
+}
+
+/**
+ * 
+ * @param selection 
+ * @param pattern 
+ * @returns 
+ */
+export function reSelect(
+  selection: Selection,
+  pattern: RegExp
+): Selection {
+  const editor: TextEditor | void = vscode.window.activeTextEditor;
+  if (!editor) { return selection; }
+  const text = editor.document.getText(selection);
+  const matched = pattern.exec(text);
+  if (matched) {
+    return new Selection(
+      selection.start.with(selection.start.line, matched.index),
+      selection.end.with(selection.start.line, matched.index + matched[0].length));
+  } else { return selection; };
 }
 
 export function prefixLines(text: string): Thenable<boolean> | void {

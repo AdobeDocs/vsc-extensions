@@ -17,7 +17,10 @@ import {
   prefixLines,
   getSurroundingWord,
   replaceSelection,
+  getLineSelection,
   isMatch,
+  getBlockSelection,
+  reSelect,
 } from "./editorHelpers";
 
 interface CommandItem extends QuickPickItem {
@@ -747,20 +750,18 @@ function addTagsToVideo(url: string): Thenable<boolean> {
 }
 
 function getLinkUrlToVideo(
-): Thenable<string | undefined> {
+): Thenable<string> {
   return vscode.window
     .showInputBox({
       prompt: "Video URL",
     })
     .then((url) => {
-      return url;
+      return url || '';
     });
 }
 
-const markdownVideoRegex: RegExp = /^\[.+\]\(.+\)$/;
-const videoUrlRegex: RegExp = /^(http[s]?:\/\/.+|<http[s]?:\/\/.+>)$/;
-const markdownVideoWordPattern: RegExp = new RegExp(
-  ">\[\!VIDEO\]\]\(.+\)|" + wordMatch + "+");
+const markdownVideoRegex: RegExp = /^>\[\!VIDEO\]\(.+\).*/;
+const videoUrlRegex: RegExp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
 function toggleVideo():
   Thenable<boolean> {
@@ -770,30 +771,43 @@ function toggleVideo():
   }
   let selection: Selection = editor.selection;
 
+  // If nothing is selected, select everything on the current line.
   if (!isAnythingSelected()) {
-    const withSurroundingWord = getSurroundingWord(
-      editor,
-      selection,
-      markdownVideoWordPattern
-    );
+    // const withSurroundingWord = getSurroundingWord(
+    //   editor,
+    //   selection,
+    //   currentTextLine
+    // );
 
-    if (withSurroundingWord) {
-      selection = editor.selection = withSurroundingWord;
-    }
+    // if (withSurroundingWord) {
+    //   selection = editor.selection = withSurroundingWord;
+    // }
+    selection = editor.selection = getLineSelection() || editor.selection;
   }
 
+  // If anything is selected, look for an existing VIDEO tag.
   if (isAnythingSelected()) {
     if (isMatch(markdownVideoRegex)) {
       //Selection is a MD link, replace it with the link text
       return replaceSelection((text) => {
-        const mdLink: RegExpMatchArray | null = text.match(/\[(.+)\]/);
-        return mdLink ? mdLink[1] : text;
+        const videoUrl: RegExpMatchArray | null = text.match(/\((.+)\)/); // Match everything in parentheses
+        return videoUrl ? videoUrl[1] : text;
       });
     }
 
     if (isMatch(videoUrlRegex)) {
-      //Selection is a URL, surround it with angle brackets
-      return surroundSelection(">[!VIDEO](", ")");
+      return replaceSelection((text) => {
+        const videoUrl: RegExpMatchArray | null = text.match(videoUrlRegex);
+        if (!(videoUrl && videoUrl.input)) {
+          return text; // Should never happen because of the isMatch condition
+        } else {
+          if (videoUrl && videoUrl[0].length < videoUrl.input.length && videoUrl.index) {
+            return `>[!VIDEO](${videoUrl[0]}) ${videoUrl.input}`;
+          } else {
+            return `>[!VIDEO](${videoUrl[0]})`;
+          }
+        }
+      });
     }
   }
 
