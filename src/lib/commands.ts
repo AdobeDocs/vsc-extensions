@@ -768,21 +768,9 @@ function toggleVideo(): Thenable<boolean> {
   if (!editor) {
     return Promise.reject('No text editor available');
   }
+
+  // VIDEO tags work on the current line, so ignore the selection and select the whole line.
   let selection: Selection = editor.selection = getLineSelection() || editor.selection;
-
-  // If nothing is selected, select everything on the current line.
-  // if (!isAnythingSelected()) {
-  //   // const withSurroundingWord = getSurroundingWord(
-  //   //   editor,
-  //   //   selection,
-  //   //   currentTextLine
-  //   // );
-
-  //   // if (withSurroundingWord) {
-  //   //   selection = editor.selection = withSurroundingWord;
-  //   // }
-  //   selection = editor.selection = getLineSelection() || editor.selection;
-  // }
 
   // If anything is selected, look for an existing VIDEO tag.
   if (isAnythingSelected()) {

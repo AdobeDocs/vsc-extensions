@@ -533,15 +533,15 @@ suite('Video Alerts', () => {
     return testCommand(
       'toggleVideo',
       '>[!VIDEO](https://www.youtube.com/watch?v=F_7ZoAQ3aJM)',
-      'https://www.youtube.com/watch?v=F_7ZoAQ3aJM'
+      '«https://www.youtube.com/watch?v=F_7ZoAQ3aJM≥'
     );
   });
 
   test('Selection anywhere in VIDEO tag', () => {
     return testCommand(
       'toggleVideo',
-      '>[!VIDEO](https://www.[youtube≥.com/watch?v=F_7ZoAQ3aJM)',
-      'https://www.«youtube≥.com/watch?v=F_7ZoAQ3aJM'
+      '>[!VIDEO](https://www.«youtube≥.com/watch?v=F_7ZoAQ3aJM)',
+      '«https://www.youtube.com/watch?v=F_7ZoAQ3aJM≥'
     );
   });
 
@@ -549,7 +549,7 @@ suite('Video Alerts', () => {
     return testCommand(
       'toggleVideo',
       'Just some text with a url https://www.youtube.com/watch?v=F_7ZoAQ3aJM embedded in it.',
-      '>[!VIDEO](https://www.youtube.com/watch?v=F_7ZoAQ3aJM) Just some text with a url https://www.youtube.com/watch?v=F_7ZoAQ3aJM embedded in it.'
+      '«>[!VIDEO](https://www.youtube.com/watch?v=F_7ZoAQ3aJM) Just some text with a url https://www.youtube.com/watch?v=F_7ZoAQ3aJM embedded in it.≥'
     );
   });
 });
