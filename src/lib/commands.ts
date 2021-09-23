@@ -17,7 +17,10 @@ import {
   prefixLines,
   getSurroundingWord,
   replaceSelection,
+  getLineSelection,
   isMatch,
+  getBlockSelection,
+  reSelect,
 } from "./editorHelpers";
 
 interface CommandItem extends QuickPickItem {
@@ -207,6 +210,48 @@ const _commands: Command[] = [
     true
   ),
   new Command(
+    "toggleAdministration",
+    toggleAdministration,
+    "Toggle administration",
+    ">[!ADMINISTRATION]\r\n>This is a ADMINISTRATION block.",
+    true
+  ),
+  new Command(
+    "toggleAvailability",
+    toggleAvailability,
+    "Toggle availability",
+    ">[!AVAILABILITY]\r\n>This is a AVAILABILITY block.",
+    true
+  ),
+  new Command(
+    "togglePrerequisites",
+    togglePrerequisites,
+    "Toggle Prerequisites",
+    ">[!PREREQUISITES]\r\n>This is a PREREQUISITES block.",
+    true
+  ),
+  new Command(
+    "toggleError",
+    toggleError,
+    "Toggle Error",
+    ">[!ERROR]\r\n>This is a ERROR block.",
+    true
+  ),
+  new Command(
+    "toggleInfo",
+    toggleInfo,
+    "Toggle Info",
+    ">[!INFO]\r\n>This is a INFO block.",
+    true
+  ),
+  new Command(
+    "toggleSuccess",
+    toggleSuccess,
+    "Toggle Success",
+    ">[!SUCCESS]\r\n>This is a SUCCESS block.",
+    true
+  ),
+  new Command(
     "toggleMoreLikeThis",
     toggleMoreLikeThis,
     "Toggle More Like This",
@@ -217,7 +262,7 @@ const _commands: Command[] = [
     "toggleVideo",
     toggleVideo,
     "Toggle video",
-    ">[!VIDEO]\r\n>())",
+    ">[!VIDEO](video_url))",
     true
   ),
 
@@ -625,14 +670,74 @@ function toggleImportant() {
   );
 }
 
+const startingAvailability: string = `>[!AVAILABILITY]${newLine}>${newLine}>`;
+const endingAvailability: string = newLine;
+const availabilityBlockWordPattern: RegExp = new RegExp(
+  startingAvailability + ".+" + endingAvailability + "|.+",
+  "gm"
+);
+function toggleAvailability() {
+  return surroundBlockSelection(startingAvailability, endingAvailability, availabilityBlockWordPattern);
+}
+
+const startingAdministration: string = `>[!ADMINISTRATION]${newLine}>${newLine}>`;
+const endingAdministration: string = newLine;
+const administrationBlockWordPattern: RegExp = new RegExp(
+  startingAdministration + ".+" + endingAdministration + "|.+",
+  "gm"
+);
+function toggleAdministration() {
+  return surroundBlockSelection(startingAdministration, endingAdministration, administrationBlockWordPattern);
+}
+
+const startingPrerequisites: string = `>[!PREREQUISITES]${newLine}>${newLine}>`;
+const endingPrerequisites: string = newLine;
+const prerequisitesBlockWordPattern: RegExp = new RegExp(
+  startingPrerequisites + ".+" + endingPrerequisites + "|.+",
+  "gm"
+);
+function togglePrerequisites() {
+  return surroundBlockSelection(startingPrerequisites, endingPrerequisites, prerequisitesBlockWordPattern);
+}
+
+const startingError: string = `>[!ERROR]${newLine}>${newLine}>`;
+const endingError: string = newLine;
+const errorBlockWordPattern: RegExp = new RegExp(
+  startingError + ".+" + endingError + "|.+",
+  "gm"
+);
+function toggleError() {
+  return surroundBlockSelection(startingError, endingError, errorBlockWordPattern);
+}
+
+const startingInfo: string = `>[!INFO]${newLine}>${newLine}>`;
+const endingInfo: string = newLine;
+const infoBlockWordPattern: RegExp = new RegExp(
+  startingInfo + ".+" + endingInfo + "|.+",
+  "gm"
+);
+function toggleInfo() {
+  return surroundBlockSelection(startingInfo, endingInfo, infoBlockWordPattern);
+}
+
+const startingSuccess: string = `>[!SUCCESS]${newLine}>${newLine}>`;
+const endingSuccess: string = newLine;
+const successBlockWordPattern: RegExp = new RegExp(
+  startingSuccess + ".+" + endingSuccess + "|.+",
+  "gm"
+);
+function toggleSuccess() {
+  return surroundBlockSelection(startingSuccess, endingSuccess, successBlockWordPattern);
+}
+
 const startingMoreLikeThis =
-  ">[!MORELIKETHIS]" + newLine + ">*" + newLine + ">*";
+  ">[!MORELIKETHIS]" + newLine + '>' + newLine;
 const endingMoreLikeThis = newLine;
 const moreLikeThisBlockWordPattern = new RegExp(
   startingMoreLikeThis + ".+" + endingMoreLikeThis + "|.+",
   "gm"
 );
-function toggleMoreLikeThis() {
+function toggleMoreLikeThis(): Thenable<boolean | void> {
   return surroundBlockSelection(
     startingMoreLikeThis,
     endingMoreLikeThis,
@@ -640,18 +745,68 @@ function toggleMoreLikeThis() {
   );
 }
 
-const startingVideo = ">[!VIDEO]()";
-const endingVideo = newLine;
-const videoBlockWordPattern = new RegExp(
-  `${startingVideo}.+${endingVideo}|.+`,
-  "gm"
-);
-function toggleVideo() {
-  return surroundBlockSelection(
-    startingVideo,
-    endingVideo,
-    videoBlockWordPattern
-  );
+function addTagsToVideo(url: string): Thenable<boolean> {
+  return surroundSelection(`>[!VIDEO](${url})`, '');
+}
+
+function getLinkUrlToVideo(
+): Thenable<string> {
+  return vscode.window
+    .showInputBox({
+      prompt: "Video URL",
+    })
+    .then((url) => {
+      return url || '';
+    });
+}
+
+const markdownVideoRegex: RegExp = /^>\[\!VIDEO\]\(.+\).*/;
+const videoUrlRegex: RegExp = /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
+
+function toggleVideo(): Thenable<boolean> {
+  const editor: TextEditor | undefined = vscode.window.activeTextEditor;
+  if (!editor) {
+    return Promise.reject('No text editor available');
+  }
+
+  // VIDEO tags work on the current line, so ignore the selection and select the whole line.
+  let selection: Selection = editor.selection = getLineSelection() || editor.selection;
+
+  // If anything is selected, look for an existing VIDEO tag.
+  if (isAnythingSelected()) {
+    if (isMatch(markdownVideoRegex)) {
+      //Selection is a MD link, replace it with the link text
+      return replaceSelection((text) => {
+        const videoUrl: RegExpMatchArray | null = text.match(/\((.+)\)/); // Match everything in parentheses
+        return videoUrl ? videoUrl[1] : text;
+      });
+    }
+
+    if (isMatch(videoUrlRegex)) {
+      return replaceSelection((text) => {
+        const videoUrl: RegExpMatchArray | null = text.match(videoUrlRegex);
+        if (!(videoUrl && videoUrl.input)) {
+          return text; // Should never happen because of the isMatch condition
+        } else {
+          if (videoUrl && videoUrl[0].length < videoUrl.input.length && videoUrl.index) {
+            return `>[!VIDEO](${videoUrl[0]}) ${videoUrl.input}`;
+          } else {
+            return `>[!VIDEO](${videoUrl[0]})`;
+          }
+        }
+      });
+    }
+  }
+
+  const linkToVideo = getLinkUrlToVideo();
+
+  return linkToVideo.then(
+    (linkObj) => {
+      if (linkObj) {
+        return addTagsToVideo(linkObj);
+      } else { return Promise.reject('No URL provided.'); };
+    });
+
 }
 
 const toggleDNLPattern: RegExp = new RegExp(
