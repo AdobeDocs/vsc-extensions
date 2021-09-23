@@ -210,15 +210,6 @@
 				"category": "Markdown Shortcuts"
 			},
 			{
-				"command": "md-shortcut.addTableWithHeader",
-				"title": "Add table with header",
-				"icon": {
-					"dark": "./assets/icons/grid_white.svg",
-					"light": "./assets/icons/grid_black.svg"
-				},
-				"category": "Markdown Shortcuts"
-			},
-			{
 				"command": "md-shortcut.toggleTitleH1",
 				"title": "Toggle Header Level 1",
 				"category": "Markdown Shortcuts"
@@ -519,11 +510,6 @@
 					"group": "2_markdown_3@1"
 				},
 				{
-					"command": "md-shortcut.addTableWithHeader",
-					"when": "markdownShortcuts:enabled",
-					"group": "2_markdown_3@2"
-				},
-				{
 					"command": "md-shortcut.toggleNote",
 					"when": "markdownShortcuts:enabled",
 					"group": "2_markdown_4@1"
@@ -659,14 +645,14 @@
 		"@types/markdown-it": "^10.0.2",
 		"@types/mocha": "^8.2.1",
 		"@types/node": "^14.0.27",
-		"@types/vscode": "^1.59.0",
 		"@typescript-eslint/eslint-plugin": "^3.8.0",
 		"@typescript-eslint/parser": "^3.8.0",
+		"@vscode/test-electron": "^1.6.2",
 		"eslint": "^7.6.0",
 		"glob": "^7.1.6",
 		"mocha": "^8.0.1",
 		"typescript": "^3.8.3",
-		"vscode-test": "^1.6.1"
+		"vscode-test-content": "^1.2.0"
 	},
 	"__metadata": {
 		"id": "943149e4-cea6-49a0-9564-8341c4892537",

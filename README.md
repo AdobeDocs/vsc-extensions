@@ -17,8 +17,14 @@ In addition to the standard markdown preview features provided by VS Code that a
 
 ## Installation
 
-The easiest way to install
+The easiest way to install the Adobe Visual Studio Code Markdown Extensions is from the Visual Studio Code extension marketplace.  
 
+1. Install Visual Studio Code 1.44.0 or higher
+2. Launch Code
+3. From the command palette Ctrl-Shift-P (Windows, Linux) or Cmd-Shift-P (OSX)
+4. Select Install Extension
+5. Choose the extension
+6. Reload Visual Studio Code
 
 ## Examples
 
