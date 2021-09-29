@@ -652,6 +652,7 @@
 		"glob": "^7.1.6",
 		"mocha": "^8.0.1",
 		"typescript": "^3.8.3",
+		"vscode": "^1.1.37",
 		"vscode-test-content": "^1.2.0"
 	},
 	"__metadata": {
