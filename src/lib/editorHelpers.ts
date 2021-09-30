@@ -23,7 +23,7 @@ export function replaceBlockSelection(
   }
   const selection = getBlockSelection();
   if (!selection) {
-    return Promise.reject('No Selection to replace.');
+    return Promise.reject("No Selection to replace.");
   }
 
   const newText = replaceFunc(editor.document.getText(selection));
@@ -42,11 +42,11 @@ export function surroundSelection(
 ): Thenable<boolean> {
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (editor === undefined) {
-    return Promise.reject('No Text Editor Defined');
+    return Promise.reject("No Text Editor Defined");
   }
   let selection: Selection | void = editor.selection;
   if (selection === undefined) {
-    return Promise.reject('Selection is undefined.');
+    return Promise.reject("Selection is undefined.");
   }
 
   if (!isAnythingSelected()) {
@@ -116,11 +116,11 @@ export function surroundBlockSelection(
 
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (!editor) {
-    return Promise.reject('No Text Editor is Defined');
+    return Promise.reject("No Text Editor is Defined");
   }
   let selection: void | Selection = getBlockSelection();
   if (!selection) {
-    return Promise.reject('No selection is available');
+    return Promise.reject("No selection is available");
   }
 
   if (!isAnythingSelected()) {
@@ -172,8 +172,8 @@ export function getBlockSelection(): Selection | void {
 
   return new Selection(
     selection.start.with(undefined, 0),
-    selection.end.with(selection.end.line + 1, 0))
-    ;
+    selection.end.with(selection.end.line + 1, 0)
+  );
 }
 
 export function getLineSelection(): Selection | void {
@@ -183,11 +183,12 @@ export function getLineSelection(): Selection | void {
   }
   const selection: Selection = editor.selection;
 
-  const endchar = editor.document.lineAt(selection.start.line).range.end.character;
+  const endchar = editor.document.lineAt(selection.start.line).range.end
+    .character;
   return new Selection(
     selection.start.with(selection.start.line, 0),
-    selection.end.with(selection.start.line, endchar))
-    ;
+    selection.end.with(selection.start.line, endchar)
+  );
 }
 
 export function isBlockMatch(
@@ -230,24 +231,29 @@ export function isSelectionMatch(
 }
 
 /**
- * 
- * @param selection 
- * @param pattern 
- * @returns 
+ *
+ * @param selection
+ * @param pattern
+ * @returns
  */
-export function reSelect(
-  selection: Selection,
-  pattern: RegExp
-): Selection {
+export function reSelect(selection: Selection, pattern: RegExp): Selection {
   const editor: TextEditor | void = vscode.window.activeTextEditor;
-  if (!editor) { return selection; }
+  if (!editor) {
+    return selection;
+  }
   const text = editor.document.getText(selection);
   const matched = pattern.exec(text);
   if (matched) {
     return new Selection(
       selection.start.with(selection.start.line, matched.index),
-      selection.end.with(selection.start.line, matched.index + matched[0].length));
-  } else { return selection; };
+      selection.end.with(
+        selection.start.line,
+        matched.index + matched[0].length
+      )
+    );
+  } else {
+    return selection;
+  }
 }
 
 export function prefixLines(text: string): Thenable<boolean> | void {
@@ -261,4 +267,11 @@ export function prefixLines(text: string): Thenable<boolean> | void {
       builder.insert(selection.start.with(line, 0), text);
     }
   });
+}
+
+export function promptForInput(
+  prompt: string,
+  value?: string
+): Thenable<string | undefined> {
+  return vscode.window.showInputBox({ prompt, value });
 }

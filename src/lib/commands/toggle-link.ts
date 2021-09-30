@@ -1,6 +1,6 @@
 import * as vscode from "vscode";
 import { Selection, TextEditor } from "vscode";
-import { urlRegex, wordMatch } from "../commands";
+import { urlRegExp, wordMatch } from "../commands";
 import {
   surroundSelection,
   isAnythingSelected,
@@ -9,53 +9,40 @@ import {
   replaceSelection,
 } from "../editorHelpers";
 
-interface LinkUrl {
-  text: string;
-  url: string | undefined;
-}
+// function getLinkText(selection: Selection): Thenable<string | undefined> {
+//   if (selection.isEmpty) {
+//     return vscode.window.showInputBox({
+//       prompt: "Image alt text",
+//     });
+//   }
+//   return Promise.resolve()
+// }
 
-function getLinkText(selection: Selection): Thenable<string | undefined> {
-  if (selection.isEmpty) {
-    return vscode.window.showInputBox({
-      prompt: "Image alt text",
-    });
-  }
+// function getLinkUrl(
+//   linkText: string | undefined
+// ): Thenable<string> {
+//   if (linkText === null || linkText === undefined) {
+//     Promise.reject('No Link Text provided');
+//   }
 
-  return Promise.resolve("");
-}
+//   return vscode.window
+//     .showInputBox({
+//       prompt: "Link URL",
+//     })
+//     .then((url) => {
+//       return { text: linkText, url: url };
+//     });
+// }
 
-function getLinkUrl(
-  linkText: string | undefined
-): LinkUrl | Thenable<LinkUrl> | void {
-  if (linkText === null || linkText === undefined) {
-    return;
-  }
-
-  return vscode.window
-    .showInputBox({
-      prompt: "Image URL",
-    })
-    .then((url) => {
-      return { text: linkText, url: url };
-    });
-}
-
-function addTags(options: LinkUrl | void): void | Thenable<void> {
-  if (!options || !options.url) {
-    return;
-  }
-  surroundSelection("![" + options.text, "](" + options.url + ")");
+function addTags(text: string, url?: string): void | Thenable<void> {
+  surroundSelection("![" + text, "](" + url + ")");
 }
 
 const markdownLinkRegex: RegExp = /^\[.+\]\(.+\)$/;
 const markdownLinkWordPattern: RegExp = new RegExp(
   "[.+](.+)|" + wordMatch + "+"
 );
-export function toggleLink():
-  | Thenable<LinkUrl>
-  | void
-  | Thenable<void>
-  | Thenable<boolean> {
+export function toggleLink(): void {
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (!editor) {
     return;
@@ -63,31 +50,35 @@ export function toggleLink():
   let selection: Selection = editor.selection;
 
   if (!isAnythingSelected()) {
-    const withSurroundingWord = getSurroundingWord(
+    const surroundingWord = getSurroundingWord(
       editor,
       selection,
       markdownLinkWordPattern
     );
 
-    if (withSurroundingWord) {
-      selection = editor.selection = withSurroundingWord;
+    if (surroundingWord) {
+      selection = editor.selection = surroundingWord;
     }
   }
 
   if (isAnythingSelected()) {
     if (isMatch(markdownLinkRegex)) {
       //Selection is a MD link, replace it with the link text
-      return replaceSelection((text) => {
+      replaceSelection((text) => {
         const mdLink: RegExpMatchArray | null = text.match(/\[(.+)\]/);
         return mdLink ? mdLink[1] : text;
       });
+      return;
     }
 
-    if (isMatch(urlRegex)) {
+    if (isMatch(urlRegExp)) {
       //Selection is a URL, surround it with angle brackets
-      return surroundSelection("<", ">");
+      surroundSelection("<", ">");
+      return;
     }
   }
 
-  return getLinkText(selection).then(getLinkUrl).then(addTags);
+  // promptForInput("Enter link display text", editor.document.getText(selection))
+  //   .then((display) => promptForInput("Enter URL", display)).then(addTags);
+  return;
 }
