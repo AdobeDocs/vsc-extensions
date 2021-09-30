@@ -80,6 +80,12 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 
 ### Tip
 
+```markdown
+> [!TIP]
+>
+> Here is the _TIP_ component. It's only one line.
+```
+
 ### Video
 
 >[!VIDEO](https://youtube.com?watch="xyxz")
