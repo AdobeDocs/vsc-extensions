@@ -271,7 +271,9 @@ export function prefixLines(text: string): Thenable<boolean> | void {
 
 export function promptForInput(
   prompt: string,
+  placeHolder?: string,
   value?: string
 ): Thenable<string | undefined> {
-  return vscode.window.showInputBox({ prompt, value });
+  const opts: vscode.InputBoxOptions = { prompt, value, placeHolder };
+  return vscode.window.showInputBox(opts);
 }

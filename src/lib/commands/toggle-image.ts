@@ -4,8 +4,19 @@ import { urlRegExp } from "../commands";
 import {
   isAnythingSelected,
   isMatch,
+  promptForInput,
   replaceSelection,
+  surroundSelection,
 } from "../editorHelpers";
+
+function addImageTags(text: string, url?: string): Thenable<boolean> {
+  return surroundSelection("![" + text, "](" + url + ")");
+}
+
+interface ImageProps {
+  alt: string | undefined;
+  src: string | undefined;
+}
 
 const markdownImageRegex: RegExp = /!\[.*\]\((.+)\)/;
 export function toggleImage() {
@@ -14,6 +25,10 @@ export function toggleImage() {
     return;
   }
   let selection: Selection = editor.selection;
+  let imgObj: ImageProps = {
+    alt: "No Image",
+    src: "https://example.org/image.png",
+  };
 
   if (isAnythingSelected()) {
     if (isMatch(markdownImageRegex)) {
@@ -38,5 +53,13 @@ export function toggleImage() {
         });
     }
   }
-  return getLinkText(selection).then(getLinkUrl).then(addTags);
+  return promptForInput("Enter image alt text")
+    .then((alt) => {
+      imgObj.alt = alt;
+      return promptForInput("Enter image source URL");
+    })
+    .then((src) => {
+      imgObj.src = src;
+      return addImageTags(imgObj.alt || "", imgObj.src);
+    });
 }

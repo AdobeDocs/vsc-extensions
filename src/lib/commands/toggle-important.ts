@@ -1,6 +1,7 @@
-import { newLine } from "../commands";
+import { getEol } from "../env";
 import { surroundBlockSelection } from "../editorHelpers";
 
+const newLine = getEol();
 const startingImportant = ">[!IMPORTANT]" + newLine + ">" + newLine + ">";
 const endingImportant = newLine;
 const importantBlockWordPattern = new RegExp(

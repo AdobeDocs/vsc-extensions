@@ -1,43 +1,23 @@
 import * as vscode from "vscode";
 import { Selection, TextEditor } from "vscode";
-import { urlRegExp, wordMatch } from "../commands";
+import { urlRegExp } from "../commands";
 import {
   surroundSelection,
   isAnythingSelected,
   getSurroundingWord,
   isMatch,
   replaceSelection,
+  promptForInput,
 } from "../editorHelpers";
 
-// function getLinkText(selection: Selection): Thenable<string | undefined> {
-//   if (selection.isEmpty) {
-//     return vscode.window.showInputBox({
-//       prompt: "Image alt text",
-//     });
-//   }
-//   return Promise.resolve()
-// }
-
-// function getLinkUrl(
-//   linkText: string | undefined
-// ): Thenable<string> {
-//   if (linkText === null || linkText === undefined) {
-//     Promise.reject('No Link Text provided');
-//   }
-
-//   return vscode.window
-//     .showInputBox({
-//       prompt: "Link URL",
-//     })
-//     .then((url) => {
-//       return { text: linkText, url: url };
-//     });
-// }
-
-function addTags(text: string, url?: string): void | Thenable<void> {
-  surroundSelection("![" + text, "](" + url + ")");
+interface LinkProps {
+  text: string | undefined;
+  url: string | undefined;
 }
-
+function addLinkTag(linkProps: LinkProps): void | Thenable<void> {
+  surroundSelection("[" + linkProps.text, "](" + linkProps.url + ")");
+}
+const wordMatch: string = "[A-Za-z\\u00C0-\\u017F]";
 const markdownLinkRegex: RegExp = /^\[.+\]\(.+\)$/;
 const markdownLinkWordPattern: RegExp = new RegExp(
   "[.+](.+)|" + wordMatch + "+"
@@ -72,13 +52,20 @@ export function toggleLink(): void {
     }
 
     if (isMatch(urlRegExp)) {
-      //Selection is a URL, surround it with angle brackets
-      surroundSelection("<", ">");
+      surroundSelection("[](", ")");
       return;
     }
   }
 
-  // promptForInput("Enter link display text", editor.document.getText(selection))
-  //   .then((display) => promptForInput("Enter URL", display)).then(addTags);
-  return;
+  let linkObj: LinkProps = { text: "", url: "" };
+
+  promptForInput("Enter link display text")
+    .then((text) => {
+      linkObj.text = text;
+      return promptForInput("Enter link target URL");
+    })
+    .then((url) => {
+      linkObj.url = url;
+      return addLinkTag(linkObj);
+    });
 }

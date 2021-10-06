@@ -1,6 +1,7 @@
-import { newLine } from "../commands";
+import { getEol } from "../env";
 import { surroundBlockSelection } from "../editorHelpers";
 
+const newLine = getEol();
 const startingTip: string = ">[!TIP]" + newLine + ">" + newLine + ">";
 const endingTip: string = newLine;
 const tipBlockWordPattern: RegExp = new RegExp(
