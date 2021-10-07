@@ -1,6 +1,7 @@
-import { newLine } from "../commands";
+import { getEol } from "../env";
 import { surroundBlockSelection } from "../editorHelpers";
 
+const newLine = getEol();
 const startingWarning: string = ">[!WARNING]" + newLine + ">" + newLine + ">";
 const endingWarning = newLine;
 const warningBlockWordPattern = new RegExp(

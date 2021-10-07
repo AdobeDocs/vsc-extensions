@@ -1,30 +1,20 @@
 import * as vscode from "vscode";
 import { TextEditor, Selection } from "vscode";
+import { urlRegExp } from "../commands";
 import {
   surroundSelection,
   getLineSelection,
   isAnythingSelected,
   isMatch,
   replaceSelection,
+  promptForInput,
 } from "../editorHelpers";
 
 function addTagsToVideo(url: string): Thenable<boolean> {
   return surroundSelection(`>[!VIDEO](${url})`, "");
 }
 
-function getLinkUrlToVideo(): Thenable<string> {
-  return vscode.window
-    .showInputBox({
-      prompt: "Video URL",
-    })
-    .then((url) => {
-      return url || "";
-    });
-}
-
 const markdownVideoRegex: RegExp = /^>\[\!VIDEO\]\(.+\).*/;
-const videoUrlRegex: RegExp =
-  /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
 
 export function toggleVideo(): Thenable<boolean> {
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
@@ -46,9 +36,9 @@ export function toggleVideo(): Thenable<boolean> {
       });
     }
 
-    if (isMatch(videoUrlRegex)) {
+    if (isMatch(urlRegExp)) {
       return replaceSelection((text) => {
-        const videoUrl: RegExpMatchArray | null = text.match(videoUrlRegex);
+        const videoUrl: RegExpMatchArray | null = text.match(urlRegExp);
         if (!(videoUrl && videoUrl.input)) {
           return text; // Should never happen because of the isMatch condition
         } else {
@@ -66,7 +56,7 @@ export function toggleVideo(): Thenable<boolean> {
     }
   }
 
-  const linkToVideo = getLinkUrlToVideo();
+  const linkToVideo = promptForInput("Video URL");
 
   return linkToVideo.then((linkObj) => {
     if (linkObj) {

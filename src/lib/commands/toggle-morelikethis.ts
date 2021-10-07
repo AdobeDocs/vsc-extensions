@@ -1,6 +1,7 @@
-import { newLine } from "../commands";
+import { getEol } from "../env";
 import { surroundBlockSelection } from "../editorHelpers";
 
+const newLine = getEol();
 const startingMoreLikeThis = ">[!MORELIKETHIS]" + newLine + ">" + newLine;
 const endingMoreLikeThis = newLine;
 const moreLikeThisBlockWordPattern = new RegExp(

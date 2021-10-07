@@ -1,12 +1,12 @@
 import * as vscode from "vscode";
 
-import { wordMatch } from "../commands";
 import { surroundSelection } from "../editorHelpers";
 
 interface ItalicExpressions {
   [idx: string]: RegExp;
 }
 
+const wordMatch: string = "[A-Za-z\\u00C0-\\u017F]";
 const toggleItalicExpressions: ItalicExpressions = {
   _: new RegExp(`\\_{1}${wordMatch}*\\_{1}|${wordMatch}+`),
   __: new RegExp(`\\{2}${wordMatch}*\\{2}|${wordMatch}+`),

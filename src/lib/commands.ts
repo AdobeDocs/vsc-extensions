@@ -300,8 +300,6 @@ const _commands: Command[] = [
   ),
 ];
 
-export const newLine = getEol();
-
 export function register(context: ExtensionContext) {
   _commands.map((cmd) => {
     context.subscriptions.push(
@@ -328,5 +326,5 @@ function showCommandPalette() {
     });
 }
 
-export const wordMatch: string = "[A-Za-z\\u00C0-\\u017F]";
-export const urlRegex: RegExp = /^(http[s]?:\/\/.+|<http[s]?:\/\/.+>)$/;
+export const urlRegExp: RegExp =
+  /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_\+.~#?&//=]*)/;
