@@ -1,5 +1,5 @@
-import * as vscode from "vscode";
-import { Selection, TextEditor, Range, Position, TextEditorEdit } from "vscode";
+import * as vscode from 'vscode';
+import { Selection, TextEditor, Range, Position, TextEditorEdit } from 'vscode';
 
 export function replaceSelection(
   replaceFunc: (text: string) => string
@@ -23,11 +23,19 @@ export function replaceBlockSelection(
   }
   const selection = getBlockSelection();
   if (!selection) {
-    return Promise.reject("No Selection to replace.");
+    return Promise.reject('No Selection to replace.');
   }
 
   const newText = replaceFunc(editor.document.getText(selection));
-  return editor.edit((edit) => edit.replace(selection, newText));
+  return editor
+    .edit((edit) => edit.replace(selection, newText))
+    .then((success) => {
+      const newSelection = getBlockSelection();
+      if (newSelection) {
+        editor.selection = newSelection;
+      }
+      return success;
+    });
 }
 
 export function isAnythingSelected(): boolean {
@@ -42,11 +50,11 @@ export function surroundSelection(
 ): Thenable<boolean> {
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (editor === undefined) {
-    return Promise.reject("No Text Editor Defined");
+    return Promise.reject('No Text Editor Defined');
   }
   let selection: Selection | void = editor.selection;
   if (selection === undefined) {
-    return Promise.reject("Selection is undefined.");
+    return Promise.reject('Selection is undefined.');
   }
 
   if (!isAnythingSelected()) {
@@ -116,11 +124,11 @@ export function surroundBlockSelection(
 
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (!editor) {
-    return Promise.reject("No Text Editor is Defined");
+    return Promise.reject('No Text Editor is Defined');
   }
   let selection: void | Selection = getBlockSelection();
   if (!selection) {
-    return Promise.reject("No selection is available");
+    return Promise.reject('No selection is available');
   }
 
   if (!isAnythingSelected()) {
@@ -137,7 +145,7 @@ export function surroundBlockSelection(
 
   if (!isAnythingSelected()) {
     var position = selection.active;
-    var newPosition = position.with(position.line + 1, 0);
+    var newPosition = position.with(position.line + 2, 1);
     return editor
       .edit((editBuilder: TextEditorEdit) =>
         editBuilder.insert(position, `${startPattern}${endPattern}`)
