@@ -31,6 +31,7 @@ export function checkMarkdownlintCustomConfig() {
   );
 }
 
+
 /**
  * Method to check for the Adobe custom markdownlint value.
  * Checks for markdownlint.customRules property.  If markdownlint isn't installed, do nothing.
@@ -45,7 +46,7 @@ export function checkMarkdownlintCustomProperty() {
     .getConfiguration()
     .inspect(customProperty);
   // new list for string comparison and updating.
-  const existingUserSettings: string[] = [];
+  const existingUserSettings: string[] = [];  
   if (customPropertyData) {
     // if the markdownlint.customRules property exists, pull the global values (user settings) into a string.
     if (customPropertyData.globalValue) {
