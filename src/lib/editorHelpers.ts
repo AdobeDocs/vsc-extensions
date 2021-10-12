@@ -1,5 +1,5 @@
-import * as vscode from "vscode";
-import { Selection, TextEditor, Range, Position, TextEditorEdit } from "vscode";
+import * as vscode from 'vscode';
+import { Selection, TextEditor, Range, Position, TextEditorEdit } from 'vscode';
 
 export function replaceSelection(
   replaceFunc: (text: string) => string
@@ -27,7 +27,15 @@ export function replaceBlockSelection(
   }
 
   const newText = replaceFunc(editor.document.getText(selection));
-  return editor.edit((edit) => edit.replace(selection, newText));
+  return editor
+    .edit((edit) => edit.replace(selection, newText))
+    .then((success) => {
+      const newSelection = getBlockSelection();
+      if (newSelection) {
+        editor.selection = newSelection;
+      }
+      return success;
+    });
 }
 
 export function isAnythingSelected(): boolean {
@@ -137,7 +145,7 @@ export function surroundBlockSelection(
 
   if (!isAnythingSelected()) {
     var position = selection.active;
-    var newPosition = position.with(position.line + 1, 0);
+    var newPosition = position.with(position.line + 2, 1);
     return editor
       .edit((editBuilder: TextEditorEdit) =>
         editBuilder.insert(position, `${startPattern}${endPattern}`)
@@ -172,8 +180,8 @@ export function getBlockSelection(): Selection | void {
 
   return new Selection(
     selection.start.with(undefined, 0),
-    selection.end.with(selection.end.line + 1, 0))
-    ;
+    selection.end.with(selection.end.line + 1, 0)
+  );
 }
 
 export function getLineSelection(): Selection | void {
@@ -183,11 +191,12 @@ export function getLineSelection(): Selection | void {
   }
   const selection: Selection = editor.selection;
 
-  const endchar = editor.document.lineAt(selection.start.line).range.end.character;
+  const endchar = editor.document.lineAt(selection.start.line).range.end
+    .character;
   return new Selection(
     selection.start.with(selection.start.line, 0),
-    selection.end.with(selection.start.line, endchar))
-    ;
+    selection.end.with(selection.start.line, endchar)
+  );
 }
 
 export function isBlockMatch(
@@ -230,24 +239,29 @@ export function isSelectionMatch(
 }
 
 /**
- * 
- * @param selection 
- * @param pattern 
- * @returns 
+ *
+ * @param selection
+ * @param pattern
+ * @returns
  */
-export function reSelect(
-  selection: Selection,
-  pattern: RegExp
-): Selection {
+export function reSelect(selection: Selection, pattern: RegExp): Selection {
   const editor: TextEditor | void = vscode.window.activeTextEditor;
-  if (!editor) { return selection; }
+  if (!editor) {
+    return selection;
+  }
   const text = editor.document.getText(selection);
   const matched = pattern.exec(text);
   if (matched) {
     return new Selection(
       selection.start.with(selection.start.line, matched.index),
-      selection.end.with(selection.start.line, matched.index + matched[0].length));
-  } else { return selection; };
+      selection.end.with(
+        selection.start.line,
+        matched.index + matched[0].length
+      )
+    );
+  } else {
+    return selection;
+  }
 }
 
 export function prefixLines(text: string): Thenable<boolean> | void {
@@ -261,4 +275,13 @@ export function prefixLines(text: string): Thenable<boolean> | void {
       builder.insert(selection.start.with(line, 0), text);
     }
   });
+}
+
+export function promptForInput(
+  prompt: string,
+  placeHolder?: string,
+  value?: string
+): Thenable<string | undefined> {
+  const opts: vscode.InputBoxOptions = { prompt, value, placeHolder };
+  return vscode.window.showInputBox(opts);
 }
