@@ -284,4 +284,19 @@ export function promptForInput(
 ): Thenable<string | undefined> {
   const opts: vscode.InputBoxOptions = { prompt, value, placeHolder };
   return vscode.window.showInputBox(opts);
+};
+
+const TRUESTR = /t|true|y|yes|1/i;
+function isTrueish(val?: string): boolean {
+  if (!val) return false;
+  const istrue: RegExpMatchArray | null = val.match(TRUESTR);
+  return istrue !== null && istrue.length > 0;
+}
+
+export function promptForBoolean(
+  prompt: string,
+  placeHolder?: string,
+  value?: string): Thenable<boolean | undefined> {
+  const opts: vscode.InputBoxOptions = { prompt, value, placeHolder };
+  return vscode.window.showInputBox(opts).then((retval) => (isTrueish(retval)));
 }

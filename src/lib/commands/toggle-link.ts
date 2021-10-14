@@ -8,6 +8,7 @@ import {
   isMatch,
   replaceSelection,
   promptForInput,
+  promptForBoolean,
 } from "../editorHelpers";
 
 interface LinkProps {
@@ -16,7 +17,11 @@ interface LinkProps {
   target?: string;
 }
 function addLinkTag(linkProps: LinkProps): void | Thenable<void> {
-  surroundSelection("[" + linkProps.text, "](" + linkProps.url + ")");
+  let target = '';
+  if (linkProps.target) {
+    target = `{${linkProps.target}}`;
+  };
+  surroundSelection("[" + linkProps.text, "](" + linkProps.url + ")" + target);
 }
 const wordMatch: string = "[A-Za-z\\u00C0-\\u017F]";
 const markdownLinkRegex: RegExp = /^\[.+\]\(.+\)(\{.+\})|(.*)$/;
@@ -72,10 +77,10 @@ export function toggleLink(): void {
     })
     .then((text) => {
       linkObj.text = text;
-      return promptForInput("Enter link target");
+      return promptForBoolean("Open in New Tab?", "Yes or No", "No");
     })
-    .then((target) => {
-      linkObj.target = target;
+    .then((isBlank) => {
+      linkObj.target = isBlank ? "target=_blank" : "";
       return addLinkTag(linkObj);
     });
 }
