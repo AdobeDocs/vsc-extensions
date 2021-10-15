@@ -24,7 +24,7 @@ function addLinkTag(linkProps: LinkProps): void | Thenable<void> {
   surroundSelection("[" + linkProps.text, "](" + linkProps.url + ")" + target);
 }
 const wordMatch: string = "[A-Za-z\\u00C0-\\u017F]";
-const markdownLinkRegex: RegExp = /^\[.+\]\(.+\)(\{.+\})|(.*)$/;
+const markdownLinkRegex: RegExp = /^\[.+\]\(.+\)(\{.+\})?|(.*)$/;
 const markdownLinkWordPattern: RegExp = new RegExp(
   "[.+](.+)|" + wordMatch + "+"
 );
@@ -71,6 +71,7 @@ export function toggleLink(): void {
   let linkObj: LinkProps = { text: "", url: "", target: "" };
   promptForInput("Enter Link URL")
     .then((url) => {
+      if (!url) { return Promise.reject('URL is Required'); }
       linkObj.url = url;
       linkObj.text = url;
       return promptForInput("Enter link text");
