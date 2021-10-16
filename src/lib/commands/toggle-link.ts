@@ -1,3 +1,4 @@
+import { URL } from "url";
 import * as vscode from "vscode";
 import { Selection, TextEditor } from "vscode";
 import { urlRegExp } from "../commands";
@@ -9,6 +10,7 @@ import {
   replaceSelection,
   promptForInput,
   promptForBoolean,
+  getSurroundingPattern,
 } from "../editorHelpers";
 
 interface LinkProps {
@@ -21,60 +23,61 @@ function addLinkTag(linkProps: LinkProps): void | Thenable<void> {
   if (linkProps.target) {
     target = `{${linkProps.target}}`;
   };
-  surroundSelection("[" + linkProps.text, "](" + linkProps.url + ")" + target);
+  replaceSelection(() => (`[${linkProps.text}](${linkProps.url})${target}`));
 }
-const wordMatch: string = "[A-Za-z\\u00C0-\\u017F]";
-const markdownLinkRegex: RegExp = /^\[.+\]\(.+\)(\{.+\})?|(.*)$/;
-const markdownLinkWordPattern: RegExp = new RegExp(
-  "[.+](.+)|" + wordMatch + "+"
-);
+
+const MARKDOWN_LINK_REGEX: RegExp = /^\[.+\]\(.+\)(\{.+\})?$/;
+
+
 export function toggleLink(): void {
   const editor: TextEditor | undefined = vscode.window.activeTextEditor;
   if (!editor) {
     return;
   }
   let selection: Selection = editor.selection;
+  const linkObj: LinkProps = { text: "", url: "", target: "" };
 
   if (!isAnythingSelected()) {
-    // Nothing is selected. See if the surrounding text includes something that resembles
+    // Nothing is selected. Check if the surrounding text includes something that resembles
     // a Markdown link markup.
-    const surroundingWord = getSurroundingWord(
+    const surroundingMarkdown = getSurroundingPattern(
       editor,
       selection,
-      markdownLinkWordPattern
+      MARKDOWN_LINK_REGEX
     );
 
-    // If we found a hyperlink, select it.
-    if (surroundingWord) {
-      selection = editor.selection = surroundingWord;
+    // If we found surrounding Markdown, select it.
+    if (surroundingMarkdown) {
+      selection = editor.selection = surroundingMarkdown;
+    } else {
+      // Check to see if our cursor is on a URL
+      const surroundingUrl = getSurroundingPattern(
+        editor, selection, urlRegExp
+      );
+      // If we found a URL, select it.
+      if (surroundingUrl) {
+        selection = editor.selection = surroundingUrl;
+      }
     }
   }
 
-  // Is something selected from the previous block?
+  // Is something selected now?
   if (isAnythingSelected()) {
-    // Something is selected.
-    if (isMatch(markdownLinkRegex)) {
-      //Selection is a Markdown link expression, replace it with the link text
-      replaceSelection((text) => {
-        const mdLink: RegExpMatchArray | null = text.match(/\[(.+)\]/);
-        return mdLink ? mdLink[1] : text;
-      });
+    // If we are already in a Markdown link, just return.  Nothing to see here.
+    if (isMatch(MARKDOWN_LINK_REGEX)) {
       return;
     }
-
+    // If we are in a URL, grab the URL and put it into the linkObj
     if (isMatch(urlRegExp)) {
-      surroundSelection("[](", ")");
-      return;
+      linkObj.url = editor.document.getText(selection);
     }
   }
 
-  let linkObj: LinkProps = { text: "", url: "", target: "" };
-  promptForInput("Enter Link URL")
+  promptForInput("Enter Link URL", linkObj.url, linkObj.url)
     .then((url) => {
       if (!url) { return Promise.reject('URL is Required'); }
       linkObj.url = url;
-      linkObj.text = url;
-      return promptForInput("Enter link text");
+      return promptForInput("Enter link text", linkObj.url);
     })
     .then((text) => {
       linkObj.text = text;

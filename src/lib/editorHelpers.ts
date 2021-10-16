@@ -97,6 +97,24 @@ export function surroundSelection(
   }
 }
 
+export function getSurroundingPattern(
+  editor: TextEditor,
+  selection: Selection,
+  pattern?: RegExp
+): Selection | void {
+
+  const line: vscode.TextLine = editor.document.lineAt(selection.active);
+  const matched: RegExpExecArray | null | undefined = pattern?.exec(line.text);
+
+  if (matched) {
+    const selStart = new Position(line.lineNumber, matched.index);
+    const selEnd = new Position(line.lineNumber, matched.index + matched[0].length);
+    return new Selection(selStart, selEnd);
+  } else {
+    return;
+  }
+}
+
 export function getSurroundingWord(
   editor: TextEditor,
   selection: Selection,
@@ -288,7 +306,7 @@ export function promptForInput(
 
 const TRUESTR = /t|true|y|yes|1/i;
 function isTrueish(val?: string): boolean {
-  if (!val) return false;
+  if (!val) { return false; }
   const istrue: RegExpMatchArray | null = val.match(TRUESTR);
   return istrue !== null && istrue.length > 0;
 }
