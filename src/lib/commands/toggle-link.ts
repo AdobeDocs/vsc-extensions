@@ -70,6 +70,8 @@ export function toggleLink(): void {
     // If we are in a URL, grab the URL and put it into the linkObj
     if (isMatch(urlRegExp)) {
       linkObj.url = editor.document.getText(selection);
+    } else {
+      linkObj.text =editor.document.getText(selection);
     }
   }
 
@@ -77,7 +79,7 @@ export function toggleLink(): void {
     .then((url) => {
       if (!url) { return Promise.reject('URL is Required'); }
       linkObj.url = url;
-      return promptForInput("Enter link text", linkObj.url);
+      return promptForInput("Enter link text", linkObj.text, linkObj.text);
     })
     .then((text) => {
       linkObj.text = text;
