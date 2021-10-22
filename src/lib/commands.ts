@@ -12,7 +12,6 @@ import { toggleBold } from "./commands/toggle-bold";
 import { toggleBullets } from "./commands/toggle-bullets";
 import { toggleCaution } from "./commands/toggle-caution";
 import { toggleCheckboxes } from "./commands/toggle-checkboxes";
-import { toggleCitations } from "./commands/toggle-citations";
 import { toggleCodeBlock, toggleInlineCode } from "./commands/toggle-code";
 import { toggleDNL } from "./commands/toggle-dnl";
 import { toggleError } from "./commands/toggle-error";
@@ -69,13 +68,6 @@ class Command implements CommandItem {
 }
 
 const _commands: Command[] = [
-  new Command(
-    "toggleCitations",
-    toggleCitations,
-    "Toggle Citations",
-    "> Citations",
-    true
-  ),
   new Command(
     "toggleStrikethrough",
     toggleStrikethrough,
