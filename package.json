@@ -62,11 +62,6 @@
           "default": false,
           "description": "Show image icon in title bar"
         },
-        "markdownShortcuts.icons.citations": {
-          "type": "boolean",
-          "default": false,
-          "description": "Show citations icon in title bar"
-        },
         "markdownShortcuts.bold.marker": {
           "type": "string",
           "default": "**",
@@ -105,15 +100,6 @@
       }
     },
     "commands": [
-      {
-        "command": "md-shortcut.toggleCitations",
-        "title": "Toggle citations",
-        "icon": {
-          "dark": "./assets/icons/quote_white.svg",
-          "light": "./assets/icons/quote_black.svg"
-        },
-        "category": "Markdown Shortcuts"
-      },
       {
         "command": "md-shortcut.toggleBold",
         "title": "Toggle bold",
@@ -318,127 +304,127 @@
     "keybindings": [
       {
         "command": "md-shortcut.showCommandPalette",
-        "key": "ctrl+m ctrl+m",
+        "key": "Ctrl+m Ctrl+m",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleBold",
-        "key": "ctrl+b",
+        "key": "Ctrl+b",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleItalic",
-        "key": "ctrl+i",
+        "key": "Ctrl+i",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleLink",
-        "key": "ctrl+l",
+        "key": "Ctrl+l",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleImage",
-        "key": "ctrl+shift+l",
+        "key": "Ctrl+Shift+l",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleCodeBlock",
-        "key": "ctrl+m ctrl+c",
+        "key": "Ctrl+m Ctrl+c",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleInlineCode",
-        "key": "ctrl+m ctrl+i",
+        "key": "Ctrl+m Ctrl+i",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleBullets",
-        "key": "ctrl+m ctrl+b",
+        "key": "Ctrl+m Ctrl+b",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleNumbers",
-        "key": "ctrl+m ctrl+1",
+        "key": "Ctrl+m Ctrl+1",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleCheckboxes",
-        "key": "ctrl+m ctrl+x",
+        "key": "Ctrl+m Ctrl+x",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleNote",
-        "key": "ctrl+m ctrl+n",
+        "key": "Ctrl+m Ctrl+n",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleTip",
-        "key": "ctrl+m ctrl+t",
+        "key": "Ctrl+m Ctrl+t",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleCaution",
-        "key": "ctrl+m ctrl+c",
+        "key": "Ctrl+m Ctrl+c",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleImportant",
-        "key": "ctrl+m ctrl+p",
+        "key": "Ctrl+m Ctrl+p",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleWarning",
-        "key": "ctrl+m ctrl+w",
+        "key": "Ctrl+m Ctrl+w",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleAdministration",
-        "key": "ctrl+m ctrl+a",
+        "key": "Ctrl+m Ctrl+a",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleAvailability",
-        "key": "ctrl+m ctrl+u",
+        "key": "Ctrl+m Ctrl+u",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.togglePrerequisites",
-        "key": "ctrl+m ctrl+q",
+        "key": "Ctrl+m Ctrl+q",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleError",
-        "key": "ctrl+m ctrl+e",
+        "key": "Ctrl+m Ctrl+e",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleInfo",
-        "key": "ctrl+m ctrl+i",
+        "key": "Ctrl+m Ctrl+i",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleSuccess",
-        "key": "ctrl+m ctrl+s",
+        "key": "Ctrl+m Ctrl+s",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleMoreLikeThis",
-        "key": "ctrl+m ctrl+m",
+        "key": "Ctrl+m Ctrl+m",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleVideo",
-        "key": "ctrl+m ctrl+v",
+        "key": "Ctrl+m Ctrl+v",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleDNL",
-        "key": "ctrl+m ctrl+d",
+        "key": "Ctrl+m Ctrl+d",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       },
       {
         "command": "md-shortcut.toggleUIControl",
-        "key": "ctrl+m ctrl+u",
+        "key": "Ctrl+m Ctrl+u",
         "when": "editorTextFocus && markdownShortcuts:enabled"
       }
     ],
@@ -480,11 +466,6 @@
           "group": "2_markdown_1@7"
         },
         {
-          "command": "md-shortcut.toggleCitations",
-          "when": "markdownShortcuts:enabled",
-          "group": "2_markdown_1@8"
-        },
-        {
           "command": "md-shortcut.toggleBullets",
           "when": "markdownShortcuts:enabled",
           "group": "2_markdown_2@1"
@@ -498,11 +479,6 @@
           "command": "md-shortcut.toggleCheckboxes",
           "when": "markdownShortcuts:enabled",
           "group": "2_markdown_2@3"
-        },
-        {
-          "command": "md-shortcut.toggleCitations",
-          "when": "markdownShortcuts:enabled",
-          "group": "2_markdown_2@4"
         },
         {
           "command": "md-shortcut.addTable",
@@ -615,11 +591,6 @@
           "command": "md-shortcut.toggleImage",
           "when": "markdownShortcuts:enabled && config.markdownShortcuts.icons.image",
           "group": "navigation@6"
-        },
-        {
-          "command": "md-shortcut.toggleCitations",
-          "when": "markdownShortcuts:enabled && config.markdownShortcuts.icons.citations",
-          "group": "navigation@7"
         }
       ]
     }
