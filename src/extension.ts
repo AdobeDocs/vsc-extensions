@@ -86,10 +86,10 @@ export function activate(context: ExtensionContext) {
 
   register(context);
   output.appendLine(`[${msTimeValue}] - Registered markdown shortcuts`);
-  // Markdownlint custom rule check
-  checkMarkdownlintCustomProperty();
-  // Merge markdown lint configuration into user settings
-  checkMarkdownlintCustomConfig();
+  // // Markdownlint custom rule check
+  // checkMarkdownlintCustomProperty();
+  // // Merge markdown lint configuration into user settings
+  // checkMarkdownlintCustomConfig();
 
   /**
    * Function to compute the relative path between src and tgt without regard
