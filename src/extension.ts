@@ -8,10 +8,7 @@ import {
   WorkspaceFolder,
   TextEditor,
 } from 'vscode';
-import {
-  checkMarkdownlintCustomProperty,
-  checkMarkdownlintCustomConfig,
-} from './lib/config-controller';
+
 import { generateTimestamp, output } from './lib/common';
 import { register } from './lib/commands';
 import MarkdownIt = require('markdown-it');
@@ -86,10 +83,6 @@ export function activate(context: ExtensionContext) {
 
   register(context);
   output.appendLine(`[${msTimeValue}] - Registered markdown shortcuts`);
-  // Markdownlint custom rule check
-  checkMarkdownlintCustomProperty();
-  // Merge markdown lint configuration into user settings
-  checkMarkdownlintCustomConfig();
 
   /**
    * Function to compute the relative path between src and tgt without regard
