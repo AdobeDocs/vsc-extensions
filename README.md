@@ -1,6 +1,6 @@
 # Adobe Experience League Markdown Authoring
 
-This is a VS Code extension that enhances the built-in Markdown preview feaures with Adobe extensions to the Markdown specification.
+This is a Visual Studio Code extension that enhances the built-in Markdown preview feaures with Adobe extensions to the Markdown specification.
 
 Currently this plugin extends the [CommonMark](https://spec.commonmark.org/) specification, which is slightly different from the Git-flavored Markdown described in the [Adobe Contributor Guide](https://experienceleague.adobe.com/docs/contributor/contributor-guide/writing-essentials/markdown.html).
 
@@ -129,18 +129,6 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 ## Extension Settings
 
 Since this is an expansion on the built-in VS Code preview extension, any settings applicable to that extension also apply to this one.  You can find more information about support for Markdown in Visual Studio Code at in the [Visual Studio Code online documentation](https://code.visualstudio.com/Docs/languages/markdown).
-
-## Release Notes
-
-Here are the changes since the last release.
-
-### 1.0.0
-
-Initial release of Adobe Markdown Authoring extension for VSCode
-
-### 1.0.6
-
-
 ---
 
 ### For more information
