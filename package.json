@@ -2,7 +2,7 @@
   "name": "adobe-markdown-authoring",
   "displayName": "Adobe Markdown Authoring",
   "description": "Integrated preview, linter validation, and keyboard shortcuts for Adobe Flavored Markdown.",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "publisher": "AdobeExL",
   "engines": {
     "vscode": "^1.48.0"
@@ -635,7 +635,7 @@
   ],
   "dependencies": {
     "markdown-it": "^12.3.2",
-    "markdown-it-adobe-plugin": "^1.1.1",
+    "markdown-it-adobe-plugin": "file:../markdown-it-adobe-plugin",
     "markdown-it-replace-link": "^1.1.0"
   },
   "devDependencies": {
