@@ -608,7 +608,6 @@
     "davidanson.vscode-markdownlint"
   ],
   "markdownlint.config": {
-
     "line-length": false,
     "AM001": false,
     "AM009": false,
@@ -618,7 +617,7 @@
     "MD014": false,
     "MD024": false,
     "MD025": {
-        "front_matter_title": ""
+      "front_matter_title": ""
     },
     "MD026": false,
     "MD027": false,
