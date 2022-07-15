@@ -634,8 +634,7 @@
   ],
   "dependencies": {
     "markdown-it": "^12.3.2",
-    "markdown-it-adobe-plugin": "^1.1.2",
-    "markdown-it-include": "file:../markdown-it-adobe-include",
+    "markdown-it-adobe-plugin": "1.1.4",
     "markdown-it-replace-link": "^1.1.0"
   },
   "devDependencies": {
