@@ -184,9 +184,8 @@ export function activate(context: ExtensionContext) {
             return makeRelativeLink(link);
           },
         })
-        .use(require('markdown-it-adobe-include')
-        .use(require('markdown-it-adobe-plugin')
-));
+        .use(require('markdown-it-adobe-plugin'),{
+          root: getRootFolder()?.uri.path});
     },
   };
 }
