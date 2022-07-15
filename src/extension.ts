@@ -114,6 +114,17 @@ export function activate(context: ExtensionContext) {
     return fname;
   }
 
+  /** 
+   * Function to find the current root folder of the project.
+   */
+  function getRootFolder(): WorkspaceFolder | undefined {
+    const folders = workspace.workspaceFolders;
+    if (folders) {
+      return folders[0];
+    }
+    return undefined;
+  }
+
   // TODO: Refactor into separate file.
   function makeRelativeLink(link: String): String {
     const folders = workspace.workspaceFolders;
@@ -173,7 +184,8 @@ export function activate(context: ExtensionContext) {
             return makeRelativeLink(link);
           },
         })
-        .use(require('markdown-it-adobe-plugin'));
+        .use(require('markdown-it-adobe-plugin'),{
+          root: getRootFolder()?.uri.path});
     },
   };
 }
