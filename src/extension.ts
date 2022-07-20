@@ -127,6 +127,10 @@ export function activate(context: ExtensionContext) {
 
   // TODO: Refactor into separate file.
   function makeRelativeLink(link: String): String {
+    // If link is a url, return it.
+    if (link.startsWith('http') || link.startsWith('https')) {
+      return link;
+    }
     const folders = workspace.workspaceFolders;
     const currentFile: string | undefined =
       activeEditor && activeEditor.document.fileName;
@@ -184,9 +188,7 @@ export function activate(context: ExtensionContext) {
             return makeRelativeLink(link);
           },
         })
-        .use(require('markdown-it-adobe-include')
-        .use(require('markdown-it-adobe-plugin')
-));
+        .use(require('markdown-it-adobe-plugin'), {root: getRootFolder()?.uri.path, throwError: false});
     },
   };
 }
