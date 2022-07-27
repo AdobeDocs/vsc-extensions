@@ -30,8 +30,13 @@
     "markdown.markdownItPlugins": true,
     "configuration": {
       "type": "object",
-      "title": "Markdown Shortcuts",
+      "title": "Markdown Authoring",
       "properties": {
+        "markdown.replaceSmartQuotes": {
+          "type": "boolean",
+          "default": true,
+          "description": "Replace smart quotes with regular quotes."
+        },
         "markdown.icons.bold": {
           "type": "boolean",
           "default": true,
