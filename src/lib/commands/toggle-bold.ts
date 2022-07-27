@@ -13,7 +13,7 @@ const toggleBoldExpressions: BoldExpressions = {
 
 export function toggleBold(): Thenable<boolean | void> {
   const marker: string | undefined = vscode.workspace
-    .getConfiguration("markdownShortcuts.bold")
+    .getConfiguration("markdown.bold")
     .get("marker");
   if (!marker) {
     return Promise.reject("No bold marker was found in configuration");

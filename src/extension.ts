@@ -6,7 +6,6 @@ import {
   commands,
   window,
   WorkspaceFolder,
-  TextEditor,
 } from 'vscode';
 
 import { generateTimestamp, output } from './lib/common';
@@ -15,6 +14,7 @@ import MarkdownIt = require('markdown-it');
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { findAndReplaceTargetExpressions } from './lib/utiity';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -27,15 +27,15 @@ export function activate(context: ExtensionContext) {
   // Markdown Shortcuts
   function buildLanguageRegex(): RegExp {
     const languageArray: string[] | undefined = workspace
-      .getConfiguration('markdownShortcuts')
+      .getConfiguration('markdown')
       .get('languages') || ['markdown'];
     return new RegExp('(' + languageArray.join('|') + ')');
   }
 
-  function toggleMarkdownShortcuts(langId: string) {
+  function togglemarkdown(langId: string) {
     commands.executeCommand(
       'setContext',
-      'markdownShortcuts:enabled',
+      'markdown:enabled',
       languageRegex.test(langId)
     );
   }
@@ -44,13 +44,13 @@ export function activate(context: ExtensionContext) {
   let languageRegex = buildLanguageRegex();
   let activeEditor = window.activeTextEditor;
   if (activeEditor) {
-    toggleMarkdownShortcuts(activeEditor.document.languageId);
+    togglemarkdown(activeEditor.document.languageId);
   }
 
   // Update languageRegex if the configuration changes
   workspace.onDidChangeConfiguration(
     (configChange) => {
-      if (configChange.affectsConfiguration('markdownShortcuts.languages')) {
+      if (configChange.affectsConfiguration('markdown.languages')) {
         languageRegex = buildLanguageRegex();
       }
     },
@@ -58,23 +58,26 @@ export function activate(context: ExtensionContext) {
     context.subscriptions
   );
 
-  // Enable/disable markdownShortcuts
+  // Enable/disable markdown
   window.onDidChangeActiveTextEditor(
     (editor) => {
       activeEditor = editor;
       if (activeEditor) {
-        toggleMarkdownShortcuts(activeEditor.document.languageId);
+        togglemarkdown(activeEditor.document.languageId);
       }
     },
     null,
     context.subscriptions
   );
 
+	// When the document changes, find and replace target expressions (for example, smart quotes).
+	workspace.onDidChangeTextDocument(findAndReplaceTargetExpressions);
+
   // Triggered with language id change
   workspace.onDidOpenTextDocument(
     (document) => {
       if (activeEditor && activeEditor.document === document) {
-        toggleMarkdownShortcuts(activeEditor.document.languageId);
+        togglemarkdown(activeEditor.document.languageId);
       }
     },
     null,

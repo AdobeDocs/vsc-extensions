@@ -14,7 +14,7 @@ const toggleItalicExpressions: ItalicExpressions = {
 
 export function toggleItalic(): void | Thenable<void> | Thenable<boolean> {
   const marker: string | undefined = vscode.workspace
-    .getConfiguration("markdownShortcuts.italics")
+    .getConfiguration("markdown.italics")
     .get("marker");
   if (!marker) {
     return;
