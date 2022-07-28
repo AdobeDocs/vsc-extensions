@@ -617,6 +617,15 @@
     "AM001": false,
     "AM009": false,
     "AM011": false,
+    "MD003": {
+      "style": "atx"
+    },
+    "MD004": {
+      "style": "dash"
+    },
+    "MD007": {
+      "indent": 4
+    },
     "MD009": false,
     "MD012": false,
     "MD014": false,
@@ -627,7 +636,42 @@
     "MD026": false,
     "MD027": false,
     "MD028": false,
-    "MD030": false,
+    "MD030": {
+      "ul_multi": 3,
+      "ol_multi": 2
+    },
+    "MD033": {
+      "allowed_elements": [
+        "a",
+        "b",
+        "br",
+        "caption",
+        "code",
+        "col",
+        "colgroup",
+        "div",
+        "em",
+        "I",
+        "img",
+        "li",
+        "ol",
+        "p",
+        "pre",
+        "s",
+        "span",
+        "strong" 
+        "sub",
+        "sup",
+        "table",
+        "tbody",
+        "td",
+        "tfoot",
+        "th",
+        "thead",
+        "tr",
+        "u",
+        "ul"]
+    } ,
     "MD036": false,
     "MD038": false,
     "MD039": false,
