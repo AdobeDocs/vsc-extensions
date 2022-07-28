@@ -4,7 +4,7 @@ import { isAnythingSelected, isBlockMatch, replaceBlockSelection, surroundSelect
 const addBullets: RegExp = /^(\s*)(.+)$/gm;
 export function toggleBullets() {
     const marker = vscode.workspace
-        .getConfiguration("markdownShortcuts.bullets")
+        .getConfiguration("markdown.bullets")
         .get("marker");
 
     if (!isAnythingSelected()) {

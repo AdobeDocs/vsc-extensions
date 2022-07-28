@@ -6,7 +6,6 @@ import {
   commands,
   window,
   WorkspaceFolder,
-  TextEditor,
 } from 'vscode';
 
 import { generateTimestamp, output } from './lib/common';
@@ -15,6 +14,7 @@ import MarkdownIt = require('markdown-it');
 
 import * as fs from 'fs';
 import * as path from 'path';
+import { findAndReplaceTargetExpressions } from './lib/utiity';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -27,15 +27,15 @@ export function activate(context: ExtensionContext) {
   // Markdown Shortcuts
   function buildLanguageRegex(): RegExp {
     const languageArray: string[] | undefined = workspace
-      .getConfiguration('markdownShortcuts')
+      .getConfiguration('markdown')
       .get('languages') || ['markdown'];
     return new RegExp('(' + languageArray.join('|') + ')');
   }
 
-  function toggleMarkdownShortcuts(langId: string) {
+  function togglemarkdown(langId: string) {
     commands.executeCommand(
       'setContext',
-      'markdownShortcuts:enabled',
+      'markdown:enabled',
       languageRegex.test(langId)
     );
   }
@@ -44,13 +44,13 @@ export function activate(context: ExtensionContext) {
   let languageRegex = buildLanguageRegex();
   let activeEditor = window.activeTextEditor;
   if (activeEditor) {
-    toggleMarkdownShortcuts(activeEditor.document.languageId);
+    togglemarkdown(activeEditor.document.languageId);
   }
 
   // Update languageRegex if the configuration changes
   workspace.onDidChangeConfiguration(
     (configChange) => {
-      if (configChange.affectsConfiguration('markdownShortcuts.languages')) {
+      if (configChange.affectsConfiguration('markdown.languages')) {
         languageRegex = buildLanguageRegex();
       }
     },
@@ -58,23 +58,26 @@ export function activate(context: ExtensionContext) {
     context.subscriptions
   );
 
-  // Enable/disable markdownShortcuts
+  // Enable/disable markdown
   window.onDidChangeActiveTextEditor(
     (editor) => {
       activeEditor = editor;
       if (activeEditor) {
-        toggleMarkdownShortcuts(activeEditor.document.languageId);
+        togglemarkdown(activeEditor.document.languageId);
       }
     },
     null,
     context.subscriptions
   );
 
+	// When the document changes, find and replace target expressions (for example, smart quotes).
+	workspace.onDidChangeTextDocument(findAndReplaceTargetExpressions);
+
   // Triggered with language id change
   workspace.onDidOpenTextDocument(
     (document) => {
       if (activeEditor && activeEditor.document === document) {
-        toggleMarkdownShortcuts(activeEditor.document.languageId);
+        togglemarkdown(activeEditor.document.languageId);
       }
     },
     null,
@@ -84,16 +87,16 @@ export function activate(context: ExtensionContext) {
   register(context);
   output.appendLine(`[${msTimeValue}] - Registered markdown shortcuts`);
 
-  /**
-   * Function to compute the relative path between src and tgt without regard
-   * to the current working directory.  The built-in path.relative() function
-   * uses the CWD as a base, which cannot be changed. Weird that we have to
-   * do this.
-   *
-   * @param {string} src
-   * @param {string} tgt
-   * @return {*}  {string}
-   */
+  // /**
+  //  * Function to compute the relative path between src and tgt without regard
+  //  * to the current working directory.  The built-in path.relative() function
+  //  * uses the CWD as a base, which cannot be changed. Weird that we have to
+  //  * do this.
+  //  *
+  //  * @param {string} src
+  //  * @param {string} tgt
+  //  * @return {*}  {string}
+  //  */
   function relativePath(src: string, tgt: string): string {
     const srcelts: string[] = src.split('/');
     const tgtelts: string[] = tgt.split('/');
@@ -105,8 +108,8 @@ export function activate(context: ExtensionContext) {
       srcelt = srcelts.shift();
       tgtelt = tgtelts.shift();
     }
-    let popups = tgtelts.length - srcelts.length;
-    const fname = './'
+    let popups = Math.max(tgtelts.length - srcelts.length - 1, 0);
+    const fname = ''
       .concat('../'.repeat(popups))
       .concat(tgtelt || '')
       .concat('/')
@@ -125,9 +128,17 @@ export function activate(context: ExtensionContext) {
     return undefined;
   }
 
-  // TODO: Refactor into separate file.
-  function makeRelativeLink(link: String): String {
+  /** 
+   * Given a link file path, return the path relative to the current workspace folder.
+   */
+  function makeRelativeLink(link: string): string {
+    // If link is a url, return it.
+    if (link.startsWith('http') || link.startsWith('https')) {
+      return link;
+    }
+    // Get list of folders in the current workspace.
     const folders = workspace.workspaceFolders;
+    // Get the current file.
     const currentFile: string | undefined =
       activeEditor && activeEditor.document.fileName;
     if (!currentFile) {
@@ -139,12 +150,11 @@ export function activate(context: ExtensionContext) {
     output.appendLine(
       `[${msTimeValue}] - Current editor file path is: ${currentFile}`
     );
-    let linkpath: string = link.toString();
-    let relpath: string = linkpath;
-    if (fs.existsSync(linkpath.toString())) {
-      relpath = relativePath(currentFile, linkpath);
+    let relpath: string = link;
+    if (fs.existsSync(link)) {
+      relpath = relativePath(currentFile, link);
       output.appendLine(
-        `[${msTimeValue}] - Resolved absolute link path ${linkpath} .`
+        `[${msTimeValue}] - Resolved absolute link path ${link} .`
       );
     } else {
       output.appendLine(
@@ -152,15 +162,27 @@ export function activate(context: ExtensionContext) {
       );
       if (folders) {
         folders.forEach((folder: WorkspaceFolder) => {
-          linkpath = folder.uri.path + link;
-          if (fs.existsSync(linkpath)) {
-            relpath = relativePath(currentFile, linkpath);
+          link = path.join(folder.uri.path, link);
+          if (fs.existsSync(link)) {
             output.appendLine(
-              `[${msTimeValue}] - Absolute path found, and exists. ${linkpath}`
+              `[${msTimeValue}] - Absolute path found, and exists. ${link}`
             );
+            relpath = relativePath(currentFile, link);
+            output.appendLine(
+              `[${msTimeValue}] - Resolved relative path: ${relpath}`
+            );
+            if (fs.existsSync(relpath)) {
+              output.appendLine(
+                `[${msTimeValue}] - Resolved relative path exists. ${relpath}`
+              );
+            } else {
+              output.appendLine(
+                `[${msTimeValue}] - Resolved relative path does not exist. ${relpath}`
+              );
+            }
           } else {
             output.appendLine(
-              `[${msTimeValue}] - Link Path ${linkpath} does not exist.`
+              `[${msTimeValue}] - Link Path ${link} does not exist.`
             );
           }
         });
@@ -180,12 +202,15 @@ export function activate(context: ExtensionContext) {
       );
       return md
         .use(require('markdown-it-replace-link'), {
-          replaceLink: function (link: String, env: any) {
+          replaceLink: function (link: string, env: any) {
             return makeRelativeLink(link);
           },
         })
-        .use(require('markdown-it-adobe-plugin'),{
-          root: getRootFolder()?.uri.path});
+        .use(require('markdown-it-adobe-plugin'), 
+          {
+            root: getRootFolder()?.uri.path, 
+            throwError: false
+          });
     },
   };
 }
