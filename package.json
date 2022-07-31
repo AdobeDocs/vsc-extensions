@@ -659,7 +659,7 @@
         "pre",
         "s",
         "span",
-        "strong" 
+        "strong",
         "sub",
         "sup",
         "table",
@@ -670,8 +670,9 @@
         "thead",
         "tr",
         "u",
-        "ul"]
-    } ,
+        "ul"
+      ]
+    },
     "MD036": false,
     "MD038": false,
     "MD039": false,
@@ -683,7 +684,7 @@
   ],
   "dependencies": {
     "markdown-it": "^13.0.1",
-    "markdown-it-adobe-plugin": "^1.1.5",
+    "markdown-it-adobe-plugin": "file:../markdown-it-adobe-plugin",
     "markdown-it-replace-link": "^1.1.0"
   },
   "devDependencies": {
