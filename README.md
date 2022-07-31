@@ -128,14 +128,11 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 
 ## Markdown Lint Validation Settings
 
-This package uses David Anson's Markdown-Lint package to validate the markdown.  In addition to the built-in validation
-rules, this package adds support for Adobe Flavored Markdown.  
+This package uses David Anson's Markdown-Lint package to validate the markdown.  In addition to the built-in validation rules, this package adds support for Adobe Flavored Markdown.  
 
 ### Changing the Markdown-Lint Validation Settings
 
-When it starts up for the first time the Adobe Markdown Authoring extension will look for existing settings in the 
-VSCode Settings.  If it does not find them, it will add the default settings below.  If it does find them, it will
-default to the values found in the user settings.
+When it starts up for the first time the Adobe Markdown Authoring extension will look for existing settings in the VSCode Settings.  If it does not find them, it will add the default settings below.  If it does find them, it will default to the values found in the user settings.
 
 To change the settings, go to Preferences > Settings > markdownlint.
 
