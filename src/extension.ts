@@ -8,6 +8,9 @@ import {
   WorkspaceFolder,
 } from 'vscode';
 
+import {
+	checkMarkdownlintCustomProperty,checkMarkdownlintConfigSettings
+} from './controllers/lint-config-controller';
 import { generateTimestamp, output } from './lib/common';
 import { register } from './lib/commands';
 import MarkdownIt = require('markdown-it');
@@ -24,6 +27,13 @@ export function activate(context: ExtensionContext) {
   output.appendLine(
     `[${msTimeValue}] - Activating Adobe Flavored Markdown extension at ${extensionPath}`
   );
+  
+  output.appendLine(`[${msTimeValue}] - Activating docs linting extension.`);
+  // Markdown Lint custom rule check
+  checkMarkdownlintCustomProperty();
+  // Markdown Lint config check
+  checkMarkdownlintConfigSettings();
+
   // Markdown Shortcuts
   function buildLanguageRegex(): RegExp {
     const languageArray: string[] | undefined = workspace

@@ -126,9 +126,104 @@ Here are some examples of the Adobe extensions in action. If you have the extens
 | md-shortcut.toggleDNL | Make a [!DNL] block | ctrl+m ctrl+d |
 | md-shortcut.toggleUIControl | Make a [!UICONTROL] block | ctrl+m ctrl+u |
 
+## Markdown Lint Validation Settings
+
+This package uses David Anson's Markdown-Lint package to validate the markdown.  In addition to the built-in validation
+rules, this package adds support for Adobe Flavored Markdown.  
+
+### Changing the Markdown-Lint Validation Settings
+
+When it starts up for the first time the Adobe Markdown Authoring extension will look for existing settings in the 
+VSCode Settings.  If it does not find them, it will add the default settings below.  If it does find them, it will
+default to the values found in the user settings.
+
+To change the settings, go to Preferences > Settings > markdownlint.
+
+```
+markdownlint.config: {
+    "line-length": false,
+    "AM001": false,
+    "AM009": false,
+    "AM011": false,
+    "MD003": {
+      "style": "atx"
+    },
+    "MD004": {
+      "style": "dash"
+    },
+    "MD007": {
+      "indent": 4
+    },
+    "MD009": false,
+    "MD012": false,
+    "MD014": false,
+    "MD024": false,
+    "MD025": {
+      "front_matter_title": ""
+    },
+    "MD026": false,
+    "MD027": false,
+    "MD028": false,
+    "MD030": {
+      "ul_multi": 3,
+      "ol_multi": 2
+    },
+    "MD033": {
+      "allowed_elements": [
+        "a",
+        "b",
+        "br",
+        "caption",
+        "code",
+        "col",
+        "colgroup",
+        "div",
+        "em",
+        "I",
+        "img",
+        "li",
+        "ol",
+        "p",
+        "pre",
+        "s",
+        "span",
+        "strong",
+        "sub",
+        "sup",
+        "table",
+        "tbody",
+        "td",
+        "tfoot",
+        "th",
+        "thead",
+        "tr",
+        "u",
+        "ul"
+      ]
+    },
+    "MD036": false,
+    "MD038": false,
+    "MD039": false,
+    "MD040": false,
+    "MD045": false
+  }
+```
+### Custom Rules
+
+In addition to the standard support MD### rules, Adobe Markdown Extension supports AM### rules, which are specific to 
+Adobe Flavored Markdown.
+
+```
+  "markdownlint.customRules": [
+    "{adobeexl.adobe-markdown-authoring}/markdownlint-custom-rules/rules.js"
+  ]
+```
+
+
 ## Extension Settings
 
 Since this is an expansion on the built-in VS Code preview extension, any settings applicable to that extension also apply to this one.  You can find more information about support for Markdown in Visual Studio Code at in the [Visual Studio Code online documentation](https://code.visualstudio.com/Docs/languages/markdown).
+
 ---
 
 ### For more information
@@ -136,3 +231,6 @@ Since this is an expansion on the built-in VS Code preview extension, any settin
 - [Adobe Contributor Guide](https://experienceleague.adobe.com/docs/contributor/contributor-guide/introduction.html)
 - [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
 - [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+- [David Anson's Markdown Lint](https://github.com/DavidAnson/markdownlint)
+- [VS Code version of Markdown Lint](https://marketplace.visualstudio.com/items?itemName=DavidAnson.vscode-markdownlint)
+
