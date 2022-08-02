@@ -1,75 +1,29 @@
-'use strict';
+// @ts-check
 
-const common = require('./common');
-const detailStrings = require('./strings');
+"use strict";
+
+const shared = require("./shared");
 
 module.exports = {
-  names: ['AM017', 'adobe.alert'],
-  description: `Invalid alert syntax.`,
-  tags: ['validation', 'adobe', 'alerts'],
-  function: function am017(params, onError) {
-    params.tokens
-      .filter(function filterToken(token) {
-        return token.type === 'inline';
-      })
-      .forEach(function forToken(inline) {
-        inline.children
-          .filter(function filterChild(child) {
-            return child.type === 'text';
-          })
-          .forEach(function forChild(text) {
-            // Use the line child so ">" isn't stripped.
-            const content = text.line;
-            // Rule to verify that alert is of valid type.
-            // Begin linting when ">[!" is at the beginning of a line.
-            if (content.match(common.alertOpener)) {
-              // Condition: The text is not valid alert type
-              if (
-                !content.match(common.snippetOpener) &&
-                !content.match(common.includeOpener) &&
-                !content.match(common.alertType)
-              ) {
-                onError({
-                  lineNumber: text.lineNumber,
-                  detail: detailStrings.alertType,
-                  context: text.line,
-                });
-              }
+  "names": [ "AM017", "text-following-id-tag-heading"],
+  "description": "No text or images after header ID Tags ({#id-tag-name}",
+  "tags": [ "headings", "headers" ],
+  "function": function AM017(params, onError) {
+    let prevLevel = 0;
+    shared.filterTokens(params, "heading_open", function forToken(token) {
+      var line = token.line.replace(/`.*?`/, 'code').replace(/{{.*?}}/, 'SNIPPET')
+      // console.log(line)
+      if (line.match(/^[#]+.*?{/gm)) {
+            if (line.match(/^[#]+.*?{[#].*?}[\s]*$/gm)) {
+                // console.log('GOOD:' + token.line + ' ' + line)
+            } else {
+                // console.log('BAD: ' + token.line + ' ' + line)
+                shared.addErrorContext(onError, token.lineNumber, token.line);
             }
-            // Rule to catch the alert has whitespace between the ">" and the "[!"
-            if (content.match(common.alertWithSpace)) {
-              onError({
-                lineNumber: text.lineNumber,
-                detail: detailStrings.alertWithSpace,
-                context: text.line,
-              });
-            }
-            // Rule to verify that alert is preceded by "> "
-            // Begin linting when "[!" is at the beginning of a line
-            if (content.match(common.bracketExclam)) {
-              // Condition: The text is trying to be an alert
-              if (content.match(common.alertTypeNoOpen)) {
-                onError({
-                  lineNumber: text.lineNumber,
-                  detail: detailStrings.alertNoOpen,
-                  context: text.line,
-                });
-              }
-            }
-            // Rule to catch alert content on the same line as alert identifier.
-            // Begin linting when line starts with an alert.
-            //if (content.match(common.alertType)) {
-            // Condition: Any text follows alert identifier.
-            //}
-            // Rule to catch alert identifier missing exclamation point.
-            if (content.match(common.alertNoExclam)) {
-              onError({
-                lineNumber: text.lineNumber,
-                detail: detailStrings.alertNoExclam,
-                context: text.line,
-              });
-            }
-          });
-      });
-  },
+    
+        }
+
+      }
+    );
+  }
 };

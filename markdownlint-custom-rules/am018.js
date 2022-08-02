@@ -1,118 +1,29 @@
-'use strict';
+// @ts-check
 
-const common = require('./common');
-const detailStrings = require('./strings');
+"use strict";
+
+const shared = require("./shared");
 
 module.exports = {
-  names: ['AM018', 'adobe.video'],
-  description: `video linting.`,
-  tags: ['validation', 'adobe', 'video'],
-  function: function am018(params, onError) {
-    const doc = params.lines.join('\n');
-    const fullLooseMatches = doc.match(common.syntaxVideoLooseMatch);
-    params.tokens
-      .filter(function filterToken(token) {
-        return token.type === 'inline';
-      })
-      .forEach(function forToken(inline) {
-        inline.children
-          .filter(function filterChild(child) {
-            return child.type === 'text';
-          })
-          .forEach(function forChild(text) {
-            const textBlock = text.content;
-            const videoMatches = textBlock.match(common.syntaxVideoLooseMatch);
-            if (videoMatches === null) {
-              return;
-            }
-            videoMatches.forEach((videoMatch) => {
-              const content = fullLooseMatches.filter((match) =>
-                match.includes(videoMatch)
-              )[0];
-              if (content) {
-                //malformed colons
-                if (!content.match(common.openAndClosingValidTripleColon)) {
-                  onError({
-                    lineNumber: text.lineNumber,
-                    detail: detailStrings.tripleColonsIncorrect,
-                    context: text.line,
-                  });
-                }
-
-                //source check
-                const sourceMatch = common.videoSourceMatch.exec(content);
-                if (!sourceMatch || sourceMatch[1] === '') {
-                  onError({
-                    lineNumber: text.lineNumber,
-                    detail: detailStrings.videoSourceRequired,
-                    context: text.line,
-                  });
-                }
-                if (sourceMatch) {
-                  const source = sourceMatch[1];
-                  if (
-                    !source.includes('channel9.msdn.com') &&
-                    !source.includes('youtube.com/embed') &&
-                    !source.includes('microsoft.com/en-us/videoplayer/embed')
-                  ) {
-                    onError({
-                      lineNumber: text.lineNumber,
-                      detail: detailStrings.videoSourceUrl,
-                      context: text.line,
-                    });
-                  }
-                  if (
-                    source.includes('channel9.msdn.com') &&
-                    !source.includes('/player')
-                  ) {
-                    onError({
-                      lineNumber: text.lineNumber,
-                      detail: detailStrings.videoChannel9,
-                      context: text.line,
-                    });
-                  }
-                }
-                const attributeMatches = content.match(
-                  common.AttributeMatchGlobal
-                );
-                if (attributeMatches && attributeMatches.length > 0) {
-                  attributeMatches.forEach((attributeMatch) => {
-                    const match = common.AttributeMatch.exec(attributeMatch);
-                    const attr = match[1];
-                    if (allowedVideoAttributes) {
-                      const attributeInAllowedList = allowedVideoAttributes.includes(
-                        attr.toLowerCase()
-                      );
-                      if (!attributeInAllowedList) {
-                        onError({
-                          lineNumber: text.lineNumber,
-                          detail: detailStrings.videoNonAllowedAttribute.replace(
-                            '___',
-                            attr
-                          ),
-                          context: text.line,
-                        });
-                      } else {
-                        const attributeNotMatchCasing = allowedVideoAttributes.includes(
-                          attr
-                        );
-                        if (!attributeNotMatchCasing) {
-                          onError({
-                            lineNumber: text.lineNumber,
-                            detail: detailStrings.videoCaseSensitive.replace(
-                              '___',
-                              attr
-                            ),
-                            context: text.line,
-                          });
-                        }
-                      }
-                    }
-                  });
-                }
+  "names": [ "AM018", "blanks-around-blockquotes"],
+  "description": "Block quotes should be surrounded by blank lines",
+  "tags": [ "blockquote", "blank_lines" ],
+  "function": function AM018(params, onError) {
+    var checklines = []
+    shared.filterTokens(params, "blockquote_open", function forToken(token) {
+        var index = 0
+        checklines.push(token.map[0])
+        checklines.push(token.map[1])
+      }
+    );
+    shared.forEachLine(function forLine(line, i) {
+        var err = '  '
+        if (checklines.includes(i + 1)) {
+            if (line.replace(/\s/g, '').length && !line.match(/^[\s]*\>/)) {
+                shared.addErrorContext(onError, i + 1, line);
               }
-            });
-          });
-      });
-  },
+        }
+    });
+
+  }
 };
