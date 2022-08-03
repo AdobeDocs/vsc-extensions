@@ -2,7 +2,7 @@
   "name": "adobe-markdown-authoring",
   "displayName": "Adobe Markdown Authoring",
   "description": "Integrated preview, linter validation, and keyboard shortcuts for Adobe Flavored Markdown.",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "publisher": "AdobeExL",
   "engines": {
     "vscode": "^1.48.0"
@@ -617,6 +617,15 @@
     "AM001": false,
     "AM009": false,
     "AM011": false,
+    "MD003": {
+      "style": "atx"
+    },
+    "MD004": {
+      "style": "dash"
+    },
+    "MD007": {
+      "indent": 4
+    },
     "MD009": false,
     "MD012": false,
     "MD014": false,
@@ -627,7 +636,43 @@
     "MD026": false,
     "MD027": false,
     "MD028": false,
-    "MD030": false,
+    "MD030": {
+      "ul_multi": 3,
+      "ol_multi": 2
+    },
+    "MD033": {
+      "allowed_elements": [
+        "a",
+        "b",
+        "br",
+        "caption",
+        "code",
+        "col",
+        "colgroup",
+        "div",
+        "em",
+        "I",
+        "img",
+        "li",
+        "ol",
+        "p",
+        "pre",
+        "s",
+        "span",
+        "strong",
+        "sub",
+        "sup",
+        "table",
+        "tbody",
+        "td",
+        "tfoot",
+        "th",
+        "thead",
+        "tr",
+        "u",
+        "ul"
+      ]
+    },
     "MD036": false,
     "MD038": false,
     "MD039": false,
@@ -639,7 +684,7 @@
   ],
   "dependencies": {
     "markdown-it": "^13.0.1",
-    "markdown-it-adobe-plugin": "^1.1.5",
+    "markdown-it-adobe-plugin": "^1.1.6",
     "markdown-it-replace-link": "^1.1.0"
   },
   "devDependencies": {
