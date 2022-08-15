@@ -70,7 +70,7 @@ const DEFAULT_MARKDOWNLINT_CONFIG = {
       "style": "atx"
     },
     "MD004": {
-      "style": "dash"
+      "style": "consistent"
     },
     "MD007": {
       "indent": 4

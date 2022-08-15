@@ -8,7 +8,8 @@ module.exports.newLineRe = /\r[\n\u0085]?|[\n\u2424\u2028\u0085]/;
 module.exports.frontMatterRe = /^(---|\+\+\+)$[^]*?^\1$(\r\n|\r|\n)/m;
 
 // Regular expression for matching inline disable/enable comments
-const inlineCommentRe = /<!--\s*markdownlint-(dis|en)able((?:\s+[a-z0-9_-]+)*)\s*-->/gi;
+const inlineCommentRe =
+  /<!--\s*markdownlint-(dis|en)able((?:\s+[a-z0-9_-]+)*)\s*-->/gi;
 module.exports.inlineCommentRe = inlineCommentRe;
 
 // Regular expressions for range matching
@@ -225,16 +226,18 @@ module.exports.forEachLine = function forEachLine(callback) {
   if (!tokenCache) {
     makeTokenCache(null);
   }
-  tokenCache.params.lines.forEach(function forLine(line, lineIndex) {
-    const metadata = tokenCache.lineMetadata[lineIndex];
-    callback(
-      line,
-      lineIndex,
-      !!(metadata & 7),
-      ((metadata & 6) >> 1 || 2) - 2,
-      !!(metadata & 8)
-    );
-  });
+  if (tokenCache) {
+    tokenCache.params.lines.forEach(function forLine(line, lineIndex) {
+      const metadata = tokenCache.lineMetadata[lineIndex];
+      callback(
+        line,
+        lineIndex,
+        !!(metadata & 7),
+        ((metadata & 6) >> 1 || 2) - 2,
+        !!(metadata & 8)
+      );
+    });
+  }
 };
 
 // Calls the provided function for each specified inline child token
