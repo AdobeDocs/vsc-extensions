@@ -1063,6 +1063,7 @@ markdown-it-adobe-plugin@^1.1.7:
   resolved "https://registry.yarnpkg.com/markdown-it-adobe-plugin/-/markdown-it-adobe-plugin-1.1.7.tgz#c208b791ddf5634a91b6d8355e551c56f46b9a54"
   integrity sha512-Ba6nqSvgtSMrBCqj/+3gDvH3Yn/hRUSuMJlYCkM60mYcLY+8bWq95pO12Qph565XJkC3YObuOLjh0o1FcNXzhg==
 
+
 markdown-it-replace-link@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/markdown-it-replace-link/-/markdown-it-replace-link-1.1.0.tgz#cab2343eb27928db1c836e10cd518aaf60a0bd50"
