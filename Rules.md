@@ -7,46 +7,55 @@ versions of the examples.
 
 
 <a name="AM001"></a>
+
 ## AM001 - Headings cannot contain numbers without named anchor {#..}
 
 DITA does not allow heading anchors to start with a number
 
 <a name="AM002"></a>
+
 ## AM002 - ID Tags ({#id-tag-name} cannot contain spaces
 
 DITA does not allow anchor tags to contain spaces
 
 <a name="AM003"></a>
+
 ## AM003 - Horizontal rules are not supported
 
 DITA does not support horizontal rules
 
 <a name="AM004"></a>
+
 ## AM004 - Malformed markdown table row
 
 Check for missing close pipes or extra pipes in table
 
 <a name="AM005"></a>
+
 ## AM005 - Anchor ids {#..} must begin with letter
 
 Similar to AM001, but id must start with letter
 
 <a name="AM006"></a>
+
 ## AM006 - Detects invisible dodgy-characters and control characters
 
 Checks for hard to find "dodgy" characters that are in the range 0x0 - 0xF.  These are usually the result of cut-and-paste.
 
 <a name="AM007"></a>
+
 ## AM007 - Heading anchor has no hash
 
 Provide warning about an anchor without a has, such as `{anchorid}` instead of `{#anchorid}`
 
 <a name="AM008"></a>
+
 ## AM008 - Heading contains link
 
 DITA transformation does not support having a link in a heading.
 
 <a name="AM009"></a>
+
 ## AM009 - Space between blockquote bracket and AFM control
 
 ```
@@ -60,6 +69,7 @@ should be
 ```
 
 <a name="AM010"></a>
+
 ## AM010 - ID Tags ({#id-tag-name} cannot contain additional hash symbols
 
 Not allowed: `{#id-tag-#name}`
