@@ -226,16 +226,18 @@ module.exports.forEachLine = function forEachLine(callback) {
   if (!tokenCache) {
     makeTokenCache(null);
   }
-  tokenCache.params.lines.forEach(function forLine(line, lineIndex) {
-    const metadata = tokenCache.lineMetadata[lineIndex];
-    callback(
-      line,
-      lineIndex,
-      !!(metadata & 7),
-      ((metadata & 6) >> 1 || 2) - 2,
-      !!(metadata & 8)
-    );
-  });
+  if (tokenCache) {
+    tokenCache.params.lines.forEach(function forLine(line, lineIndex) {
+      const metadata = tokenCache.lineMetadata[lineIndex];
+      callback(
+        line,
+        lineIndex,
+        !!(metadata & 7),
+        ((metadata & 6) >> 1 || 2) - 2,
+        !!(metadata & 8)
+      );
+    });
+  }
 };
 
 // Calls the provided function for each specified inline child token

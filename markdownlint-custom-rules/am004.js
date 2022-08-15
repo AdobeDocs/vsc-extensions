@@ -52,7 +52,7 @@ module.exports = {
           let tableEnd = tablelines[step][1] + params.frontMatterLines.length;
 
           // console.log(tableStart, tableEnd,mdlint realLineNumber)
-          if (realLineNumber == tableEnd + 2) {
+          if (realLineNumber === tableEnd + 2) {
             pass = true;
           }
         }
@@ -62,29 +62,29 @@ module.exports = {
 
         // No blank line between table and style
         for (let step = 0; step < tablelines.length; step++) {
-          if (lineIndex == tablelines[step][1]) {
+          if (lineIndex === tablelines[step][1]) {
             errorList.push(errorNoBlankLine);
           }
         }
 
         // Style definition must be on line by itself
-        if (line.replace(/{style="table-layout:.*?"}/, '').trim() != '') {
+        if (line.replace(/{style="table-layout:.*?"}/, '').trim() !== '') {
           errorList.push(errorOnlyStyle);
         }
 
         // online auto and fixed are acceptable styles
         let style = line.replace(/.*?{style="(.*?)"}/, '$1').trim();
-        if (style != 'table-layout:auto' && style != 'table-layout:fixed') {
+        if (style !== 'table-layout:auto' && style !== 'table-layout:fixed') {
           errorList.push(errorBadStyle);
         }
 
         for (let step = 0; step < errorList.length; step++) {
-          if (errorStr != '') {
+          if (errorStr !== '') {
             errorStr += ', ';
           }
           errorStr += errorList[step];
         }
-        if (errorStr != '') {
+        if (errorStr !== '') {
           shared.addError(
             onError,
             lineNumber,

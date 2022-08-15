@@ -6,7 +6,7 @@
 const shared = require('./shared');
 
 module.exports = {
-  names: ['AM019', 'link-syntax'],
+  names: ['AM019', 'malformed-link'],
   description: 'Malformed link',
   tags: ['link'],
   function: function AM019(params, onError) {
