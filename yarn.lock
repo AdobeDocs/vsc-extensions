@@ -1058,10 +1058,8 @@ lru-cache@^6.0.0:
   dependencies:
     yallist "^4.0.0"
 
-markdown-it-adobe-plugin@^1.1.6:
+"markdown-it-adobe-plugin@file:../markdown-it-adobe-plugin":
   version "1.1.6"
-  resolved "https://registry.yarnpkg.com/markdown-it-adobe-plugin/-/markdown-it-adobe-plugin-1.1.6.tgz#39aa93b9ef5179dbcf83cd4848a6c85026550f9c"
-  integrity sha512-cA2oaC65sOZ2Hu8qI9/B22jJsW8JOcsN02IZQ6f4PJr8YEyvRfox3KEPj9W0H1ExmMITSv6JpabKm1HJ8UwAtA==
 
 markdown-it-replace-link@^1.1.0:
   version "1.1.0"

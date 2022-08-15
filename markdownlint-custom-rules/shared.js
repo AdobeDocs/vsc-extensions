@@ -8,7 +8,8 @@ module.exports.newLineRe = /\r[\n\u0085]?|[\n\u2424\u2028\u0085]/;
 module.exports.frontMatterRe = /^(---|\+\+\+)$[^]*?^\1$(\r\n|\r|\n)/m;
 
 // Regular expression for matching inline disable/enable comments
-const inlineCommentRe = /<!--\s*markdownlint-(dis|en)able((?:\s+[a-z0-9_-]+)*)\s*-->/gi;
+const inlineCommentRe =
+  /<!--\s*markdownlint-(dis|en)able((?:\s+[a-z0-9_-]+)*)\s*-->/gi;
 module.exports.inlineCommentRe = inlineCommentRe;
 
 // Regular expressions for range matching
