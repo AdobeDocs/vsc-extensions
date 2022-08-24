@@ -18,8 +18,7 @@
     "Other"
   ],
   "activationEvents": [
-    "onLanguage:markdown",
-    "*"
+    "onLanguage:markdown"
   ],
   "main": "./out/extension.js",
   "contributes": {
@@ -680,6 +679,7 @@
     "{adobeexl.adobe-markdown-authoring}/markdownlint-custom-rules/rules.js"
   ],
   "dependencies": {
+    "js-yaml": "^4.1.0",
     "markdown-it": "^13.0.1",
     "markdown-it-adobe-plugin": "^1.1.7",
     "markdown-it-replace-link": "^1.1.0"
