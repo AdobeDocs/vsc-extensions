@@ -23,8 +23,10 @@
   "main": "./out/extension.js",
   "contributes": {
     "markdown.previewStyles": [
+      "./assets/styles/typekit.css",
+      "./assets/styles/base.css",
       "./assets/styles/docs.css",
-      "./assets/styles/base.css"
+      "./assets/styles/spectrum.css"
     ],
     "markdown.markdownItPlugins": true,
     "configuration": {
@@ -681,7 +683,7 @@
   "dependencies": {
     "js-yaml": "^4.1.0",
     "markdown-it": "^13.0.1",
-    "markdown-it-adobe-plugin": "^1.1.7",
+    "markdown-it-adobe-plugin": "file:../markdown-it-adobe-plugin",
     "markdown-it-replace-link": "^1.1.0"
   },
   "devDependencies": {
