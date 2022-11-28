@@ -137,24 +137,19 @@ export function checkMarkdownlintConfigSettings() {
 	const configProperty = 'markdownlint.config';
 	const configPropertyData: any = workspace.getConfiguration().inspect(configProperty);
 	const customLintConfig = DEFAULT_MARKDOWNLINT_CONFIG;
-	// If the markdownlint.config property exists in package.json, check for existing user settings
+	// If the markdownlint.config property exists in package.json, do not overwrite it in the user settings.
 	if (configPropertyData) {
 		if (configPropertyData.globalValue) {
-			const existingUserSettings = configPropertyData.globalValue;
-			Object.assign(customLintConfig, existingUserSettings);
-			workspace
-				.getConfiguration()
-				.update(configProperty, customLintConfig, ConfigurationTarget.Global);
-				output.appendLine(
-					`[${msTimeValue}] - Adobe default markdownlint config settings merged with user settings.`
-				);
+			output.appendLine(
+				`[${msTimeValue}] - user has existing markdownlint.config settings.  No changes made.`
+			);
 		} else {
 			workspace
 				.getConfiguration()
 				.update(configProperty, customLintConfig, ConfigurationTarget.Global);
-				output.appendLine(
-					`[${msTimeValue}] - Adobe default markdownlint config settings added to user settings.`
-				);
+			output.appendLine(
+				`[${msTimeValue}] - Adobe default markdownlint config settings added to user settings.`
+			);
 		}
 	}
 
