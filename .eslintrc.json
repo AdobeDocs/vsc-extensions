@@ -3,17 +3,29 @@
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
         "ecmaVersion": 6,
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": "./tsconfig.json"
     },
     "plugins": [
         "@typescript-eslint"
     ],
     "rules": {
-        "@typescript-eslint/naming-convention": "warn",
-        "@typescript-eslint/semi": "warn",
-        "curly": "warn",
-        "eqeqeq": "warn",
-        "no-throw-literal": "warn",
+        "@typescript-eslint/naming-convention": ["error",
+            { "selector": "default", "format": ["camelCase"], "leadingUnderscore": "allow" },
+            { "selector": "variable", "format": ["camelCase", "UPPER_CASE"], "leadingUnderscore": "allow" },
+            { "selector": "parameter", "format": ["camelCase"], "leadingUnderscore": "allow" },
+            { "selector": "memberLike", "format": ["camelCase"], "leadingUnderscore": "allow" },
+            { "selector": "typeLike", "format": ["PascalCase"] },
+            { "selector": "enumMember", "format": ["UPPER_CASE", "camelCase"] },
+            { "selector": "objectLiteralProperty", "format": null }
+        ],
+        "@typescript-eslint/semi": "error",
+        "@typescript-eslint/no-floating-promises": "error",
+        "@typescript-eslint/no-misused-promises": "error",
+        "@typescript-eslint/no-explicit-any": "warn",
+        "curly": "error",
+        "eqeqeq": "error",
+        "no-throw-literal": "error",
         "semi": "off"
     }
 }

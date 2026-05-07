@@ -14,6 +14,7 @@ export function toggleAdministration() {
   return surroundBlockSelection(
     startingAdministration,
     endingAdministration,
-    administrationBlockWordPattern
+    administrationBlockWordPattern,
+    '>[!ADMINISTRATION]\n>\n>$0'
   );
 }

@@ -1,7 +1,5 @@
-import { getEol } from "../../../lib/env";
 import { testCommand } from "../shortcuts.test";
 
-const NEWLINE = getEol();
 
 suite("Bold", () => {
   test("Ranged selection", () => {

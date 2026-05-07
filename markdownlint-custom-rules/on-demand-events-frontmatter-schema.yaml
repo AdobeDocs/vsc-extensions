@@ -1,0 +1,99 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: on-demand-event-frontmatter-schema
+title: On-demand Event Frontmatter Schema
+description: Schema for validating on-demand event markdown frontmatter metadata
+type: object
+
+properties:
+  title:
+    type: string
+    minLength: 1
+
+  description:
+    type: string
+    maxLength: 1600
+
+  # On-demand events use product (maps to the solutions endpoint for dynamic enum injection)
+  product:
+    type: array
+    x-supports-csv: true
+    items:
+      type: string
+      # enum will be injected dynamically
+
+  role:
+    type: array
+    x-supports-csv: true
+    items:
+      type: string
+      # enum will be injected dynamically
+
+  level:
+    type: array
+    x-supports-csv: true
+    items:
+      type: string
+      # enum will be injected dynamically
+
+  doc-type:
+    type: string
+    enum: ["Event", "Value Video"]
+
+  duration:
+    type: integer
+    minimum: 1
+
+  jira:
+    type: string
+    minLength: 1
+
+  exl-id:
+    type: string
+    minLength: 1
+
+  series:
+    oneOf:
+      - type: string
+      - type: "null"
+
+  speakers:
+    type: array
+    items:
+      type: object
+      properties:
+        name:
+          type: string
+        picture:
+          type: string
+        title:
+          type: string
+      additionalProperties: true
+
+  # Common event metadata seen in event files
+  last-update:
+    type: string
+  inLanguage:
+    type: string
+  startDate:
+    type: string
+  endDate:
+    type: string
+  promoStartTime:
+    type: string
+  promoEndTime:
+    type: string
+  organizer:
+    type: string
+
+required:
+  - title
+  - description
+  - product
+  - role
+  - level
+  - doc-type
+  - duration
+  - jira
+  # - speakers
+
+additionalProperties: true

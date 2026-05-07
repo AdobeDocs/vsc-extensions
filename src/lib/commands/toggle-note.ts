@@ -10,5 +10,5 @@ const noteBlockWordPattern: RegExp = new RegExp(
 );
 
 export function toggleNote() {
-  return surroundBlockSelection(startingNote, endingNote, noteBlockWordPattern);
+  return surroundBlockSelection(startingNote, endingNote, noteBlockWordPattern, '>[!NOTE]\n>\n>$0');
 }

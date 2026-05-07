@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="44in" height="44in" viewBox="-22 -22 44 44">
+  <title>Measurements for 36 inch scaled 44 tooth 110 BCD chainring</title>
+  <desc>Annotated measurement sheet. The chainring itself is 36 inches outside diameter; the artboard is larger to fit dimension lines.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="0.9" markerHeight="0.9" refX="0.45" refY="0.45" orient="auto-start-reverse">
+      <path d="M 0 0 L 0.9 0.45 L 0 0.9 Z" fill="#c42b2b"/>
+    </marker>
+    <style>
+      .dim { fill: none; stroke: #c42b2b; stroke-width: 0.06; marker-start: url(#arrow); marker-end: url(#arrow); }
+      .ext { fill: none; stroke: #c42b2b; stroke-width: 0.04; stroke-dasharray: 0.22 0.16; }
+      .guide { fill: none; stroke: #2767b1; stroke-width: 0.055; stroke-dasharray: 0.28 0.2; }
+      .label { fill: #222; font: 0.62px Arial, Helvetica, sans-serif; }
+      .small { fill: #333; font: 0.48px Arial, Helvetica, sans-serif; }
+    </style>
+  </defs>
+
+  <rect x="-22" y="-22" width="44" height="44" fill="#fff"/>
+  <image href="chainring-36in.svg" x="-18" y="-18" width="36" height="36"/>
+
+  <circle r="10.69" class="guide"/>
+  <circle r="17.05" class="guide"/>
+  <line x1="-18" y1="-18.9" x2="-18" y2="20.35" class="ext"/>
+  <line x1="18" y1="-18.9" x2="18" y2="20.35" class="ext"/>
+  <line x1="-18" y1="19.65" x2="18" y2="19.65" class="dim"/>
+  <text x="-2.22" y="20.6" class="label">36.000 in tooth-tip OD</text>
+
+  <line x1="-17.05" y1="-17.92" x2="-17.05" y2="-19.55" class="ext"/>
+  <line x1="17.05" y1="-17.92" x2="17.05" y2="-19.55" class="ext"/>
+  <line x1="-17.05" y1="-19.15" x2="17.05" y2="-19.15" class="dim"/>
+  <text x="-2.62" y="-19.75" class="label">34.100 in root OD</text>
+
+  <line x1="-10.69" y1="-10.69" x2="10.69" y2="10.69" class="dim"/>
+  <text x="-0.95" y="-0.55" class="label" transform="rotate(45)">21.380 in BCD</text>
+
+  <circle cx="7.56" cy="-7.56" r="0.97" class="guide"/>
+  <line x1="7.56" y1="-7.56" x2="15.7" y2="-14.1" class="ext"/>
+  <text x="15.88" y="-14.08" class="small">Bolt holes: 1.94 in dia</text>
+  <text x="15.88" y="-13.42" class="small">4 holes on 21.38 in BCD</text>
+
+  <line x1="0" y1="-18" x2="0" y2="-17.05" class="dim"/>
+  <text x="0.38" y="-17.55" class="small">0.95 in tooth depth</text>
+
+  <text x="-21" y="-20.6" class="label">Scaled chainring measurements</text>
+  <text x="-21" y="-19.82" class="small">Units: inches. Visual approximation from supplied 44T / 110 BCD reference image.</text>
+  <text x="-21" y="-19.2" class="small">For fabrication, verify material, kerf, and mounting hardware before cutting.</text>
+</svg>

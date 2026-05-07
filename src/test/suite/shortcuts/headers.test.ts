@@ -1,7 +1,5 @@
-import { getEol } from "../../../lib/env";
 import { testCommand } from "../shortcuts.test";
 
-const NEWLINE = getEol();
 
 suite("Headers", () => {
   // For headers we'll generate the tests, so that this test suite doesn't get too bloat.

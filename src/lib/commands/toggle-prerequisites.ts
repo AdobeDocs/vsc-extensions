@@ -12,6 +12,7 @@ export function togglePrerequisites() {
   return surroundBlockSelection(
     startingPrerequisites,
     endingPrerequisites,
-    prerequisitesBlockWordPattern
+    prerequisitesBlockWordPattern,
+    '>[!PREREQUISITES]\n>\n>$0'
   );
 }

@@ -12,6 +12,7 @@ export function toggleMoreLikeThis(): Thenable<boolean | void> {
   return surroundBlockSelection(
     startingMoreLikeThis,
     endingMoreLikeThis,
-    moreLikeThisBlockWordPattern
+    moreLikeThisBlockWordPattern,
+    '>[!MORELIKETHIS]\n>$0'
   );
 }

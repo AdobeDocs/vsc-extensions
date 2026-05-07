@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { TextEditor, Selection } from "vscode";
+import { TextEditor } from "vscode";
 import { urlRegExp } from "../commands";
 import {
   surroundSelection,
@@ -23,8 +23,7 @@ export function toggleVideo(): Thenable<boolean> {
   }
 
   // VIDEO tags work on the current line, so ignore the selection and select the whole line.
-  let selection: Selection = (editor.selection =
-    getLineSelection() || editor.selection);
+  editor.selection = getLineSelection() || editor.selection;
 
   // If anything is selected, look for an existing VIDEO tag.
   if (isAnythingSelected()) {

@@ -12,6 +12,7 @@ export function toggleCaution() {
   return surroundBlockSelection(
     startingCaution,
     endingCaution,
-    cautionBlockWordPattern
+    cautionBlockWordPattern,
+    '>[!CAUTION]\n>\n>$0'
   );
 }

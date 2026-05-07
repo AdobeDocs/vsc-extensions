@@ -12,6 +12,7 @@ export function toggleSuccess() {
   return surroundBlockSelection(
     startingSuccess,
     endingSuccess,
-    successBlockWordPattern
+    successBlockWordPattern,
+    '>[!SUCCESS]\n>\n>$0'
   );
 }

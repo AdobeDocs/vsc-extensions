@@ -5,29 +5,26 @@ import {
   workspace,
   commands,
   window,
-  WorkspaceFolder,
 } from 'vscode';
+import { GhecPanelProvider } from './panels/ghec-panel';
+import { AdobePreviewManager } from './panels/adobe-preview-panel';
 
 import {
 	checkMarkdownlintCustomProperty,checkMarkdownlintConfigSettings
 } from './controllers/lint-config-controller';
 import { generateTimestamp, output } from './lib/common';
 import { register } from './lib/commands';
-import MarkdownIt = require('markdown-it');
-
-import * as fs from 'fs';
-import * as path from 'path';
 import { findAndReplaceTargetExpressions } from './lib/utiity';
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 export function activate(context: ExtensionContext) {
-  var extensionPath: string = context.extensionPath;
+  const extensionPath: string = context.extensionPath;
   const { msTimeValue } = generateTimestamp();
   output.appendLine(
     `[${msTimeValue}] - Activating Adobe Flavored Markdown extension at ${extensionPath}`
   );
-  
+
   output.appendLine(`[${msTimeValue}] - Activating docs linting extension.`);
   // Markdown Lint custom rule check
   checkMarkdownlintCustomProperty();
@@ -43,7 +40,7 @@ export function activate(context: ExtensionContext) {
   }
 
   function togglemarkdown(langId: string) {
-    commands.executeCommand(
+    void commands.executeCommand(
       'setContext',
       'markdown:enabled',
       languageRegex.test(langId)
@@ -80,8 +77,12 @@ export function activate(context: ExtensionContext) {
     context.subscriptions
   );
 
-	// When the document changes, find and replace target expressions (for example, smart quotes).
-	workspace.onDidChangeTextDocument(findAndReplaceTargetExpressions);
+  // When the document changes, find and replace target expressions (for example, smart quotes).
+  workspace.onDidChangeTextDocument(
+    findAndReplaceTargetExpressions,
+    null,
+    context.subscriptions
+  );
 
   // Triggered with language id change
   workspace.onDidOpenTextDocument(
@@ -97,130 +98,32 @@ export function activate(context: ExtensionContext) {
   register(context);
   output.appendLine(`[${msTimeValue}] - Registered markdown shortcuts`);
 
-  // /**
-  //  * Function to compute the relative path between src and tgt without regard
-  //  * to the current working directory.  The built-in path.relative() function
-  //  * uses the CWD as a base, which cannot be changed. Weird that we have to
-  //  * do this.
-  //  *
-  //  * @param {string} src
-  //  * @param {string} tgt
-  //  * @return {*}  {string}
-  //  */
-  function relativePath(src: string, tgt: string): string {
-    const srcelts: string[] = src.split('/');
-    const tgtelts: string[] = tgt.split('/');
-    let eltno = 0;
-    // Find the offset in tgt where folder paths are no longer the same.
-    let srcelt: string | undefined = srcelts.shift();
-    let tgtelt: string | undefined = tgtelts.shift();
-    while (srcelt !== undefined && tgtelt !== undefined && srcelt === tgtelt) {
-      srcelt = srcelts.shift();
-      tgtelt = tgtelts.shift();
-    }
-    let popups = Math.max(tgtelts.length - srcelts.length - 1, 0);
-    const fname = ''
-      .concat('../'.repeat(popups))
-      .concat(tgtelt || '')
-      .concat('/')
-      .concat(tgtelts.join('/'));
-    return fname;
-  }
-
-  /** 
-   * Function to find the current root folder of the project.
-   */
-  function getRootFolder(): WorkspaceFolder | undefined {
-    const folders = workspace.workspaceFolders;
-    if (folders) {
-      return folders[0];
-    }
-    return undefined;
-  }
-
-  /** 
-   * Given a link file path, return the path relative to the current workspace folder.
-   */
-  function makeRelativeLink(link: string): string {
-    // If link is a url, return it.
-    if (link.startsWith('http') || link.startsWith('https')) {
-      return link;
-    }
-    // Get list of folders in the current workspace.
-    const folders = workspace.workspaceFolders;
-    // Get the current file.
-    const currentFile: string | undefined =
-      activeEditor && activeEditor.document.fileName;
-    if (!currentFile) {
-      output.appendLine(
-        `[${msTimeValue}] - No current editor to compute relative links.`
-      );
-      return link;
-    }
-    output.appendLine(
-      `[${msTimeValue}] - Current editor file path is: ${currentFile}`
-    );
-    let relpath: string = link;
-    if (fs.existsSync(link)) {
-      relpath = relativePath(currentFile, link);
-      output.appendLine(
-        `[${msTimeValue}] - Resolved absolute link path ${link} .`
-      );
-    } else {
-      output.appendLine(
-        `[${msTimeValue}] - Attempting to resolve relative path: ${relpath}`
-      );
-      if (folders) {
-        folders.forEach((folder: WorkspaceFolder) => {
-          link = path.join(folder.uri.path, link);
-          if (fs.existsSync(link)) {
-            output.appendLine(
-              `[${msTimeValue}] - Absolute path found, and exists. ${link}`
-            );
-            relpath = relativePath(currentFile, link);
-            output.appendLine(
-              `[${msTimeValue}] - Resolved relative path: ${relpath}`
-            );
-            if (fs.existsSync(relpath)) {
-              output.appendLine(
-                `[${msTimeValue}] - Resolved relative path exists. ${relpath}`
-              );
-            } else {
-              output.appendLine(
-                `[${msTimeValue}] - Resolved relative path does not exist. ${relpath}`
-              );
-            }
-          } else {
-            output.appendLine(
-              `[${msTimeValue}] - Link Path ${link} does not exist.`
-            );
-          }
-        });
+  const adobePreview = new AdobePreviewManager(context);
+  context.subscriptions.push(adobePreview);
+  context.subscriptions.push(
+    commands.registerCommand('adobeExl.openAdobePreview', () => adobePreview.show())
+  );
+  context.subscriptions.push(
+    commands.registerCommand(
+      'adobeExl.openAdobePreviewDeveloperTools',
+      async () => {
+        try {
+          await commands.executeCommand(
+            'workbench.action.webview.openDeveloperTools'
+          );
+        } catch {
+          void window.showWarningMessage(
+            'Could not open webview DevTools from the extension. Focus the Adobe Preview panel, then run **Developer: Open Webview Developer Tools** from the Command Palette.'
+          );
+        }
       }
-    }
-    output.appendLine(
-      `[${msTimeValue}] - Relative path resolved to: ${relpath}.`
-    );
-    return relpath;
-  }
-  return {
-    extendMarkdownIt(md: MarkdownIt) {
-      output.appendLine(
-        `[${msTimeValue}] - Markdown-it plugin options are ${JSON.stringify(
-          md.options
-        )}`
-      );
-      return md
-        .use(require('markdown-it-replace-link'), {
-          replaceLink: function (link: string, env: any) {
-            return makeRelativeLink(link);
-          },
-        })
-        .use(require('markdown-it-adobe-plugin'), 
-          {
-            root: getRootFolder()?.uri.path, 
-            throwError: false
-          });
-    },
-  };
+    )
+  );
+
+  const ghecProvider = new GhecPanelProvider(context);
+  context.subscriptions.push(
+    window.registerWebviewViewProvider('adobeExl.ghecPanel', ghecProvider, {
+      webviewOptions: { retainContextWhenHidden: true },
+    })
+  );
 }

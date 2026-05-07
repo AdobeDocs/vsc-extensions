@@ -1,0 +1,19 @@
+{
+  "version": "0.2",
+  "dictionaryDefinitions": [
+    {
+      "name": "exl-words",
+      "path": "./assets/cspell-exl-words.txt",
+      "addWords": true
+    }
+  ],
+  "dictionaries": [
+    "exl-words"
+  ],
+  "ignoreRegExpList": [
+    "`[^`\\n]+`",
+    "https?://\\S+",
+    "\\[![A-Z][A-Z0-9_]*(?:\\s+[^\\]]*)?\\]",
+    "\\{[^}]+\\}"
+  ]
+}

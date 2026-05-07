@@ -1,18 +1,18 @@
 {
   "name": "adobe-markdown-authoring",
-  "displayName": "Adobe Markdown Authoring",
-  "description": "Integrated preview, linter validation, and keyboard shortcuts for Adobe Flavored Markdown.",
-  "version": "1.1.7",
+  "displayName": "ExL Markdown Authoring",
+  "description": "Adobe Preview (dedicated webview), linter validation, and keyboard shortcuts for Adobe Flavored Markdown.",
+  "version": "2.3.0",
   "publisher": "AdobeExL",
   "engines": {
-    "vscode": "^1.48.0"
+    "vscode": "^1.75.0"
   },
   "homepage": "https://github.com/AdobeDocs/vsc-extensions.git",
   "repository": {
     "type": "git",
     "url": "https://github.com/AdobeDocs/vsc-extensions.git"
   },
-  "icon": "icon.png",
+  "icon": "assets/img/adobe-red-logo.png",
   "license": "Apache-2.0",
   "categories": [
     "Other"
@@ -22,17 +22,138 @@
   ],
   "main": "./out/extension.js",
   "contributes": {
-    "markdown.previewStyles": [
-      "./assets/styles/typekit.css",
-      "./assets/styles/base.css",
-      "./assets/styles/docs.css",
-      "./assets/styles/spectrum.css"
+    "configurationDefaults": {
+      "editor.tokenColorCustomizations": {
+        "textMateRules": [
+          {
+            "scope": "markup.quote.markdown",
+            "settings": { "foreground": "#D4D4D4" }
+          },
+          {
+            "scope": "punctuation.definition.quote.begin.markdown",
+            "settings": { "foreground": "#5C6BC0" }
+          },
+          {
+            "scope": [
+              "punctuation.definition.afm.begin.markdown",
+              "punctuation.definition.afm.end.markdown",
+              "punctuation.definition.afm.attributes.begin.markdown",
+              "punctuation.definition.afm.attributes.end.markdown",
+              "punctuation.definition.afm.video-url.begin.markdown",
+              "punctuation.definition.afm.video-url.end.markdown"
+            ],
+            "settings": { "foreground": "#777777" }
+          },
+          {
+            "scope": "keyword.other.afm.macro.markdown",
+            "settings": { "foreground": "#777777", "fontStyle": "" }
+          },
+          {
+            "scope": "string.unquoted.afm.macro.value.markdown",
+            "settings": { "foreground": "#B5CEA8" }
+          },
+          {
+            "scope": [
+              "punctuation.definition.afm.blockquote.informative.markdown",
+              "keyword.other.afm.admonition.informative.markdown",
+              "string.quoted.double.afm.value.admonition.informative.markdown",
+              "string.unquoted.afm.value.admonition.informative.markdown"
+            ],
+            "settings": { "foreground": "#1473E6", "fontStyle": "bold" }
+          },
+          {
+            "scope": [
+              "punctuation.definition.afm.blockquote.positive.markdown",
+              "keyword.other.afm.admonition.positive.markdown",
+              "string.quoted.double.afm.value.admonition.positive.markdown",
+              "string.unquoted.afm.value.admonition.positive.markdown"
+            ],
+            "settings": { "foreground": "#268E6C", "fontStyle": "bold" }
+          },
+          {
+            "scope": [
+              "punctuation.definition.afm.blockquote.caution.markdown",
+              "keyword.other.afm.admonition.caution.markdown",
+              "string.quoted.double.afm.value.admonition.caution.markdown",
+              "string.unquoted.afm.value.admonition.caution.markdown"
+            ],
+            "settings": { "foreground": "#E68619", "fontStyle": "bold" }
+          },
+          {
+            "scope": [
+              "punctuation.definition.afm.blockquote.negative.markdown",
+              "keyword.other.afm.admonition.negative.markdown",
+              "string.quoted.double.afm.value.admonition.negative.markdown",
+              "string.unquoted.afm.value.admonition.negative.markdown"
+            ],
+            "settings": { "foreground": "#D7373F", "fontStyle": "bold" }
+          },
+          {
+            "scope": [
+              "keyword.other.afm.tag.markdown",
+              "string.quoted.double.afm.value.markdown",
+              "string.unquoted.afm.value.markdown",
+              "string.unquoted.afm.collapsible.title.markdown"
+            ],
+            "settings": { "foreground": "#5C6BC0" }
+          },
+          {
+            "scope": "keyword.other.afm.collapsible.markdown",
+            "settings": { "foreground": "#9256D9", "fontStyle": "bold" }
+          },
+          {
+            "scope": "string.other.link.afm.value.markdown",
+            "settings": { "foreground": "#1473E6" }
+          },
+          {
+            "scope": [
+              "meta.afm.attributes.markdown",
+              "entity.other.attribute-name.afm.markdown",
+              "punctuation.separator.key-value.afm.markdown",
+              "string.unquoted.afm.attribute-value.markdown"
+            ],
+            "settings": { "foreground": "#777777" }
+          }
+        ]
+      }
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "exl-ghec",
+          "title": "EXL CI Monitor",
+          "icon": "./assets/icons/ci-monitor.svg"
+        }
+      ]
+    },
+    "views": {
+      "exl-ghec": [
+        {
+          "type": "webview",
+          "id": "adobeExl.ghecPanel",
+          "name": "Build Monitor",
+          "icon": "./assets/icons/ci-monitor.svg"
+        }
+      ]
+    },
+    "grammars": [
+      {
+        "scopeName": "markdown.afm.injection",
+        "path": "./syntaxes/afm-markdown.tmLanguage.json",
+        "injectTo": [
+          "text.html.markdown"
+        ]
+      }
     ],
-    "markdown.markdownItPlugins": true,
     "configuration": {
       "type": "object",
       "title": "Markdown Authoring",
       "properties": {
+        "adobeExl.preview.diagnosticMode": {
+          "type": "boolean",
+          "default": false,
+          "markdownDescription": "When enabled, Adobe Preview posts font/CSS diagnostics to the **Adobe Markdown Authoring** output channel after each load. Reopen the preview after toggling. Combine with **Adobe Preview: Open Webview Developer Tools** to inspect the panel in Chromium DevTools."
+        },
         "markdown.replaceSmartQuotes": {
           "type": "boolean",
           "default": true,
@@ -106,6 +227,20 @@
       }
     },
     "commands": [
+      {
+        "command": "adobeExl.openAdobePreview",
+        "title": "Adobe Preview",
+        "category": "Markdown Authoring",
+        "icon": {
+          "dark": "./assets/icons/grid_white.svg",
+          "light": "./assets/icons/grid_black.svg"
+        }
+      },
+      {
+        "command": "adobeExl.openAdobePreviewDeveloperTools",
+        "title": "Adobe Preview: Open Webview Developer Tools",
+        "category": "Markdown Authoring"
+      },
       {
         "command": "md-shortcut.toggleBold",
         "title": "Toggle bold",
@@ -305,14 +440,24 @@
         "command": "md-shortcut.toggleUIControl",
         "title": "Toggle UICONTROL",
         "category": "Markdown Shortcuts"
+      },
+      {
+        "command": "md-shortcut.toggleTabs",
+        "title": "Toggle Tabs",
+        "category": "Markdown Shortcuts"
+      },
+      {
+        "command": "md-shortcut.toggleShadebox",
+        "title": "Toggle Shadebox",
+        "category": "Markdown Shortcuts"
+      },
+      {
+        "command": "md-shortcut.toggleCollapsible",
+        "title": "Toggle Collapsible",
+        "category": "Markdown Shortcuts"
       }
     ],
     "keybindings": [
-      {
-        "command": "md-shortcut.showCommandPalette",
-        "key": "Ctrl+m Ctrl+m",
-        "when": "editorTextFocus && markdown:enabled"
-      },
       {
         "command": "md-shortcut.toggleBold",
         "key": "Ctrl+b",
@@ -370,7 +515,7 @@
       },
       {
         "command": "md-shortcut.toggleCaution",
-        "key": "Ctrl+m Ctrl+c",
+        "key": "Ctrl+m Ctrl+h",
         "when": "editorTextFocus && markdown:enabled"
       },
       {
@@ -390,7 +535,7 @@
       },
       {
         "command": "md-shortcut.toggleAvailability",
-        "key": "Ctrl+m Ctrl+u",
+        "key": "Ctrl+m Ctrl+j",
         "when": "editorTextFocus && markdown:enabled"
       },
       {
@@ -405,7 +550,7 @@
       },
       {
         "command": "md-shortcut.toggleInfo",
-        "key": "Ctrl+m Ctrl+i",
+        "key": "Ctrl+m Ctrl+f",
         "when": "editorTextFocus && markdown:enabled"
       },
       {
@@ -415,7 +560,7 @@
       },
       {
         "command": "md-shortcut.toggleMoreLikeThis",
-        "key": "Ctrl+m Ctrl+m",
+        "key": "Ctrl+m Ctrl+o",
         "when": "editorTextFocus && markdown:enabled"
       },
       {
@@ -435,7 +580,26 @@
       }
     ],
     "menus": {
+      "explorer/context": [
+        {
+          "command": "adobeExl.openAdobePreview",
+          "when": "resourceExtname == '.md'",
+          "group": "1_adobe@1"
+        }
+      ],
+      "editor/title/context": [
+        {
+          "command": "adobeExl.openAdobePreview",
+          "when": "markdown:enabled",
+          "group": "1_adobe@1"
+        }
+      ],
       "editor/context": [
+        {
+          "command": "adobeExl.openAdobePreview",
+          "when": "markdown:enabled",
+          "group": "1_adobe@1"
+        },
         {
           "command": "md-shortcut.toggleBold",
           "when": "markdown:enabled",
@@ -565,9 +729,29 @@
           "command": "md-shortcut.toggleUIControl",
           "when": "markdown:enabled",
           "group": "2_markdown_4@15"
+        },
+        {
+          "command": "md-shortcut.toggleTabs",
+          "when": "markdown:enabled",
+          "group": "2_markdown_4@16"
+        },
+        {
+          "command": "md-shortcut.toggleShadebox",
+          "when": "markdown:enabled",
+          "group": "2_markdown_4@17"
+        },
+        {
+          "command": "md-shortcut.toggleCollapsible",
+          "when": "markdown:enabled",
+          "group": "2_markdown_4@18"
         }
       ],
       "editor/title": [
+        {
+          "command": "adobeExl.openAdobePreview",
+          "when": "markdown:enabled",
+          "group": "navigation@0"
+        },
         {
           "command": "md-shortcut.toggleBold",
           "when": "markdown:enabled && config.markdown.icons.bold",
@@ -602,102 +786,45 @@
     }
   },
   "scripts": {
-    "vscode:prepublish": "yarn run compile",
-    "vscode:uninstall": "node ./out/config/uninstall",
+    "vscode:prepublish": "npm run sync-preview-fonts && npm run compile",
     "compile": "tsc -p ./",
     "lint": "eslint src --ext ts",
     "watch": "tsc -watch -p ./",
-    "pretest": "yarn run compile && yarn run lint",
-    "test": "node ./out/test/runTest.js"
+    "pretest": "npm run compile && npm run lint",
+    "test": "node ./out/test/runTest.js",
+    "sync-preview-fonts": "node scripts/sync-preview-fonts.js",
+    "prepare": "husky"
   },
   "extensionDependencies": [
     "davidanson.vscode-markdownlint"
   ],
-  "markdownlint.config": {
-    "line-length": false,
-    "AM001": false,
-    "AM009": false,
-    "AM011": false,
-    "MD003": {
-      "style": "atx"
-    },
-    "MD007": {
-      "indent": 4
-    },
-    "MD009": false,
-    "MD012": false,
-    "MD014": false,
-    "MD024": false,
-    "MD025": {
-      "front_matter_title": ""
-    },
-    "MD026": false,
-    "MD027": false,
-    "MD028": false,
-    "MD030": {
-      "ul_multi": 3,
-      "ol_multi": 2
-    },
-    "MD033": {
-      "allowed_elements": [
-        "a",
-        "b",
-        "br",
-        "caption",
-        "code",
-        "col",
-        "colgroup",
-        "div",
-        "em",
-        "I",
-        "img",
-        "li",
-        "ol",
-        "p",
-        "pre",
-        "s",
-        "span",
-        "strong",
-        "sub",
-        "sup",
-        "table",
-        "tbody",
-        "td",
-        "tfoot",
-        "th",
-        "thead",
-        "tr",
-        "u",
-        "ul"
-      ]
-    },
-    "MD036": false,
-    "MD038": false,
-    "MD039": false,
-    "MD040": false,
-    "MD045": false
-  },
-  "markdownlint.customRules": [
-    "{adobeexl.adobe-markdown-authoring}/markdownlint-custom-rules/rules.js"
-  ],
   "dependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1",
+    "axios": "^1.15.2",
     "js-yaml": "^4.1.0",
     "markdown-it": "^13.0.1",
-    "markdown-it-replace-link": "^1.1.0"
+    "markdown-it-anchor": "^9.2.0",
+    "markdown-it-replace-link": "^1.1.0",
+    "markdownlint-cli2": "^0.18.1"
   },
   "devDependencies": {
+    "@fontsource/roboto": "^5.2.10",
+    "@fontsource/roboto-mono": "^5.2.8",
     "@types/glob": "^7.1.3",
-    "@types/markdown-it": "^12.2.3",
+    "@types/markdown-it": "^13.0.9",
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.4",
+    "@types/vscode": "^1.75.0",
     "@typescript-eslint/eslint-plugin": "^5.30.6",
     "@typescript-eslint/parser": "^5.30.6",
     "@vscode/test-electron": "^2.1.5",
     "eslint": "^8.19.0",
     "glob": "^8.0.3",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.2",
     "mocha": "^10.0.0",
-    "typescript": "^4.7.4",
-    "vscode": "^1.1.37",
+    "typescript": "^5.8.3",
     "vscode-test-content": "^1.2.0"
   },
   "__metadata": {

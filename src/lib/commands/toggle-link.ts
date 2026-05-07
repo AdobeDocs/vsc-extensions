@@ -1,11 +1,8 @@
-import { URL } from "url";
 import * as vscode from "vscode";
 import { Selection, TextEditor } from "vscode";
 import { urlRegExp } from "../commands";
 import {
-  surroundSelection,
   isAnythingSelected,
-  getSurroundingWord,
   isMatch,
   replaceSelection,
   promptForInput,
@@ -18,12 +15,12 @@ interface LinkProps {
   url?: string;
   target?: string;
 }
-function addLinkTag(linkProps: LinkProps): void | Thenable<void> {
+function addLinkTag(linkProps: LinkProps): void {
   let target = '';
   if (linkProps.target) {
     target = `{${linkProps.target}}`;
   };
-  replaceSelection(() => (`[${linkProps.text}](${linkProps.url})${target}`));
+  void replaceSelection(() => (`[${linkProps.text}](${linkProps.url})${target}`));
 }
 
 const MARKDOWN_LINK_REGEX: RegExp = /^\[.+\]\(.+\)(\{.+\})?$/;
@@ -75,7 +72,7 @@ export function toggleLink(): void {
     }
   }
 
-  promptForInput("Enter Link URL", linkObj.url, linkObj.url)
+  void promptForInput("Enter Link URL", linkObj.url, linkObj.url)
     .then((url) => {
       if (!url) { return Promise.reject('URL is Required'); }
       linkObj.url = url;

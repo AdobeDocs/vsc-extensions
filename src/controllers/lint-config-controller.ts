@@ -2,223 +2,154 @@
 'use strict';
 
 import { ConfigurationTarget, workspace } from 'vscode';
-import { showStatusMessage, output, generateTimestamp } from '../lib/common';
+import { output, generateTimestamp } from '../lib/common';
 
-// store users markdownlint settings on activation
-const markdownlintProperty = 'markdownlint.config';
-
-export function removeBlankLineInsideBlockQuote() {
-	const markdownlintData: any = workspace.getConfiguration().inspect(markdownlintProperty);
-	// preserve existing markdownlint.config settings if they exist
-	if (markdownlintData.globalValue) {
-		const existingUserSettings = markdownlintData.globalValue;
-		Object.assign(existingUserSettings, { MD028: false });
-		workspace
-			.getConfiguration()
-			.update(markdownlintProperty, existingUserSettings, ConfigurationTarget.Global);
-		showStatusMessage(`disabled MD028 rule in Markdownlint config setting.`);
-	}
-	// add md028 property and front_matter_title property directly (no existing settings)
-	if (!markdownlintData.globalValue) {
-		const blankLineInsideBlockQuoterParameter = { MD028: false };
-		workspace
-			.getConfiguration()
-			.update(
-				markdownlintProperty,
-				blankLineInsideBlockQuoterParameter,
-				ConfigurationTarget.Global
-			);
-		showStatusMessage(`disabled MD028 rule in Markdownlint config setting.`);
-	}
-}
-
-export function addFrontMatterTitle() {
-	const markdownlintData: any = workspace.getConfiguration().inspect(markdownlintProperty);
-	const addFrontMatterTitleSetting = workspace.getConfiguration('markdown').addFrontMatterTitle;
-	// preserve existing markdownlint.config settings if they exist
-	if (markdownlintData.globalValue && addFrontMatterTitleSetting) {
-		const existingUserSettings = markdownlintData.globalValue;
-		Object.assign(existingUserSettings, { MD025: { front_matter_title: '' } });
-		workspace
-			.getConfiguration()
-			.update(markdownlintProperty, existingUserSettings, ConfigurationTarget.Global);
-		showStatusMessage(`Added front_matter_title property to Markdownlint config setting.`);
-	}
-	// add md025 property and front_matter_title property directly (no existing settings)
-	if (!markdownlintData.globalValue && addFrontMatterTitleSetting) {
-		const frontMatterParameter = { MD025: { front_matter_title: '' } };
-		workspace
-			.getConfiguration()
-			.update(markdownlintProperty, frontMatterParameter, ConfigurationTarget.Global);
-		showStatusMessage(`Added front_matter_title property to Markdownlint config setting.`);
-	}
-	// let user know that markdownlint.config file will not be updated
-	if (!addFrontMatterTitleSetting) {
-		showStatusMessage(
-			`The addFrontMatterTitleSetting value is set to false.  MD025 rule will not be updated.`
-		);
-	}
-}
 
 
 const DEFAULT_MARKDOWNLINT_CONFIG = {
     "line-length": false,
     "AM001": false,
-    "AM009": false,
+    "AM005": false,
     "AM011": false,
-    "MD003": {
-      "style": "atx"
+    "AM018": false,
+    "AM020": true,
+    "AM033": false,
+    "AM045": {
+      "bannedTokens": ["table", "image", "htmlFlow"],
+      "childReposPattern": "^[a-z0-9-]+$"
     },
-    "MD004": {
-      "style": "consistent"
+    "AM046": {
+      "validateSlideshows": true
     },
-    "MD007": {
-      "indent": 4
+    "AM054": false,
+    "AM055": false,
+    "AM056": false,
+    "AM058": false,
+    "MD005": false,
+    "MD006": {
+      "severity": "warning"
     },
+    "MD007": false,
     "MD009": false,
     "MD012": false,
+    "MD013": false,
     "MD014": false,
     "MD024": false,
-    "MD025": {
-      "front_matter_title": ""
-    },
+    "MD025": false,
     "MD026": false,
     "MD027": false,
     "MD028": false,
-    "MD030": {
-      "ul_multi": 3,
-      "ol_multi": 2
-    },
-    "MD033": {
-      "allowed_elements": [
-        "a",
-        "b",
-        "br",
-        "caption",
-        "code",
-        "col",
-        "colgroup",
-        "div",
-        "em",
-        "I",
-        "img",
-        "li",
-        "ol",
-        "p",
-        "pre",
-        "s",
-        "span",
-        "strong",
-        "sub",
-        "sup",
-        "table",
-        "tbody",
-        "td",
-        "tfoot",
-        "th",
-        "thead",
-        "tr",
-        "u",
-        "ul"
-      ]
-    },
+    "MD030": false,
+    "MD032": false,
+    "MD033": false,
+    "MD034": false,
     "MD036": false,
+    "MD037": false,
     "MD038": false,
     "MD039": false,
     "MD040": false,
-    "MD045": false
+    "MD041": false,
+    "MD045": false,
+    "MD046": false,
+    "MD047": false,
+    "MD049": false,
+    "MD050": false,
+    "MD051": false,
+    "MD053": false,
+    "MD059": false,
+    "MD060": false
 };
 
 /**
- * Method to check for the markdownlint.config property in package.json and add user settings if they do not exist.
+ * Method to check for the markdownlint.config property and add workspace settings if they do not exist.
+ * Writes to workspace scope only — never touches the user's global settings.
  */
 export function checkMarkdownlintConfigSettings() {
 	const {msTimeValue} = generateTimestamp();
 	const configProperty = 'markdownlint.config';
 	const configPropertyData: any = workspace.getConfiguration().inspect(configProperty);
 	const customLintConfig = DEFAULT_MARKDOWNLINT_CONFIG;
-	// If the markdownlint.config property exists in package.json, do not overwrite it in the user settings.
-	if (configPropertyData) {
-		if (configPropertyData.globalValue) {
-			output.appendLine(
-				`[${msTimeValue}] - user has existing markdownlint.config settings.  No changes made.`
-			);
-		} else {
-			workspace
-				.getConfiguration()
-				.update(configProperty, customLintConfig, ConfigurationTarget.Global);
-			output.appendLine(
-				`[${msTimeValue}] - Adobe default markdownlint config settings added to user settings.`
-			);
-		}
+
+	if (!configPropertyData) {
+		return;
 	}
 
+	// If workspace-level settings already exist, leave them alone.
+	if (configPropertyData.workspaceValue) {
+		output.appendLine(
+			`[${msTimeValue}] - Workspace has existing markdownlint.config settings. No changes made.`
+		);
+		return;
+	}
+
+	// Only write if there is an open workspace folder to write into.
+	if (!workspace.workspaceFolders || workspace.workspaceFolders.length === 0) {
+		output.appendLine(
+			`[${msTimeValue}] - No workspace folder open. Skipping markdownlint.config setup.`
+		);
+		return;
+	}
+
+	void workspace
+		.getConfiguration()
+		.update(configProperty, customLintConfig, ConfigurationTarget.Workspace);
+	output.appendLine(
+		`[${msTimeValue}] - Adobe default markdownlint config settings added to workspace settings.`
+	);
 }
 
 
 /**
  * Method to check for the docs custom markdownlint value.
- * Checks for markdownlint.customRules property.  If markdownlint isn't installed, do nothing.  If markdownlint is installed, check for custom property values.
+ * Checks for markdownlint.customRules property. Writes to workspace scope only —
+ * never touches the user's global settings.
  */
 export function checkMarkdownlintCustomProperty() {
 	const { msTimeValue } = generateTimestamp();
 	const customProperty = 'markdownlint.customRules';
-	const customRuleset = '{adobeexl.adobe-markdown-authoring}/markdownlint-custom-rules/rules.js';
-	const docsMarkdownRuleset = '{adobeexl.adobe-markdown-authoring}/markdownlint-custom-rules/rules.js';
+	const customRuleset = '{adobeexl.adobe-markdown-authoring}/markdownlint-custom-rules/rules.mjs';
+	const legacyCustomRuleset = '{adobeexl.adobe-markdown-authoring}/markdownlint-custom-rules/rules.js';
 	const customPropertyData: any = workspace.getConfiguration().inspect(customProperty);
-	// new list for string comparison and updating.
-	const existingUserSettings: string[] = [];
-	if (customPropertyData) {
-		// if the markdownlint.customRules property exists, pull the global values (user settings) into a string.
-		if (customPropertyData.globalValue) {
-			const valuesToString = customPropertyData.globalValue.toString();
-			let individualValues = valuesToString.split(',');
-			individualValues.forEach((setting: string) => {
-				if (setting === customRuleset) {
-					existingUserSettings.push(setting);
-				}
-			});
 
-			// if the customRuleset already exist, write a notification to the output window and continue.
-			if (existingUserSettings.indexOf(customRuleset) > -1) {
-				output.appendLine(
-					`[${msTimeValue}] - Docs custom markdownlint ruleset is already set at a global level.`
-				);
-			} else {
-				// if the customRuleset does not exists, append it to the other values in the list if there are any or add it as the only value.
-				existingUserSettings.push(customRuleset);
-				// update the user settings with new/updated values and notify user.
-				// if a user has specific workspace settings for customRules, vscode will use those. this is done so we don't override non-docs repos.
-				workspace
-					.getConfiguration()
-					.update(customProperty, existingUserSettings, ConfigurationTarget.Global);
-				output.appendLine(
-					`[${msTimeValue}] - Docs custom markdownlint ruleset added to user settings.`
-				);
-			}
-
-			// remove docs-markdown ruleset setting if necessary
-			if (individualValues.indexOf(docsMarkdownRuleset) > -1) {
-				individualValues = existingUserSettings.filter(userSetting => {
-					return userSetting !== docsMarkdownRuleset;
-				});
-				workspace
-					.getConfiguration()
-					.update(customProperty, individualValues, ConfigurationTarget.Global);
-				output.appendLine(
-					`[${msTimeValue}] - docs-markdown custom markdownlint ruleset removed from user settings.`
-				);
-			}
-		}
-		// if no custom rules exist, create array and add docs custom ruleset.
-		if (customPropertyData.globalValue === undefined) {
-			const customPropertyValue = [customRuleset];
-			workspace
-				.getConfiguration()
-				.update(customProperty, customPropertyValue, ConfigurationTarget.Global);
-			output.appendLine(
-				`[${msTimeValue}] - Docs custom markdownlint ruleset added to user settings.`
-			);
-		}
+	if (!customPropertyData) {
+		return;
 	}
+
+	// Only write if there is an open workspace folder to write into.
+	if (!workspace.workspaceFolders || workspace.workspaceFolders.length === 0) {
+		output.appendLine(
+			`[${msTimeValue}] - No workspace folder open. Skipping markdownlint.customRules setup.`
+		);
+		return;
+	}
+
+	// Collect existing workspace-level custom rules (not global).
+	const existingWorkspaceRules: string[] = [];
+	if (customPropertyData.workspaceValue) {
+		const workspaceValues: string[] = Array.isArray(customPropertyData.workspaceValue)
+			? customPropertyData.workspaceValue
+			: String(customPropertyData.workspaceValue).split(',');
+		workspaceValues.forEach((setting: string) => {
+			const trimmed = setting.trim();
+			if (trimmed && trimmed !== legacyCustomRuleset) {
+				existingWorkspaceRules.push(trimmed);
+			}
+		});
+	}
+
+	if (existingWorkspaceRules.indexOf(customRuleset) > -1) {
+		output.appendLine(
+			`[${msTimeValue}] - Adobe custom markdownlint ruleset already present in workspace settings.`
+		);
+		return;
+	}
+
+	// Add our ruleset to workspace settings.
+	existingWorkspaceRules.push(customRuleset);
+	void workspace
+		.getConfiguration()
+		.update(customProperty, existingWorkspaceRules, ConfigurationTarget.Workspace);
+	output.appendLine(
+		`[${msTimeValue}] - Adobe custom markdownlint ruleset added to workspace settings.`
+	);
 }

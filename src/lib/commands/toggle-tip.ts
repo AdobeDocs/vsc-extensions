@@ -10,5 +10,5 @@ const tipBlockWordPattern: RegExp = new RegExp(
 );
 
 export function toggleTip() {
-  return surroundBlockSelection(startingTip, endingTip, tipBlockWordPattern);
+  return surroundBlockSelection(startingTip, endingTip, tipBlockWordPattern, '>[!TIP]\n>\n>$0');
 }

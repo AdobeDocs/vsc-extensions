@@ -12,6 +12,7 @@ export function toggleWarning() {
   return surroundBlockSelection(
     startingWarning,
     endingWarning,
-    warningBlockWordPattern
+    warningBlockWordPattern,
+    '>[!WARNING]\n>\n>$0'
   );
 }

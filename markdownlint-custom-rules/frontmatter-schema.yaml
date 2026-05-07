@@ -1,0 +1,52 @@
+$schema: http://json-schema.org/draft-07/schema#
+$id: frontmatter-schema
+title: Frontmatter Schema
+description: Schema for validating markdown frontmatter metadata
+type: object
+
+properties:
+  index:
+    type: boolean
+
+  hide:
+    type: boolean
+
+  title:
+    type: string
+    minLength: 1
+
+  description:
+    type: string
+    maxLength: 1600
+
+  # Add fields that will get dynamic enum values
+  role:
+    type: array
+    x-supports-csv: true
+    items:
+      type: string
+      # enum will be injected dynamically
+
+  level:
+    type: array
+    x-supports-csv: true
+    items:
+      type: string
+      # enum will be injected dynamically
+
+  solution:
+    type: array
+    x-supports-csv: true
+    items:
+      type: string
+      # enum will be injected dynamically
+
+  feature:
+    type: array
+    x-supports-csv: true
+    items:
+      type: string
+      # enum will be injected dynamically
+
+required: [title, description]
+additionalProperties: true

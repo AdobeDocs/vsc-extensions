@@ -9,5 +9,5 @@ const infoBlockWordPattern: RegExp = new RegExp(
   "gm"
 );
 export function toggleInfo() {
-  return surroundBlockSelection(startingInfo, endingInfo, infoBlockWordPattern);
+  return surroundBlockSelection(startingInfo, endingInfo, infoBlockWordPattern, '>[!INFO]\n>\n>$0');
 }

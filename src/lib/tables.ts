@@ -1,9 +1,8 @@
-import * as vscode from 'vscode';
 import * as editorHelpers from './editorHelpers';
 import { isAnythingSelected } from './editorHelpers';
 
 
-var sampleTable = [
+const sampleTable = [
     "",
     "|Column A | Column B | Column C |",
     "|---------|----------|---------|",
@@ -13,7 +12,7 @@ var sampleTable = [
     ].join("\n");
 
 export function addTable(addHeader:boolean=false) {
-    var editFunc;
+    let editFunc;
     if (!isAnythingSelected()) {
         editFunc = () => sampleTable;
     }
@@ -23,20 +22,20 @@ export function addTable(addHeader:boolean=false) {
     else {
         editFunc = convertToTableWithoutHeader;
     }
-    editorHelpers.replaceBlockSelection(editFunc);
+    void editorHelpers.replaceBlockSelection(editFunc);
 }
 
 const tableColumnSeparator:RegExp = /([ ]{2,}|[\t])/gi;
 function convertToTableWithoutHeader(text:string) {
     const firstRow:RegExpMatchArray|null = text.match(/.+/); 
     
-    var columnSeparators:RegExpMatchArray|null = firstRow === null ? null : firstRow[0].match(tableColumnSeparator);
-    var columnCount:number = columnSeparators === null ? 0 : columnSeparators.length;
-    var line1 = [];
-    for (var i = 0; i < columnCount + 1; i++) {
+    const columnSeparators:RegExpMatchArray|null = firstRow === null ? null : firstRow[0].match(tableColumnSeparator);
+    const columnCount:number = columnSeparators === null ? 0 : columnSeparators.length;
+    const line1 = [];
+    for (let i = 0; i < columnCount + 1; i++) {
         line1.push("column" + i);
     }
-    var tableHeader = line1.join(" | ") + "\n";
+    let tableHeader = line1.join(" | ") + "\n";
     tableHeader = tableHeader + tableHeader.replace(/[a-z0-9]/gi, "-");
 
     return tableHeader + text.replace(tableColumnSeparator, " | ");

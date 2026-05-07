@@ -10,7 +10,7 @@ export function replaceSelection(
   }
   const selection: Selection = editor.selection;
 
-  var newText: string = replaceFunc(editor.document.getText(selection));
+  const newText: string = replaceFunc(editor.document.getText(selection));
   return editor.edit((edit) => edit.replace(selection, newText));
 }
 
@@ -73,7 +73,7 @@ export function surroundSelection(
   // for collapsed, e.g. empty file, or just an empty line.
   if (!isAnythingSelected()) {
     const position: Position = selection.active;
-    var newPosition = position.with(
+    const newPosition = position.with(
       position.line,
       position.character + startPattern.length
     );
@@ -120,7 +120,7 @@ export function getSurroundingWord(
   selection: Selection,
   wordPattern?: RegExp
 ): Selection | void {
-  var range: Range | undefined = editor.document.getWordRangeAtPosition(
+  const range: Range | undefined = editor.document.getWordRangeAtPosition(
     selection.active,
     wordPattern
   );
@@ -134,7 +134,8 @@ export function getSurroundingWord(
 export function surroundBlockSelection(
   startPattern: string,
   endPattern?: string,
-  wordPattern?: RegExp
+  wordPattern?: RegExp,
+  cursorSnippet?: string
 ): Thenable<void | boolean> {
   if (endPattern === undefined || endPattern === null) {
     endPattern = startPattern;
@@ -150,7 +151,7 @@ export function surroundBlockSelection(
   }
 
   if (!isAnythingSelected()) {
-    var withSurroundingWord: Selection | void = getSurroundingWord(
+    let withSurroundingWord: Selection | void = getSurroundingWord(
       editor,
       selection,
       wordPattern
@@ -162,8 +163,13 @@ export function surroundBlockSelection(
   }
 
   if (!isAnythingSelected()) {
-    var position = selection.active;
-    var newPosition = position.with(position.line + 2, 1);
+    // When a snippet string is provided, use insertSnippet so $0 controls
+    // exactly where the cursor lands after the block is inserted.
+    if (cursorSnippet !== undefined) {
+      return editor.insertSnippet(new vscode.SnippetString(cursorSnippet));
+    }
+    const position = selection.active;
+    const newPosition = position.with(position.line + 2, 1);
     return editor
       .edit((editBuilder: TextEditorEdit) =>
         editBuilder.insert(position, `${startPattern}${endPattern}`)
@@ -245,8 +251,8 @@ export function isSelectionMatch(
   if (!editor) {
     return false;
   }
-  var text = editor.document.getText(selection);
-  if (startPattern.constructor === RegExp) {
+  const text = editor.document.getText(selection);
+  if (startPattern instanceof RegExp) {
     return startPattern.test(text);
   } else {
     return (
@@ -254,45 +260,6 @@ export function isSelectionMatch(
       (!endPattern || text.endsWith(endPattern.toString()))
     );
   }
-}
-
-/**
- *
- * @param selection
- * @param pattern
- * @returns
- */
-export function reSelect(selection: Selection, pattern: RegExp): Selection {
-  const editor: TextEditor | void = vscode.window.activeTextEditor;
-  if (!editor) {
-    return selection;
-  }
-  const text = editor.document.getText(selection);
-  const matched = pattern.exec(text);
-  if (matched) {
-    return new Selection(
-      selection.start.with(selection.start.line, matched.index),
-      selection.end.with(
-        selection.start.line,
-        matched.index + matched[0].length
-      )
-    );
-  } else {
-    return selection;
-  }
-}
-
-export function prefixLines(text: string): Thenable<boolean> | void {
-  const editor: TextEditor | undefined = vscode.window.activeTextEditor;
-  if (!editor) {
-    return;
-  }
-  const selection: Selection = editor.selection;
-  return editor.edit((builder) => {
-    for (let line = selection.start.line; line <= selection.end.line; line++) {
-      builder.insert(selection.start.with(line, 0), text);
-    }
-  });
 }
 
 export function promptForInput(

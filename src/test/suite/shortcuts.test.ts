@@ -6,9 +6,6 @@ import * as vscode from "vscode";
 import { TextEditor } from "vscode";
 const vscodeTestContent = require("vscode-test-content");
 
-import { getEol } from "../../lib/env";
-var newLine = getEol();
-
 export const testCommand = (
   command: string,
   inputContent: string,
@@ -33,7 +30,7 @@ export const testCommand = (
           )
         )
       ).finally(() =>
-        vscode.commands.executeCommand("workbench.action.closeActiveEditor")
+        void vscode.commands.executeCommand("workbench.action.closeActiveEditor")
       );
     });
 };

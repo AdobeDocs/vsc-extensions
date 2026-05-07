@@ -12,6 +12,7 @@ export function toggleAvailability() {
   return surroundBlockSelection(
     startingAvailability,
     endingAvailability,
-    availabilityBlockWordPattern
+    availabilityBlockWordPattern,
+    '>[!AVAILABILITY]\n>\n>$0'
   );
 }

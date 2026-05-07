@@ -22,7 +22,7 @@ export function toggleNumberList() {
   } else {
     const lineNums: LineNums = {};
     return replaceBlockSelection((text) =>
-      text.replace(addNumbers, (match, newline, whitespace, line) => {
+      text.replace(addNumbers, (_match, newline, whitespace, line) => {
         if (!lineNums[whitespace]) {
           lineNums[whitespace] = 1;
         }

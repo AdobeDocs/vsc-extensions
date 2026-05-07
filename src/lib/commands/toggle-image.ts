@@ -1,5 +1,5 @@
 import * as vscode from "vscode";
-import { TextEditor, Selection } from "vscode";
+import { TextEditor } from "vscode";
 import { urlRegExp } from "../commands";
 import {
   isAnythingSelected,
@@ -24,7 +24,6 @@ export function toggleImage() {
   if (!editor) {
     return;
   }
-  let selection: Selection = editor.selection;
   let imgObj: ImageProps = {
     alt: "No Image",
     src: "https://example.org/image.png",
@@ -49,7 +48,7 @@ export function toggleImage() {
           if (text === null) {
             return;
           }
-          replaceSelection((url) => "![" + text + "](" + url + ")");
+          return replaceSelection((url) => "![" + text + "](" + url + ")");
         });
     }
   }

@@ -1,0 +1,63 @@
+/*
+ * Adobe Preview — Roboto / Roboto Mono (bundled WOFF2).
+ *
+ * The Adobe Preview webview does not link this file. Fonts are inlined as data:
+ * URLs in src/panels/adobe-preview-panel.ts (~100–150KB total; intentional).
+ * This file stays for reference, docs, or non-webview consumers.
+ */
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/preview/roboto-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/preview/roboto-latin-400-italic.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/preview/roboto-latin-500-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url("../fonts/preview/roboto-latin-700-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url("../fonts/preview/roboto-mono-latin-400-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url("../fonts/preview/roboto-mono-latin-500-normal.woff2") format("woff2");
+}
+
+@font-face {
+  font-family: "Roboto Mono";
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url("../fonts/preview/roboto-mono-latin-600-normal.woff2") format("woff2");
+}

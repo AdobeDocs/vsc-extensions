@@ -4,4 +4,6 @@ node_modules
 Icon
 **/**/Icon
 *.log
+.claude/
+
 

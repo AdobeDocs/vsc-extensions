@@ -1,0 +1,582 @@
+/*
+ * Adobe Markdown Authoring — VS Code Preview Theme
+ *
+ * Loaded last (after docs.css). Uses .vscode-body scoping throughout so our
+ * rules have specificity (0,1,1) and beat VS Code's built-in markdown CSS
+ * which loads *after* extension styles and uses bare element selectors (0,0,1).
+ *
+ * Preview uses bundled Roboto / Roboto Mono (Experience League stack); see
+ * preview-fonts.css (loaded as a webview-linked stylesheet).
+ * Scale/colors still align with experienceleague.adobe.com patterns where applicable:
+ *   - Heading sizes: EXL desktop scale (H1=45px, H2=36px, H3=27px, H4=22px)
+ *   - Link color: #0268e3  (--non-spectrum-link)
+ *   - Body/para:  #222     (from experienceleague.adobe.com/styles/styles.css)
+ *   - H1/H2:      #4a4a4a  (from experienceleague.adobe.com/styles/styles.css)
+ *   - Body/headings font: Roboto (bundled WOFF2, Apache 2.0)
+ *   - Code font: Roboto Mono (bundled WOFF2, Apache 2.0)
+ *
+ * Alert box rendering:
+ *   The adobe-alerts markdown-it core rule produces:
+ *     <div class="extension note" data-label="NOTE"><p>…</p></div>
+ *   Spectrum variable values are hardcoded here because CSS variables from
+ *   spectrum.css don't resolve inside VS Code's webview sandbox.
+ */
+
+/* ─── Body ────────────────────────────────────────────────────────────────── */
+/*
+ * Lock the document to light UI semantics even when VS Code uses a dark theme.
+ * Otherwise the webview can use a dark color scheme / canvas, which dims raster
+ * images or makes transparent PNGs read as a flat gray slab.
+ */
+html {
+  color-scheme: light;
+}
+
+/* Webviews inject theme variables; force readable doc colors for Adobe Preview. */
+body.vscode-body {
+  color: #1a1a1a !important;
+  background-color: #ffffff !important;
+}
+
+#adobe-preview-root {
+  background-color: #ffffff;
+}
+
+/* Raster / inline images: undo host or forced-colors adjustments that read as “all gray”. */
+.vscode-body img,
+.vscode-body picture {
+  opacity: 1 !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+}
+
+@media (forced-colors: active) {
+  .vscode-body img,
+  .vscode-body picture {
+    forced-color-adjust: none;
+  }
+}
+
+.vscode-body {
+  font-family: "Adobe Clean", adobe-clean, "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Ubuntu, sans-serif;
+  font-size: 18px;
+  line-height: 1.6;
+  color: #222;
+}
+
+/* ─── Paragraphs ──────────────────────────────────────────────────────────── */
+.vscode-body p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #222;
+  margin-bottom: 16px;
+}
+
+/* Lists: host / injected preview CSS often sets ul/ol to descriptionForeground gray. */
+.vscode-body ul,
+.vscode-body ol,
+.vscode-body li,
+.vscode-body li > p,
+.vscode-body dd,
+.vscode-body dd > p {
+  color: #222 !important;
+}
+
+/* ─── Headings — EXL desktop scale (from experienceleague.adobe.com/styles/styles.css) */
+.vscode-body h1,
+.vscode-body h2,
+.vscode-body h3,
+.vscode-body h4,
+.vscode-body h5,
+.vscode-body h6 {
+  font-family: "Adobe Clean", adobe-clean, "Roboto", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Ubuntu, sans-serif;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.vscode-body h1 {
+  font-size: 2.5rem;    /* 45px — EXL desktop h1 */
+  color: #4a4a4a;
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.vscode-body h2 {
+  font-size: 2rem;      /* 36px — EXL desktop h2 */
+  color: #4a4a4a;
+  margin-top: 2.5rem;
+  margin-bottom: 0.5rem;
+  border-bottom: 1px solid #e8e8e8;
+  padding-bottom: 0.25rem;
+}
+
+.vscode-body h3 {
+  font-size: 1.5rem;    /* 27px — EXL h3 */
+  color: #000;
+  margin-top: 2rem;
+  margin-bottom: 0.375rem;
+}
+
+.vscode-body h4 {
+  font-size: 1.222rem;  /* ~22px — EXL h4 */
+  color: #000;
+  margin-top: 0.75rem;
+  margin-bottom: 0.375rem;
+}
+
+.vscode-body h5,
+.vscode-body h6 {
+  font-size: 1rem;      /* 18px base — EXL h5/h6 */
+  color: #000;
+  margin-top: 0.75rem;
+  margin-bottom: 0.375rem;
+}
+
+/*
+ * Hide heading permalink / “link to fragment” affordances (plugins, host UI, GitHub-style).
+ * Scope to #adobe-preview-root so we beat generic .vscode-body rules from the shell.
+ */
+#adobe-preview-root a.header-anchor,
+#adobe-preview-root .header-anchor,
+#adobe-preview-root a.octicon-link,
+#adobe-preview-root a.user-content-anchor {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  pointer-events: none !important;
+}
+
+#adobe-preview-root h1 a.anchor,
+#adobe-preview-root h2 a.anchor,
+#adobe-preview-root h3 a.anchor,
+#adobe-preview-root h4 a.anchor,
+#adobe-preview-root h5 a.anchor,
+#adobe-preview-root h6 a.anchor {
+  display: none !important;
+}
+
+/* Some hosts inject an SVG or icon font next to headings */
+#adobe-preview-root :is(h1, h2, h3, h4, h5, h6) .octicon,
+#adobe-preview-root :is(h1, h2, h3, h4, h5, h6) > svg:first-child,
+#adobe-preview-root :is(h1, h2, h3, h4, h5, h6) > svg:last-child {
+  display: none !important;
+}
+
+/* ─── Links ───────────────────────────────────────────────────────────────── */
+.vscode-body a {
+  color: #0268e3;   /* --non-spectrum-link */
+  text-decoration: none;
+}
+.vscode-body a:hover {
+  color: #363636;
+  text-decoration: underline;
+}
+
+/* ─── Inline code ─────────────────────────────────────────────────────────── */
+/* Overrides the Bulma red (#da1039) from docs.css */
+.vscode-body code {
+  font-family: "Roboto Mono", menlo, consolas, "Liberation Mono", monospace;
+  font-size: 0.875em;
+  background-color: #f5f5f5;
+  color: #323232;
+  border-radius: 3px;
+  padding: 0.15em 0.4em;
+}
+
+/* ─── Code blocks (dark surface) ─────────────────────────────────────────── */
+.vscode-body pre {
+  font-family: "Roboto Mono", menlo, consolas, "Liberation Mono", monospace;
+  font-size: 0.875rem;
+  background-color: #1e1e1e !important;
+  color: #d4d4d4 !important;
+  border: 1px solid #3c3c3c;
+  border-radius: 4px;
+  padding: 1rem 1.5rem;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+.vscode-body pre code {
+  background: none;
+  padding: 0;
+  border-radius: 0;
+  font-size: 1em;
+  color: #d4d4d4 !important;
+}
+
+/* ─── Tables ──────────────────────────────────────────────────────────────── */
+.vscode-body table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1rem 0;
+}
+.vscode-body table th,
+.vscode-body table td {
+  border: 1px solid #e8e8e8 !important;
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+  color: #1a1a1a;
+}
+.vscode-body table th {
+  background-color: #f5f5f5;
+  font-weight: 700;
+  color: #1a1a1a;
+}
+.vscode-body table tbody tr:nth-child(even) {
+  background-color: #fafafa;
+}
+
+/* ─── Alert box base ──────────────────────────────────────────────────────── */
+/* .vscode-body scope gives (0,2,0) specificity, beating docs.css (0,1,0)    */
+.vscode-body .extension {
+  position: relative;
+  padding: 0.875rem 1rem 0.875rem 1.25rem;
+  border-radius: 4px;
+  border: 1px solid #e0e0e0;
+  border-left-width: 17px;
+  margin: 1.25rem 0;
+  /* Body copy: always neutral (label color is only on ::before). */
+  color: #1a1a1a !important;
+  background-color: #fafafa !important;
+  box-shadow: none !important;  /* suppress docs.css white-card elevation */
+}
+
+/* Suppress the broken SVG icon rules from docs.css */
+.vscode-body .extension > div:first-child:before {
+  content: none !important;
+  background: none !important;
+}
+
+/* ─── Alert label — driven by data-label attribute ───────────────────────── */
+/* (0,3,1) — beats all docs.css admonition rules                              */
+.vscode-body .extension[data-label]::before {
+  content: "ℹ\00a0" attr(data-label);
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+  opacity: 0.85;
+}
+
+/* ─── Alert content spacing ───────────────────────────────────────────────── */
+.vscode-body .extension > p { margin: 0; }
+.vscode-body .extension > p + p { margin-top: 0.5rem; }
+.vscode-body .extension > p:empty { display: none; }
+.vscode-body .extension > ul,
+.vscode-body .extension > ol { margin: 0; padding-left: 1.5rem; }
+
+/* ─── NOTE ───────────────────────────────────────────────────────────────── */
+.vscode-body .extension.note {
+  background-color: #fdfdfd !important;
+  border-left-color: #1473E6 !important;
+}
+.vscode-body .extension.note::before { color: #1473E6; }
+
+/* ─── TIP ────────────────────────────────────────────────────────────────── */
+.vscode-body .extension.tip {
+  background-color: #fdfdfd !important;
+  border-left-color: #268E6C !important;
+}
+.vscode-body .extension.tip::before { content: "💡\00a0" attr(data-label); color: #268E6C; }
+
+/* ─── INFO ───────────────────────────────────────────────────────────────── */
+.vscode-body .extension.info {
+  background-color: #fdfdfd !important;
+  border-left-color: #1473E6 !important;
+}
+.vscode-body .extension.info::before { color: #1473E6; }
+
+/* ─── ADMIN / ADMINISTRATION ─────────────────────────────────────────────── */
+.vscode-body .extension.admin,
+.vscode-body .extension.administration {
+  background-color: #fdfdfd !important;
+  border-left-color: #1473E6 !important;
+}
+.vscode-body .extension.admin::before,
+.vscode-body .extension.administration::before { color: #1473E6; }
+
+/* ─── AVAILABILITY ───────────────────────────────────────────────────────── */
+.vscode-body .extension.availability {
+  background-color: #fdfdfd !important;
+  border-left-color: #1473E6 !important;
+}
+.vscode-body .extension.availability::before { color: #1473E6; }
+
+/* ─── PREREQUISITES ──────────────────────────────────────────────────────── */
+.vscode-body .extension.prerequisites {
+  background-color: #fdfdfd !important;
+  border-left-color: #1473E6 !important;
+}
+.vscode-body .extension.prerequisites::before { color: #1473E6; }
+
+/* ─── IMPORTANT ──────────────────────────────────────────────────────────── */
+.vscode-body .extension.important {
+  background-color: #fdfdfd !important;
+  border-left-color: #C07B15 !important;
+}
+.vscode-body .extension.important::before { content: "⚠\00a0" attr(data-label); color: #C07B15; }
+
+/* ─── WARNING ────────────────────────────────────────────────────────────── */
+.vscode-body .extension.warning {
+  background-color: #fdfdfd !important;
+  border-left-color: #D7373F !important;
+}
+.vscode-body .extension.warning::before { content: "⚠\00a0" attr(data-label); color: #D7373F; }
+
+/* ─── CAUTION ────────────────────────────────────────────────────────────── */
+.vscode-body .extension.caution {
+  background-color: #fdfdfd !important;
+  border-left-color: #C07B15 !important;
+}
+.vscode-body .extension.caution::before { content: "⚠\00a0" attr(data-label); color: #C07B15; }
+
+/* ─── ERROR ──────────────────────────────────────────────────────────────── */
+.vscode-body .extension.error {
+  background-color: #fdfdfd !important;
+  border-left-color: #D7373F !important;
+}
+.vscode-body .extension.error::before { content: "⚠\00a0" attr(data-label); color: #D7373F; }
+
+/* ─── SUCCESS ────────────────────────────────────────────────────────────── */
+.vscode-body .extension.success {
+  background-color: #fdfdfd !important;
+  border-left-color: #268E6C !important;
+}
+.vscode-body .extension.success::before { content: "✓\00a0" attr(data-label); color: #268E6C; }
+
+/* ─── Code inside alert boxes ─────────────────────────────────────────────── */
+/* Lighter blue replaces the dark (#1d1f21) block background inside admonishments */
+.vscode-body .extension code {
+  background-color: #dbeeff;
+  color: #1a3a5c;
+}
+.vscode-body .extension pre {
+  background-color: #cce4ff !important;
+  color: #0f2d4e;
+}
+.vscode-body .extension pre code {
+  background: none;
+  color: #0f2d4e;
+}
+
+/* ─── Localization / inline [!TAG value] macros ───────────────────────────── */
+/* Preview renders only the value (plain html_inline); no extra classes. */
+
+/* ─── MORELIKETHIS ───────────────────────────────────────────────────────── */
+.vscode-body .extension.morelikethis {
+  background-color: #fdfdfd !important;
+  border-left-color: #1473E6 !important;
+}
+.vscode-body .extension.morelikethis::before { color: #1473E6; }
+/*
+ * EXL “More like this” list links: no underline in any state. Webviews / UA often
+ * set underlines via longhands (-webkit-text-decoration, text-decoration-line).
+ */
+.vscode-body .extension.morelikethis a:any-link,
+.vscode-body .extension.morelikethis li a,
+.vscode-body .extension.morelikethis ul a,
+.vscode-body .extension.morelikethis ol a,
+.vscode-body .extension.morelikethis a:hover,
+.vscode-body .extension.morelikethis a:focus,
+.vscode-body .extension.morelikethis a:focus-visible,
+.vscode-body .extension.morelikethis a:active {
+  text-decoration: none !important;
+  text-decoration-line: none !important;
+  -webkit-text-decoration: none !important;
+  text-underline-offset: 0 !important;
+  text-underline-position: unset !important;
+  border-bottom: none !important;
+  box-shadow: none !important;
+}
+
+/* ─── Shade boxes (>[!BEGINSHADEBOX] / >[!ENDSHADEBOX]) ──────────────────── */
+.vscode-body .shadebox {
+  background-color: #f8f8f8;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 1rem 1.25rem;
+  margin: 1.25rem 0;
+}
+.vscode-body .shadebox .shadebox-title {
+  font-weight: 700;
+  margin-top: 0;
+  margin-bottom: 0.75rem;
+  color: #222;
+}
+
+/* ─── Badges ([!BADGE text]{type=…}) ─────────────────────────────────────── */
+.vscode-body .exl-badge {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.25em 0.55em;
+  border-radius: 3px;
+  text-decoration: none;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+.vscode-body .badge-informative {
+  background-color: #EBF3FF;
+  color: #1473E6;
+  border: 1px solid #1473E6;
+}
+.vscode-body .badge-positive {
+  background-color: #EEFAF6;
+  color: #268E6C;
+  border: 1px solid #268E6C;
+}
+.vscode-body .badge-negative {
+  background-color: #FEF1F2;
+  color: #D7373F;
+  border: 1px solid #D7373F;
+}
+.vscode-body .badge-neutral {
+  background-color: #f5f5f5;
+  color: #444;
+  border: 1px solid #999;
+}
+.vscode-body .badge-caution {
+  background-color: #FEF5E6;
+  color: #C07B15;
+  border: 1px solid #C07B15;
+}
+
+/* ─── Tabs (>[!BEGINTABS] / >[!TAB] / >[!ENDTABS]) ──────────────────────── */
+/* Initial state hides markers; JS in prism-init.js restructures into panels  */
+.vscode-body .exl-tabs {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  margin: 1.25rem 0;
+  overflow: hidden;
+}
+.vscode-body .exl-tab-start,
+.vscode-body .exl-tab-end {
+  display: none; /* Hidden until JS restructures the DOM */
+}
+.vscode-body .exl-tab-labels {
+  display: flex;
+  flex-wrap: wrap;
+  background-color: #f5f5f5;
+  border-bottom: 1px solid #e0e0e0;
+}
+.vscode-body .exl-tab-label {
+  padding: 0.5rem 1.25rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 0.875rem;
+  font-family: inherit;
+  color: #555;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.1s;
+}
+.vscode-body .exl-tab-label:hover { color: #0268e3; }
+.vscode-body .exl-tab-label.active {
+  color: #0268e3;
+  border-bottom-color: #0268e3;
+  background-color: #fff;
+  font-weight: 600;
+}
+.vscode-body .exl-tab-panel {
+  display: none;
+  padding: 1rem 1.25rem;
+}
+.vscode-body .exl-tab-panel.active { display: block; }
+
+/* ─── Video (>[!VIDEO](url)) ─────────────────────────────────────────────── */
+.vscode-body .exl-video {
+  margin: 1rem 0;
+}
+.vscode-body .exl-video-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #0268e3;
+  font-weight: 600;
+  text-decoration: none;
+  padding: 0.4rem 0.75rem;
+  border: 1px solid #0268e3;
+  border-radius: 4px;
+}
+.vscode-body .exl-video-link:hover {
+  background-color: #EBF3FF;
+  text-decoration: none;
+}
+
+/* ─── Collapsible sections (+++ syntax) ──────────────────────────────────── */
+.vscode-body details {
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+  margin: 1rem 0;
+}
+.vscode-body details summary {
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0.25rem 0;
+  color: #0268e3;
+}
+.vscode-body details summary::-webkit-details-marker {
+  color: #0268e3;
+}
+
+/* ─── Prism token colors — dark code background (#1e1e1e) ────────────────── */
+/* Comments ----------------------------------------------------------------- */
+.vscode-body pre code .token.comment,
+.vscode-body pre code .token.prolog,
+.vscode-body pre code .token.cdata         { color: #6a9955; font-style: italic; }
+.vscode-body pre code .token.doctype       { color: #6a9955; }
+
+/* Structure / punctuation -------------------------------------------------- */
+.vscode-body pre code .token.punctuation   { color: #d4d4d4; }
+.vscode-body pre code .token.operator      { color: #d4d4d4; }
+
+/* Tags & properties (HTML tags, JSON/JS keys, CSS properties) -------------- */
+.vscode-body pre code .token.tag           { color: #569cd6; }
+.vscode-body pre code .token.property      { color: #9cdcfe; }
+.vscode-body pre code .token.namespace     { color: #4ec9b0; }
+
+/* Attributes --------------------------------------------------------------- */
+.vscode-body pre code .token.attr-name     { color: #9cdcfe; }
+.vscode-body pre code .token.attr-value    { color: #4ec9b0; }
+
+/* Strings & chars ---------------------------------------------------------- */
+.vscode-body pre code .token.string,
+.vscode-body pre code .token.char,
+.vscode-body pre code .token.url           { color: #4ec9b0; }
+.vscode-body pre code .token.entity        { color: #d7ba7d; }
+
+/* Numbers & literals ------------------------------------------------------- */
+.vscode-body pre code .token.number        { color: #b5cea8; }
+.vscode-body pre code .token.boolean       { color: #569cd6; }
+.vscode-body pre code .token.constant      { color: #569cd6; }
+.vscode-body pre code .token.symbol        { color: #d7ba7d; }
+
+/* Keywords ----------------------------------------------------------------- */
+.vscode-body pre code .token.keyword       { color: #c586c0; }
+.vscode-body pre code .token.atrule        { color: #c586c0; }
+
+/* Functions & types -------------------------------------------------------- */
+.vscode-body pre code .token.function      { color: #dcdcaa; }
+.vscode-body pre code .token.class-name    { color: #4ec9b0; }
+.vscode-body pre code .token.builtin       { color: #569cd6; }
+
+/* CSS selectors & important ------------------------------------------------ */
+.vscode-body pre code .token.selector      { color: #d7ba7d; }
+.vscode-body pre code .token.important     { color: #d73a49; font-weight: bold; }
+
+/* Variables & regex -------------------------------------------------------- */
+.vscode-body pre code .token.variable      { color: #9cdcfe; }
+.vscode-body pre code .token.regex         { color: #d16969; }
+
+/* Diff --------------------------------------------------------------------- */
+.vscode-body pre code .token.inserted      { color: #4ec9b0; }
+.vscode-body pre code .token.deleted       { color: #f14c4c; }

@@ -13,6 +13,7 @@ export function toggleImportant() {
   return surroundBlockSelection(
     startingImportant,
     endingImportant,
-    importantBlockWordPattern
+    importantBlockWordPattern,
+    '>[!IMPORTANT]\n>\n>$0'
   );
 }

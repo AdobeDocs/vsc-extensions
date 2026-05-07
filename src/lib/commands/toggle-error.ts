@@ -13,6 +13,7 @@ export function toggleError() {
   return surroundBlockSelection(
     startingError,
     endingError,
-    errorBlockWordPattern
+    errorBlockWordPattern,
+    '>[!ERROR]\n>\n>$0'
   );
 }

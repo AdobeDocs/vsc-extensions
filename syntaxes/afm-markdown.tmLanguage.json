@@ -1,0 +1,723 @@
+{
+  "scopeName": "markdown.afm.injection",
+  "injectionSelector": "L:text.html.markdown - markup.fenced_code.block.markdown - markup.inline.raw.string.markdown - meta.embedded.block.frontmatter",
+  "patterns": [
+    {
+      "include": "#afm-informative-admonition-block"
+    },
+    {
+      "include": "#afm-positive-admonition-block"
+    },
+    {
+      "include": "#afm-caution-admonition-block"
+    },
+    {
+      "include": "#afm-negative-admonition-block"
+    },
+    {
+      "include": "#afm-informative-admonition-tag"
+    },
+    {
+      "include": "#afm-positive-admonition-tag"
+    },
+    {
+      "include": "#afm-caution-admonition-tag"
+    },
+    {
+      "include": "#afm-negative-admonition-tag"
+    },
+    {
+      "include": "#afm-badge-informative-tag"
+    },
+    {
+      "include": "#afm-badge-positive-tag"
+    },
+    {
+      "include": "#afm-badge-caution-tag"
+    },
+    {
+      "include": "#afm-badge-negative-tag"
+    },
+    {
+      "include": "#afm-badge-neutral-tag"
+    },
+    {
+      "include": "#afm-badge-default-tag"
+    },
+    {
+      "include": "#afm-dnl-uicontrol-tag"
+    },
+    {
+      "include": "#afm-block-or-inline-tag"
+    },
+    {
+      "include": "#afm-collapsible"
+    },
+    {
+      "include": "#afm-video-url"
+    },
+    {
+      "include": "#afm-attribute-block"
+    }
+  ],
+  "repository": {
+    "tag-value-patterns": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.afm.value.markdown",
+          "match": "\"[^\"]*\""
+        },
+        {
+          "name": "string.unquoted.afm.value.markdown",
+          "match": "[^\\]\\s][^\\]]*"
+        }
+      ]
+    },
+    "informative-tag-value-patterns": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.afm.value.admonition.informative.markdown",
+          "match": "\"[^\"]*\""
+        },
+        {
+          "name": "string.unquoted.afm.value.admonition.informative.markdown",
+          "match": "[^\\]\\s][^\\]]*"
+        }
+      ]
+    },
+    "positive-tag-value-patterns": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.afm.value.admonition.positive.markdown",
+          "match": "\"[^\"]*\""
+        },
+        {
+          "name": "string.unquoted.afm.value.admonition.positive.markdown",
+          "match": "[^\\]\\s][^\\]]*"
+        }
+      ]
+    },
+    "caution-tag-value-patterns": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.afm.value.admonition.caution.markdown",
+          "match": "\"[^\"]*\""
+        },
+        {
+          "name": "string.unquoted.afm.value.admonition.caution.markdown",
+          "match": "[^\\]\\s][^\\]]*"
+        }
+      ]
+    },
+    "negative-tag-value-patterns": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.afm.value.admonition.negative.markdown",
+          "match": "\"[^\"]*\""
+        },
+        {
+          "name": "string.unquoted.afm.value.admonition.negative.markdown",
+          "match": "[^\\]\\s][^\\]]*"
+        }
+      ]
+    },
+    "neutral-tag-value-patterns": {
+      "patterns": [
+        {
+          "name": "string.quoted.double.afm.value.admonition.neutral.markdown",
+          "match": "\"[^\"]*\""
+        },
+        {
+          "name": "string.unquoted.afm.value.admonition.neutral.markdown",
+          "match": "[^\\]\\s][^\\]]*"
+        }
+      ]
+    },
+    "afm-fenced-code-in-admonition-blockquote": {
+      "comment": "Fenced code inside > admonitions: body line rule below would flatten the whole line to meta.afm.admonition.body.* and kill language injection.",
+      "begin": "^(\\s*>\\s*)(```)([^\\n]*)$",
+      "beginCaptures": {
+        "2": {
+          "name": "markup.fenced_code.block.markdown punctuation.definition.markdown"
+        },
+        "3": {
+          "name": "markup.fenced_code.block.markdown fenced_code.block.language.attributes.markdown"
+        }
+      },
+      "end": "^(\\s*>\\s*)(```)\\s*$",
+      "applyEndPatternLast": true,
+      "endCaptures": {
+        "2": {
+          "name": "markup.fenced_code.block.markdown punctuation.definition.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "match": "^\\s*>\\s?(.*)$",
+          "captures": {
+            "1": {
+              "name": "meta.embedded.block.markdown",
+              "patterns": [
+                { "include": "source.json" },
+                { "include": "source.js" },
+                { "include": "source.ts" },
+                { "include": "source.tsx" },
+                { "include": "source.python" },
+                { "include": "source.shellscript" },
+                { "include": "source.yaml" },
+                { "include": "text.html.basic" },
+                { "include": "source.css" },
+                { "include": "source.java" },
+                { "include": "source.sql" },
+                { "include": "source.xml" },
+                { "include": "source.cpp" },
+                { "include": "source.cs" }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "afm-informative-admonition-tag": {
+      "name": "meta.afm.tag.markdown",
+      "begin": "(\\[!)(NOTE|INFO|ADMIN|ADMINISTRATION|AVAILABILITY|PREREQUISITES|CONTEXTUALHELP)\\b",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.admonition.informative.markdown"
+        }
+      },
+      "end": "(\\])",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#informative-tag-value-patterns"
+        }
+      ]
+    },
+    "afm-informative-admonition-block": {
+      "name": "meta.afm.block.admonition.informative.markdown",
+      "begin": "^(\\s*>\\s*)(\\[!)(NOTE|INFO|ADMIN|ADMINISTRATION|AVAILABILITY|PREREQUISITES|CONTEXTUALHELP)\\b([^\\]\\r\\n]*)(\\])",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.blockquote.informative.markdown"
+        },
+        "2": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "3": {
+          "name": "keyword.other.afm.admonition.informative.markdown"
+        },
+        "4": {
+          "name": "string.unquoted.afm.value.admonition.informative.markdown"
+        },
+        "5": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      },
+      "while": "^\\s*>",
+      "whileCaptures": {
+        "0": { "name": "punctuation.definition.afm.blockquote.informative.markdown" }
+      },
+      "patterns": [
+        {
+          "include": "#afm-fenced-code-in-admonition-blockquote"
+        },
+        {
+          "match": "^\\s*>([a-zA-Z][\\w-]*)(=)(\"[^\"\\r\\n]*\"|'[^'\\r\\n]*')",
+          "captures": {
+            "1": { "name": "entity.other.attribute-name.afm.markdown" },
+            "2": { "name": "punctuation.separator.key-value.afm.markdown" },
+            "3": { "name": "string.unquoted.afm.attribute-value.markdown" }
+          }
+        }
+      ]
+    },
+    "afm-positive-admonition-tag": {
+      "name": "meta.afm.tag.markdown",
+      "begin": "(\\[!)(TIP|SUCCESS)\\b",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.admonition.positive.markdown"
+        }
+      },
+      "end": "(\\])",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#positive-tag-value-patterns"
+        }
+      ]
+    },
+    "afm-positive-admonition-block": {
+      "name": "meta.afm.block.admonition.positive.markdown",
+      "begin": "^(\\s*>\\s*)(\\[!)(TIP|SUCCESS)\\b([^\\]\\r\\n]*)(\\])",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.blockquote.positive.markdown"
+        },
+        "2": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "3": {
+          "name": "keyword.other.afm.admonition.positive.markdown"
+        },
+        "4": {
+          "name": "string.unquoted.afm.value.admonition.positive.markdown"
+        },
+        "5": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      },
+      "while": "^\\s*>",
+      "whileCaptures": {
+        "0": { "name": "punctuation.definition.afm.blockquote.positive.markdown" }
+      },
+      "patterns": [
+        {
+          "include": "#afm-fenced-code-in-admonition-blockquote"
+        }
+      ]
+    },
+    "afm-caution-admonition-tag": {
+      "name": "meta.afm.tag.markdown",
+      "begin": "(\\[!)(IMPORTANT|CAUTION)\\b",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.admonition.caution.markdown"
+        }
+      },
+      "end": "(\\])",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#caution-tag-value-patterns"
+        }
+      ]
+    },
+    "afm-caution-admonition-block": {
+      "name": "meta.afm.block.admonition.caution.markdown",
+      "begin": "^(\\s*>\\s*)(\\[!)(IMPORTANT|CAUTION)\\b([^\\]\\r\\n]*)(\\])",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.blockquote.caution.markdown"
+        },
+        "2": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "3": {
+          "name": "keyword.other.afm.admonition.caution.markdown"
+        },
+        "4": {
+          "name": "string.unquoted.afm.value.admonition.caution.markdown"
+        },
+        "5": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      },
+      "while": "^\\s*>",
+      "whileCaptures": {
+        "0": { "name": "punctuation.definition.afm.blockquote.caution.markdown" }
+      },
+      "patterns": [
+        {
+          "include": "#afm-fenced-code-in-admonition-blockquote"
+        }
+      ]
+    },
+    "afm-negative-admonition-tag": {
+      "name": "meta.afm.tag.markdown",
+      "begin": "(\\[!)(WARNING|ERROR)\\b",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.admonition.negative.markdown"
+        }
+      },
+      "end": "(\\])",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#negative-tag-value-patterns"
+        }
+      ]
+    },
+    "afm-negative-admonition-block": {
+      "name": "meta.afm.block.admonition.negative.markdown",
+      "begin": "^(\\s*>\\s*)(\\[!)(WARNING|ERROR)\\b([^\\]\\r\\n]*)(\\])",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.blockquote.negative.markdown"
+        },
+        "2": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "3": {
+          "name": "keyword.other.afm.admonition.negative.markdown"
+        },
+        "4": {
+          "name": "string.unquoted.afm.value.admonition.negative.markdown"
+        },
+        "5": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      },
+      "while": "^\\s*>",
+      "whileCaptures": {
+        "0": { "name": "punctuation.definition.afm.blockquote.negative.markdown" }
+      },
+      "patterns": [
+        {
+          "include": "#afm-fenced-code-in-admonition-blockquote"
+        }
+      ]
+    },
+    "afm-neutral-admonition-tag": {
+      "name": "meta.afm.tag.markdown",
+      "begin": "(\\[!)(MORELIKETHIS)\\b",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.admonition.neutral.markdown"
+        }
+      },
+      "end": "(\\])",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#neutral-tag-value-patterns"
+        }
+      ]
+    },
+    "afm-neutral-admonition-block": {
+      "name": "meta.afm.block.admonition.neutral.markdown",
+      "begin": "^(\\s*>\\s*)(\\[!)(MORELIKETHIS)\\b([^\\]\\r\\n]*)(\\])",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.blockquote.neutral.markdown"
+        },
+        "2": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "3": {
+          "name": "keyword.other.afm.admonition.neutral.markdown"
+        },
+        "4": {
+          "name": "string.unquoted.afm.value.admonition.neutral.markdown"
+        },
+        "5": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      },
+      "while": "^\\s*>",
+      "whileCaptures": {
+        "0": { "name": "punctuation.definition.afm.blockquote.neutral.markdown" }
+      },
+      "patterns": [
+        {
+          "include": "#afm-fenced-code-in-admonition-blockquote"
+        }
+      ]
+    },
+    "afm-badge-informative-tag": {
+      "name": "meta.afm.badge.informative.markdown",
+      "match": "(\\[!)(BADGE)\\s+([^\\]\\r\\n]+)(\\])({)(?=[^}\\r\\n]*\\btype\\s*=\\s*\"?Informative\"?)([^}\\r\\n]*)(})",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.admonition.informative.markdown"
+        },
+        "3": {
+          "name": "string.unquoted.afm.value.admonition.informative.markdown"
+        },
+        "4": {
+          "name": "punctuation.definition.afm.end.markdown"
+        },
+        "5": {
+          "name": "punctuation.definition.afm.attributes.begin.markdown"
+        },
+        "6": {
+          "name": "meta.afm.attributes.markdown"
+        },
+        "7": {
+          "name": "punctuation.definition.afm.attributes.end.markdown"
+        }
+      }
+    },
+    "afm-badge-positive-tag": {
+      "name": "meta.afm.badge.positive.markdown",
+      "match": "(\\[!)(BADGE)\\s+([^\\]\\r\\n]+)(\\])({)(?=[^}\\r\\n]*\\btype\\s*=\\s*\"?Positive\"?)([^}\\r\\n]*)(})",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.admonition.positive.markdown"
+        },
+        "3": {
+          "name": "string.unquoted.afm.value.admonition.positive.markdown"
+        },
+        "4": {
+          "name": "punctuation.definition.afm.end.markdown"
+        },
+        "5": {
+          "name": "punctuation.definition.afm.attributes.begin.markdown"
+        },
+        "6": {
+          "name": "meta.afm.attributes.markdown"
+        },
+        "7": {
+          "name": "punctuation.definition.afm.attributes.end.markdown"
+        }
+      }
+    },
+    "afm-badge-caution-tag": {
+      "name": "meta.afm.badge.caution.markdown",
+      "match": "(\\[!)(BADGE)\\s+([^\\]\\r\\n]+)(\\])({)(?=[^}\\r\\n]*\\btype\\s*=\\s*\"?Caution\"?)([^}\\r\\n]*)(})",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.admonition.caution.markdown"
+        },
+        "3": {
+          "name": "string.unquoted.afm.value.admonition.caution.markdown"
+        },
+        "4": {
+          "name": "punctuation.definition.afm.end.markdown"
+        },
+        "5": {
+          "name": "punctuation.definition.afm.attributes.begin.markdown"
+        },
+        "6": {
+          "name": "meta.afm.attributes.markdown"
+        },
+        "7": {
+          "name": "punctuation.definition.afm.attributes.end.markdown"
+        }
+      }
+    },
+    "afm-badge-negative-tag": {
+      "name": "meta.afm.badge.negative.markdown",
+      "match": "(\\[!)(BADGE)\\s+([^\\]\\r\\n]+)(\\])({)(?=[^}\\r\\n]*\\btype\\s*=\\s*\"?Negative\"?)([^}\\r\\n]*)(})",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.admonition.negative.markdown"
+        },
+        "3": {
+          "name": "string.unquoted.afm.value.admonition.negative.markdown"
+        },
+        "4": {
+          "name": "punctuation.definition.afm.end.markdown"
+        },
+        "5": {
+          "name": "punctuation.definition.afm.attributes.begin.markdown"
+        },
+        "6": {
+          "name": "meta.afm.attributes.markdown"
+        },
+        "7": {
+          "name": "punctuation.definition.afm.attributes.end.markdown"
+        }
+      }
+    },
+    "afm-badge-neutral-tag": {
+      "name": "meta.afm.badge.neutral.markdown",
+      "match": "(\\[!)(BADGE)\\s+([^\\]\\r\\n]+)(\\])({)(?=[^}\\r\\n]*\\btype\\s*=\\s*\"?Neutral\"?)([^}\\r\\n]*)(})",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.admonition.neutral.markdown"
+        },
+        "3": {
+          "name": "string.unquoted.afm.value.admonition.neutral.markdown"
+        },
+        "4": {
+          "name": "punctuation.definition.afm.end.markdown"
+        },
+        "5": {
+          "name": "punctuation.definition.afm.attributes.begin.markdown"
+        },
+        "6": {
+          "name": "meta.afm.attributes.markdown"
+        },
+        "7": {
+          "name": "punctuation.definition.afm.attributes.end.markdown"
+        }
+      }
+    },
+    "afm-badge-default-tag": {
+      "name": "meta.afm.badge.informative.markdown",
+      "match": "(\\[!)(BADGE)\\s+([^\\]\\r\\n]+)(\\])(?!\\{)",
+      "captures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.admonition.informative.markdown"
+        },
+        "3": {
+          "name": "string.unquoted.afm.value.admonition.informative.markdown"
+        },
+        "4": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      }
+    },
+    "afm-dnl-uicontrol-tag": {
+      "name": "meta.afm.macro.markdown",
+      "begin": "(\\[!)(DNL|UICONTROL)\\b",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.macro.markdown"
+        }
+      },
+      "end": "(\\])",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      },
+      "patterns": []
+    },
+    "afm-block-or-inline-tag": {
+      "name": "meta.afm.tag.markdown",
+      "begin": "(\\[!)([A-Z_][A-Z0-9_]*)\\b",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.begin.markdown"
+        },
+        "2": {
+          "name": "keyword.other.afm.tag.markdown"
+        }
+      },
+      "end": "(\\])",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.end.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "include": "#tag-value-patterns"
+        }
+      ]
+    },
+    "afm-video-url": {
+      "name": "meta.afm.video-url.markdown",
+      "begin": "(?<=\\[!VIDEO\\])(\\()",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.video-url.begin.markdown"
+        }
+      },
+      "end": "(\\))",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.video-url.end.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "name": "string.other.link.afm.value.markdown",
+          "match": "[^\\)]+"
+        }
+      ]
+    },
+    "afm-collapsible": {
+      "patterns": [
+        {
+          "name": "meta.afm.collapsible.open.markdown",
+          "match": "^(\\+\\+\\+)(.+)$",
+          "captures": {
+            "1": {
+              "name": "keyword.other.afm.collapsible.markdown"
+            },
+            "2": {
+              "name": "string.unquoted.afm.collapsible.title.markdown"
+            }
+          }
+        },
+        {
+          "name": "keyword.other.afm.collapsible.markdown",
+          "match": "^\\+\\+\\+\\s*$"
+        }
+      ]
+    },
+    "afm-attribute-block": {
+      "name": "meta.afm.attributes.markdown",
+      "begin": "(\\{)(?=[^}\\n]*(?:#[\\w-]|[\\w][\\w-]*\\s*=))",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.attributes.begin.markdown"
+        }
+      },
+      "end": "(\\})",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.afm.attributes.end.markdown"
+        }
+      },
+      "patterns": [
+        {
+          "name": "meta.afm.attribute.markdown",
+          "match": "([A-Za-z][\\w-]*)(=)(\"[^\"]*\"|'[^']*'|[^\\s}]+)",
+          "captures": {
+            "1": {
+              "name": "entity.other.attribute-name.afm.markdown"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.afm.markdown"
+            },
+            "3": {
+              "name": "string.unquoted.afm.attribute-value.markdown"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -19,7 +19,5 @@ export function toggleItalic(): void | Thenable<void> | Thenable<boolean> {
   if (!marker) {
     return;
   }
-  const pattern: RegExp = new RegExp(`\\${marker}?${wordMatch}*\\${marker}?`);
-
   return surroundSelection(marker, marker, toggleItalicExpressions[marker]);
 }

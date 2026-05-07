@@ -1,0 +1,170 @@
+# Define rules for markdownlint markdown syntax validation
+#error
+#future-error
+#warning
+#info
+#ignore
+
+rules: {
+  AM003: {  # Horizontal rules are not supported
+    aemlive: ignore,
+    engage: ignore,
+  },
+  AM009: {  # adobe-markdown invalid
+    support-resources: ignore
+  },
+  AM012: {  # Code blocks wrong indent level
+    aemlive: ignore,
+    engage: ignore,
+  },
+  AM028: {  # Admonition has blank line or no content
+    support-resources: ignore
+  },
+  AM048: {  # Too many images
+    experience-manager-guides: warning,
+  },
+  MD002: {  # This rule is deprecated
+    aemlive: ignore,
+    engage: ignore,
+  },
+  MD025: {  # Multiple top-level headings in the same document
+    aemlive: ignore,
+    engage: ignore,
+  },
+  MD010: {  # No hard tabs
+    aemlive: ignore,
+    engage: ignore,
+  },
+  AM015: {  # HTML comment malformed
+    aemlive: ignore,
+    engage: ignore,
+  },
+  MD031: {  # Fenced code blocks should be surrounded by blank lines
+    aemlive: ignore,
+    engage: ignore,
+  },
+  AM016: {  # Unmatched symbols
+    aemlive: ignore,
+    engage: ignore,
+    learning-manager: warning,
+  },
+  MD019: {  # Multiple spaces after hash on atx style heading
+    aemlive: ignore,
+    engage: ignore,
+  },
+  MD033: { # "No inline html"
+    all: ignore,
+  },
+  AM004: {  # Malformed table
+    internal-test: warning,
+  },
+  MD045: { # "Images should have alternate text (alt text)",
+    all.en: ignore,
+    all.loc: ignore,
+    all: ignore,
+  },
+  AM002: {  # ID Tags ({#id-tag-name} cannot contain spaces
+    courses.all: ignore,
+    all: error
+  },
+  AM001: ignore, # "Headings cannot contain numbers without named anchor {#..}",
+  AM005: ignore, # "Anchor ids {#..} must begin with letter",
+  AM011: ignore, # "Spaces between link components or in url",
+  AM018: ignore, # "Block quotes should be surrounded by blank lines",
+  AM021: {  # YouTube and mp4 videos are not supported
+    experience-manager-learn.all: warning,
+    experience-manager-cloud-service.all: warning,
+    experience-manager-65.all: warning,
+    courses.all: warning,
+    aemlive: ignore,
+    experience-manager-edge-delivery: ignore,
+    engage: ignore,
+    experience-manager-cloud-service: ignore,
+    all: error
+  },
+
+  MD001: { # Heading levels should only increment by one level at a time
+    aemlive: ignore,
+    engage: ignore,
+  },
+  MD006: warning, # "Inconsistent indentation for list items at the same level",
+  MD005: ignore, # "Inconsistent indentation for list items at the same level",
+  MD007: ignore, # "Unordered list indentation",
+  MD009: ignore, # "Trailing spaces",
+  MD012: ignore, # "Multiple consecutive blank lines",
+  MD013: {
+    all.loc: ignore, # "Line length",
+    all.en: ignore
+  },
+  MD014: ignore, # "Dollar signs used before commands without showing output",
+  MD024: ignore, # "Multiple headings with the same content",
+  MD026: ignore, # "Trailing punctuation in heading",
+  MD027: ignore, # "Multiple spaces after blockquote symbol",
+  MD028: ignore, # "Blank line inside blockquote",
+  MD030: ignore, # "Spaces after list markers",
+  MD032: ignore, # "Lists should be surrounded by blank lines",
+  MD034: ignore, # "Bare URL used",
+  MD036: ignore, # "Emphasis used instead of a heading",
+  MD037: ignore, # "Spaces inside emphasis markers",
+  MD038: ignore, # "Spaces inside code span elements",
+  MD039: ignore, # "Spaces inside link text",
+  MD040: ignore, # "Fenced code blocks should have a language specified",
+  MD041: ignore, # "First line in file should be top level",
+  MD046: ignore, # "Code block style",
+  MD047: ignore, # "Single trailing newline",
+  MD049: ignore, # "Consistent emphasis (bold, italics) style",
+  MD050: ignore, # "Strong style",
+  MD051: ignore, # "No link-fragments (deep links with anchor only)",
+  MD053: ignore, # "Link and image reference definitions should be needed",
+  MD056: {  # Table column count
+    experience-cloud-kcs: ignore,
+    kcs-dev: ignore,
+    all: error
+  },
+  MD059: ignore, # "Link text should be descriptive",
+  MD060: ignore, # "Table column style (too greedy)",
+  AM032: {  # heading in HTML block
+    experience-cloud-kcs: ignore,
+    kcs-dev: ignore,
+    all: error
+  },
+  AM033: ignore, # "Invalid language identifier for code block",
+  AM044: {  # Includes snippets syntax
+    experience-cloud-kcs: ignore,
+    kcs-dev: ignore,
+    all: error
+  },
+  AM046: {  # Linked file does not exist or is linked improperly
+    internal-test: ignore
+  },
+  AM047: {  # Filename conventions
+    experience-cloud-kcs: ignore,
+    kcs-dev: ignore,
+    all: error
+  },
+  AM051: {  # Heading in steps
+    experience-cloud-kcs: ignore,
+    kcs-dev: ignore,
+    all: error
+  },
+  AM053: {  # hide-from-toc directive format in TOC list items (UGP-14611)
+    all: error
+  },
+  AM054: {  # HTML comment format (UGP-14534)
+    internal-test.en: warning,
+    experience-cloud-kcs: ignore,
+    kcs-dev: ignore,
+    all: ignore
+  },
+  AM055: {  # Duplicate relative links in multiple TOCs
+    internal-test.en: warning,
+    all: ignore,
+  },  
+  AM056: { # on-demand events schema validation
+    on-demand-events.en: error,
+    all: ignore,
+  },
+  AM058: { # indented code blocks are not allowed; use fenced blocks
+    all: ignore,
+  },
+}

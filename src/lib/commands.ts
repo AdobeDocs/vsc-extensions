@@ -1,7 +1,5 @@
 import * as vscode from "vscode";
 
-import { getEol } from "./env";
-
 import { ExtensionContext, QuickPickOptions, QuickPickItem } from "vscode";
 
 import { addTable } from "./tables";
@@ -38,6 +36,9 @@ import { toggleTip } from "./commands/toggle-tip";
 import { toggleUIControl } from "./commands/toggle-uicontrol";
 import { toggleVideo } from "./commands/toggle-video";
 import { toggleWarning } from "./commands/toggle-warning";
+import { toggleTabs } from "./commands/toggle-tabs";
+import { toggleShadebox } from "./commands/toggle-shadebox";
+import { toggleCollapsible } from "./commands/toggle-collapsible";
 
 interface CommandItem extends QuickPickItem {
   label: string;
@@ -47,12 +48,12 @@ class Command implements CommandItem {
   command: string;
   description?: string;
   showInCommandPalette: boolean;
-  callback: () => void;
+  callback: () => unknown;
   label: string;
 
   constructor(
     command: string,
-    callback: () => void,
+    callback: () => unknown,
     label: string,
     description?: string,
     showInCommandPalette?: boolean
@@ -290,6 +291,27 @@ const _commands: Command[] = [
     "[!UICONTROL text to be translated]",
     true
   ),
+  new Command(
+    "toggleTabs",
+    toggleTabs,
+    "Toggle Tabs",
+    ">[!BEGINTABS] … >[!ENDTABS]",
+    true
+  ),
+  new Command(
+    "toggleShadebox",
+    toggleShadebox,
+    "Toggle Shadebox",
+    ">[!BEGINSHADEBOX] … >[!ENDSHADEBOX]",
+    true
+  ),
+  new Command(
+    "toggleCollapsible",
+    toggleCollapsible,
+    "Toggle Collapsible",
+    "+++Title … +++",
+    true
+  ),
 ];
 
 export function register(context: ExtensionContext) {
@@ -305,7 +327,7 @@ export function register(context: ExtensionContext) {
 
 function showCommandPalette() {
   const options: QuickPickOptions = { matchOnDescription: true };
-  vscode.window
+  void vscode.window
     .showQuickPick(
       _commands.filter((cmd) => cmd.showInCommandPalette),
       options
@@ -314,7 +336,7 @@ function showCommandPalette() {
       if (!cmd) {
         return;
       }
-      cmd.callback();
+      void cmd.callback();
     });
 }
 

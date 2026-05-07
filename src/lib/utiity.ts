@@ -1,17 +1,14 @@
 /* eslint-disable @typescript-eslint/prefer-for-of */
 
 import {
-
 	Selection,
 	TextDocument,
 	TextDocumentChangeEvent,
 	TextEditor,
 	window,
 	workspace,
-	Position
 } from 'vscode';
 
-import { ExtensionContext, extensions } from 'vscode';
 import { isMarkdownFileCheckWithoutNotification, matchAll } from './common';
 
 interface IExpressionReplacementPair {
@@ -64,7 +61,7 @@ export async function findAndReplaceTargetExpressions(event: TextDocumentChangeE
 		return;
 	}
 
-	if (!!event && event.document) {
+	if (event.document) {
 		const editor = window.activeTextEditor;
 		if (
 			editor &&
@@ -176,36 +173,6 @@ export function findReplacements(
 	return replacements;
 }
 
-export function findReplacement(
-	document: TextDocument,
-	content: string,
-	value: string,
-	expression?: RegExpOrRegExpWithGroup
-): Replacement | undefined {
-	const exp = isRegExp(expression) ? expression : expression?.expression;
-	const result = exp ? exp.exec(content) : null;
-	if (result !== null && result.length) {
-		const groups = !isRegExp(expression) ? expression?.groups : null;
-		const match = groups && result.groups ? result.groups[groups[0]] : result[0];
-		if (match && match !== value) {
-			let index = result.index;
-			if (groups) {
-				index += result[0].indexOf(match);
-			}
-			const startPosition = document.positionAt(index);
-			const endPosition = new Position(startPosition.line, startPosition.character + match.length);
-			const selection = new Selection(startPosition, endPosition);
-
-			return {
-				selection,
-				value: value ? value : document.getText(selection)
-			};
-		}
-	}
-
-	return undefined;
-}
-
 export async function applyReplacements(replacements: Replacements, editor: TextEditor) {
 	if (replacements && replacements.length) {
 		await editor.edit(builder => {
@@ -216,58 +183,3 @@ export async function applyReplacements(replacements: Replacements, editor: Text
 	}
 }
 
-export interface RangeValuePair {
-	index: number;
-	length: number;
-	value: string;
-}
-
-export function findMatchesInText(
-	content: string,
-	expression?: RegExpOrRegExpWithGroup
-): RangeValuePair[] | undefined {
-	if (!expression) {
-		return undefined;
-	}
-
-	const exp = isRegExp(expression) ? expression : expression.expression;
-	const results = matchAll(exp, content);
-	if (!results || !results.length) {
-		return undefined;
-	}
-
-	const groups = !isRegExp(expression) ? expression.groups : null;
-	const values: RangeValuePair[] = [];
-	for (let i = 0; i < results.length; i++) {
-		const result = results[i];
-		if (result !== null && result.length) {
-			const match = groups && result.groups ? result.groups[groups[0]] : result[0];
-			if (match) {
-				let index = result.index !== undefined ? result.index : -1;
-				if (index === -1) {
-					continue;
-				}
-				if (groups) {
-					index += result[0].indexOf(match);
-				}
-
-				values.push({
-					index,
-					length: match.length,
-					value: match
-				});
-			}
-		}
-	}
-
-	return values;
-}
-
-
-export function removeFirstOccurrence(str: string, searchstr: string) {
-	const index = str.indexOf(searchstr);
-	if (index === -1) {
-		return str;
-	}
-	return str.slice(0, index) + str.slice(index + searchstr.length);
-}

@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="none">
+  <!-- branch dot top-left -->
+  <circle cx="3" cy="3" r="1.5" fill="currentColor"/>
+  <!-- branch line down -->
+  <line x1="3" y1="4.5" x2="3" y2="13" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  <!-- branch curve to right -->
+  <path d="M3 7 Q3 10 6 10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <!-- right node -->
+  <circle cx="8.5" cy="10" r="1.5" fill="currentColor"/>
+  <!-- checkmark -->
+  <polyline points="11,7 12.5,9 15,5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+</svg>
